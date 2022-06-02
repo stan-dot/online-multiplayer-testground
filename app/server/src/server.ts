@@ -2,13 +2,13 @@ import express from "express";
 import { getCatFact } from "./apiGetter";
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 app.get('/', (req, res) => {
   res.send('Hello world!');
 })
 
-app.get('/cats', (req, res) => {
+app.get('/api/cats', (req, res) => {
   console.log('cat request');
   getCatFact().then((someFacxt) => {
     console.log('got the fact');
