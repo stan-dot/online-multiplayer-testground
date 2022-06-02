@@ -10,6 +10,13 @@ export const drawArc: DrawingConstant = (ctx: CanvasRenderingContext2D, frameCou
   ctx.fill();
 };
 
+export const drawDiagonal: DrawingConstant = (ctx: CanvasRenderingContext2D): void => {
+  ctx.moveTo(0, 0);
+  ctx.lineTo(200, 100);
+  ctx.stroke();
+}
+
+
 export const useCanvas = (draw: DrawingConstant, options = {} as CanvasOptions) => {
   const canvasRef = useRef({} as HTMLCanvasElement);
   useEffect(() => {

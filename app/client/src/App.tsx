@@ -20,39 +20,19 @@ export default function App() {
   React.useEffect(() => {
     var canvas: HTMLCanvasElement = document.getElementById("myCanvas") as HTMLCanvasElement
     var ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
-    ctx.moveTo(0, 0);
-    ctx.lineTo(200, 100);
-    ctx.stroke();
   }, []);
 
   return (
     <div className="App">
       <header className="App-header">
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>test landing page</h1>
       </header>
       <div>
         <h1> cat facts</h1>
-        <input value={mainText} onChange={handleIncoming} />
         <button onClick={getFacts}>Find Cat Facts</button>
         {mainText}
       </div>
-      <h1>HTML5 Canvas + React.js</h1>
-      <canvas
-        id="myCanvas"
-        width="200"
-        height="100"
-        style={{ border: "1px solid #d3d3d3" }}
-      >
-        Your browser does not support the HTML canvas tag.
-      </canvas>
-      <h1>another test canvas</h1>
+      <h1>test canvas</h1>
       <Canvas draw={drawArc} predraw={predraw} postdraw={postdraw} />
     </div>
   );
