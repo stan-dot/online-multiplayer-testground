@@ -1,5 +1,4 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useRef } from 'react';
 type CatOutput = {
   fact: string,
   length: number,
@@ -23,6 +22,16 @@ export default function App() {
     setMainText(text);
   }
 
+  React.useEffect(() => {
+    var canvas: HTMLCanvasElement = document.getElementById("myCanvas") as HTMLCanvasElement
+    var ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
+    if (ctx) {
+      ctx.moveTo(0, 0);
+      ctx.lineTo(200, 100);
+      ctx.stroke();
+    }
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -41,7 +50,15 @@ export default function App() {
         <button onClick={getFacts}>Find Cat Facts</button>
         {mainText}
       </div>
+      <h1>HTML5 Canvas + React.js</h1>
+      <canvas
+        id="myCanvas"
+        width="200"
+        height="100"
+        style={{ border: "1px solid #d3d3d3" }}
+      >
+        Your browser does not support the HTML canvas tag.
+      </canvas>
     </div>
   );
-
 }
