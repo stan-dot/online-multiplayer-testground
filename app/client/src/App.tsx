@@ -1,13 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-type CatOutput = {
-  fact: string,
-  length: number,
-}
-const defaultText: CatOutput = {
-  fact: 'empty fact',
-  length: 10,
-}
-
+import React from 'react';
+import { defaultText } from './utils/defaults';
+import { Canvas } from './utils/Canvas';
+import { postdraw, predraw } from './utils/canvasOptionUtils';
+import { drawArc } from './utils/canvasUtils';
 export default function App() {
   const [mainText, setMainText] = React.useState(defaultText.fact);
   const getFacts = () => {
@@ -24,12 +19,10 @@ export default function App() {
 
   React.useEffect(() => {
     var canvas: HTMLCanvasElement = document.getElementById("myCanvas") as HTMLCanvasElement
-    var ctx: CanvasRenderingContext2D | null = canvas.getContext("2d");
-    if (ctx) {
-      ctx.moveTo(0, 0);
-      ctx.lineTo(200, 100);
-      ctx.stroke();
-    }
+    var ctx: CanvasRenderingContext2D = canvas.getContext("2d")!;
+    ctx.moveTo(0, 0);
+    ctx.lineTo(200, 100);
+    ctx.stroke();
   }, []);
 
   return (
@@ -59,6 +52,8 @@ export default function App() {
       >
         Your browser does not support the HTML canvas tag.
       </canvas>
+      <h1>another test canvas</h1>
+      <Canvas draw={drawArc} predraw={predraw} postdraw={postdraw} />
     </div>
   );
 }

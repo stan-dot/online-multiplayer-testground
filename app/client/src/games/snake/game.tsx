@@ -1,7 +1,7 @@
 import React from "react";
 import { Socket } from "socket.io-client";
-import { SocketContext } from "../wrappers/Socket.wrapper";
-import { rollDice } from "../utils/snake";
+import { SocketContext } from "../../wrappers/Socket.wrapper";
+import { rollDice } from "../../utils/snake";
 import { images } from "./constants";
 import { Player } from "./Player";
 

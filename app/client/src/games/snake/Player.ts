@@ -17,15 +17,23 @@ export class Player {
     const offsetX = side / 2;
     const offsetY = side / 2 + 20;
 
-
-    let xPos = Math.floor(this.pos / 10) % 2 == 0
-      ? (this.pos % 10) * side - 15 + offsetX
-      : canvas.width - ((this.pos % 10) * side + offsetX + 15);
-    let yPos = canvas.height - (Math.floor(this.pos / 10) * side + offsetY);
+    const xPos = this.getX(canvas, side, offsetX);
+    const yPos = this.getY(canvas, side, offsetY);
 
     let image = new Image();
     image.src = this.img;
     ctx.drawImage(image, xPos, yPos, 30, 40);
+  }
+
+
+  private getX(canvas: HTMLCanvasElement, side: number, offset: number,) {
+    return Math.floor(this.pos / 10) % 2 == 0
+      ? (this.pos % 10) * side - 15 + offset
+      : canvas.width - ((this.pos % 10) * side + offset + 15);
+  }
+
+  private getY(canvas: HTMLCanvasElement, side: number, offset: number) {
+    return canvas.height - (Math.floor(this.pos / 10) * side + offset);
   }
 
   updatePos(num: number) {
