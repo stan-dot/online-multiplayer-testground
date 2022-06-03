@@ -10,7 +10,7 @@ export default function SnakeGame(): JSX.Element {
   const { socket, renderingContext, canvas } = readContext();
 
   const [currentPlayerStatus, setCurrentPlayerStatus] = React.useState("Wait or click to join")
-  const [currentDiceNumber, setCurrentDiceSource] = React.useState('0');
+  const [currentDiceNumber, setCurrentDiceSource] = React.useState('6');
   const [rollButtonVisiblity, setRollButtonVisiblity] = useState(false);
   const [diceVisibility, setDiceVisibility] = useState(false);
   const [restartButtonVisibility, setRestartButtonVisibility] = useState(true);
@@ -87,6 +87,7 @@ export default function SnakeGame(): JSX.Element {
   function handleRoll() {
     const num = rollDice();
     currentPlayer.updatePos(num);
+    setCurrentDiceSource(num.toString());
     socket.emit("rollDice", {
       num: num,
       id: currentPlayer.id,
@@ -120,7 +121,7 @@ export default function SnakeGame(): JSX.Element {
     < div id="current-player" > {currentPlayerStatus}</div>
     < button className="btn draw-border" id="roll-button" hidden={!rollButtonVisiblity} onClick={() => handleRoll}> Roll </button>
     < div className="dice" hidden={!diceVisibility} >
-      <img src={`./images/dice/${currentDiceNumber}.png`} alt="" id="dice" />
+      <img src={`./images/dice/dice${currentDiceNumber}.png`} alt="" id="dice" />
     </div>
     < button className="btn draw-border" id="restart-btn" hidden={!restartButtonVisibility} onClick={() => causeRestart}> Restart </button>
   </div>

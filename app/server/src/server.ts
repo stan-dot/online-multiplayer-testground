@@ -54,6 +54,7 @@ app.get('/api/cats', (req, res) => {
   })
 })
 
-app.listen(port, () => {
+
+httpServer.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
