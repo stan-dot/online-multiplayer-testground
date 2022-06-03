@@ -14,6 +14,8 @@
 - create a [smart contract](https://docs.alchemy.com/alchemy/tutorials/how-to-create-an-nft) - represent some type of game achievement
 - setup web3 for [minting](https://docs.alchemy.com/alchemy/tutorials/how-to-create-an-nft/how-to-mint-a-nft)
 
+### template-ification
+- [ ] make it a template
 
 ### polishing
 - [ ] beautify with tailwind css

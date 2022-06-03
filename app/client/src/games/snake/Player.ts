@@ -1,10 +1,10 @@
 import { ladders, snakes } from "./constants";
 
 export class Player {
-  id: any;
-  name: any;
-  pos: any;
-  img: any;
+  id: number;
+  name: string;
+  pos: number;
+  img: string;
   constructor(id: any, name: any, pos: any, img: any) {
     this.id = id;
     this.name = name;
@@ -12,7 +12,14 @@ export class Player {
     this.img = img;
   }
 
-  draw(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
+  public updatePos(num: number): void {
+    if (this.pos + num <= 99) {
+      this.pos += num;
+      this.pos = this.newPositionAfterTranslation(this.pos + 1) - 1;
+    }
+  }
+
+  public draw(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D): void {
     const side = canvas.width / 10;
     const offsetX = side / 2;
     const offsetY = side / 2 + 20;
@@ -26,24 +33,19 @@ export class Player {
   }
 
 
-  private getX(canvas: HTMLCanvasElement, side: number, offset: number,) {
+  private getX(canvas: HTMLCanvasElement, side: number, offset: number): number {
     return Math.floor(this.pos / 10) % 2 == 0
       ? (this.pos % 10) * side - 15 + offset
       : canvas.width - ((this.pos % 10) * side + offset + 15);
   }
 
-  private getY(canvas: HTMLCanvasElement, side: number, offset: number) {
+  private getY(canvas: HTMLCanvasElement, side: number, offset: number): number {
     return canvas.height - (Math.floor(this.pos / 10) * side + offset);
   }
 
-  updatePos(num: number) {
-    if (this.pos + num <= 99) {
-      this.pos += num;
-      this.pos = this.isLadderOrSnake(this.pos + 1) - 1;
-    }
-  }
 
-  isLadderOrSnake(pos: any) {
+
+  private newPositionAfterTranslation(pos: number): number {
     let newPos = pos;
 
     for (let i = 0; i < ladders.length; i++) {

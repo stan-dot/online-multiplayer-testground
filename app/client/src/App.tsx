@@ -17,16 +17,25 @@ export default function App() {
   }
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>test landing page</h1>
-      </header>
-      <button onClick={() => setGameIsOn(false)}>Close current game</button>
       <SocketWrapper>
-        <MainNavigation gameCardCallback={changeGame} />
-        {gameIsOn ? <GameField gameCard={currentGameCard} /> : `here'll be your game`}
-        <DescriptionPage />
-        <FriendsBar />
-        <LandingFooter />
+        {gameIsOn
+          ?
+          <>
+            <button onClick={() => setGameIsOn(false)}>Close current game</button>
+            <GameField gameCard={currentGameCard} />
+          </>
+          :
+          <>
+            <header className="App-header">
+              <h1>test landing page</h1>
+            </header>
+            <MainNavigation gameCardCallback={changeGame} />
+            above there 'll be your game
+            <DescriptionPage />
+            <FriendsBar />
+            <LandingFooter />
+          </>
+        }
       </SocketWrapper>
     </div>
   );
