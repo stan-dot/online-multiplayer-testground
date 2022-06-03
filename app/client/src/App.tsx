@@ -2,10 +2,10 @@ import React from 'react';
 import { Canvas } from './utils/Canvas';
 import { postdraw, predraw } from './utils/canvasOptionUtils';
 import { drawArc } from './utils/canvasUtils';
-import { LandingFooter } from './LandingFooter';
-import { FriendsBar } from './FriendsBar';
-import { MainNavigation } from './MainNavigation';
-import { CatsApiBox } from './CatsApiBox';
+import { CatFacts } from './games/cat-facts/CatFacts';
+import { FriendsBar } from './components/FriendsBar';
+import { LandingFooter } from './components/LandingFooter';
+import { MainNavigation } from './components/MainNavigation';
 export default function App() {
   return (
     <div className="App">
@@ -13,7 +13,7 @@ export default function App() {
         <h1>test landing page</h1>
       </header>
       <MainNavigation />
-      <CatsApiBox />
+      <CatFacts />
       <Canvas draw={drawArc} predraw={predraw} postdraw={postdraw} />
       <FriendsBar />
       <LandingFooter />

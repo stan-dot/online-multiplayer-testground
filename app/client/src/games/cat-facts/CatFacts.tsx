@@ -1,7 +1,7 @@
 import React from 'react';
-import { defaultText } from './utils/defaults';
+import { defaultText } from '../../utils/defaults';
 
-export function CatsApiBox(): JSX.Element {
+export function CatFacts(): JSX.Element {
   const [mainText, setMainText] = React.useState(defaultText.fact);
   const getFacts = () => {
     fetch('/api/cats/')
