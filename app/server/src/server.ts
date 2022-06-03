@@ -1,4 +1,6 @@
 import express from "express";
+import config from 'config';
+import cors from 'cors';
 import http from 'http';
 import { Server, Socket } from "socket.io";
 import { getCatFact } from "./apiGetter";
@@ -7,10 +9,11 @@ const app = express();
 const port = 3001;
 const httpServer = http.createServer(app);
 app.use(express.static("public"));
-
+app.use(cors(config.get('cors')));
 const io = new Server({
-  pingInterval: 50000,
-  pingTimeout: 50000,
+  pingInterval: config.get('sockets.pingInterval'),
+  pingTimeout: config.get('sockets.pingTimeout'),
+  cors: config.get('cors'),
 });
 let users: any[] = [];
 

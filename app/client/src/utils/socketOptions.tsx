@@ -7,4 +7,4 @@ export const socketOptions: Partial<ManagerOptions & SocketOptions> = {
   transports: ['*', 'websockets', 'polling', 'udp', 'xhr'],
   secure: false,
 };
-export const socketUrl: string = `wss://${window.location.hostname}:${window.location.port + 1}`;
+export const socketUrl: string = `ws://${window.location.hostname}:${parseInt(window.location.port) + 1}`;
