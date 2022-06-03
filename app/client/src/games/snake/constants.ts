@@ -22,3 +22,5 @@ export const snakes = [
   [50, 5],
   [43, 17],
 ];
+
+export const LAST_SQUARE = 99;

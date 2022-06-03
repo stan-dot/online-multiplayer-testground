@@ -1,16 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Socket } from "socket.io-client";
 import { SocketContext } from "../../wrappers/Socket.wrapper";
 import { rollDice } from "./utils/roll";
-import { images } from "./constants";
+import { images, LAST_SQUARE } from "./constants";
 import { Player } from "./Player";
+import { PlayersBox } from "./PlayerBox";
+import { GameContext, gameContext } from "../../components/GameField";
 
 export function SnakeGame(): JSX.Element {
-  // todo must ensure game doesn't load if connection isn't there
   const socket: Socket = React.useContext(SocketContext)!;
+  const gameInterface: GameContext = React.useContext(gameContext)!;
+  const ctx: CanvasRenderingContext2D = gameInterface.renderingContext!;
+  const canvas: HTMLCanvasElement = gameInterface.canvas;
+
+  const [currentPlayerStatus, setCurrentPlayerStatus] = React.useState("Wait or click to join")
+  const [currentDiceNumber, setCurrentDiceSource] = React.useState('0');
+  const [rollButtonVisiblity, setRollButtonVisiblity] = useState(false);
+  const [diceVisibility, setDiceVisibility] = useState(false);
+  const [restartButtonVisibility, setRestartButtonVisibility] = useState(true);
+  const [nameDisabled, setNameDisabled] = React.useState(false);
+  const [startButtonVisibility, setStartButtonVisibility] = React.useState(true);
+  // MAIN CODE
   socket.emit("joined");
   let players: Player[] = [];
   let currentPlayer: Player;
+
+  handleStart();
+
+  // SOCKET HANDLING
   socket.on("restart", () => {
     window.location.reload();
   });
@@ -19,9 +36,9 @@ export function SnakeGame(): JSX.Element {
     socket.emit("restart");
   }
 
-  // Listen for events
   socket.on("join", (data) => {
-    handleJoin(data);
+    players.push(new Player(players.length, data.name, data.pos, data.img));
+    drawPins();
   });
 
   socket.on("joined", (data) => {
@@ -36,65 +53,34 @@ export function SnakeGame(): JSX.Element {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     players.forEach(player => player.draw(canvas, ctx));
   };
-  const [currentPlayerStatus, setCurrentPlayerStatus] = React.useState("unknown state")
-  const [currentDiceSource, setCurrentDiceSource] = React.useState('');
+
   socket.on("rollDice", (data, turn) => {
     players[data.id].updatePos(data.num);
-    setCurrentDiceSource(`./images/dice/dice${data.num}.png`);
-    drawPins(ctx, canvas, players);
+    setCurrentDiceSource(data.num);
+    drawPins();
     if (turn != currentPlayer.id) {
-      ("roll-button").hidden = true;
+      setRollButtonVisiblity(false);
       setCurrentPlayerStatus(`It's ${players[turn].name}'s turn`);
     } else {
-      ("roll-button").hidden = false;
+      setRestartButtonVisibility(true);
       setCurrentPlayerStatus(`It's your turn`);
     }
-
-    let winner;
-    for (let i = 0; i < players.length; i++) {
-      if (players[i].pos == 99) {
-        winner = players[i];
-        break;
-      }
-    }
-    if (winner) {
-      reactToWinner(winner);
-    }
+    const winner: Player | undefined = players.find(player => player.pos === LAST_SQUARE);
+    winner && reactToWinner(winner);
   });
 
-  function reactToWinner(winner: any) {
+  // STATE HANDLING
+  function reactToWinner(winner: Player) {
     setCurrentPlayerStatus(`${winner.name} has won!`);
-    ("roll-button").hidden = true;
-    ("dice").hidden = true;
-    ("restart-btn").hidden = false;
+    setRollButtonVisiblity(false);
+    setDiceVisibility(false);
+    setRestartButtonVisibility(true);
   }
-
-  function handleJoined(data: any) {
-
-  }
-
-  function handleJoin(data: any) {
-    players.push(new Player(players.length, data.name, data.pos, data.img));
-    drawPins();
-  }
-  function newFunction() {
-    return <div id="players-box">
-      <h3>Players currently online: </h3>
-      <br />
-      <table id="players-table">{
-        players.map((player) => {
-          return <tr><td>{player.name}</td><td><img src={player.img} height={50} width={40} /></td></tr>
-        })
-      } </table>
-    </div>;
-  }
-
 
   function handleStart() {
-    const name = ("name").value;
-    ("name").disabled = true;
-    ("start-btn").hidden = true;
-    ("roll-button").hidden = false;
+    setNameDisabled(true);
+    setStartButtonVisibility(false);
+    setRollButtonVisiblity(true);
     currentPlayer = new Player(players.length, name, 0, images[players.length]);
     setCurrentPlayerStatus(`Anyone can roll`);
     socket.emit("join", currentPlayer);
@@ -126,17 +112,18 @@ export function SnakeGame(): JSX.Element {
           id="name"
           placeholder="Your name"
           required
+          disabled={nameDisabled}
         />
-        <button className="btn draw-border" id="start-btn" > Join </button>
+        <button className="btn draw-border" id="start-btn" hidden={!startButtonVisibility}> Join </button>
       </div>
     </div>
-    {newFunction()}
-    < div id="current-player" > </div>
-    < button className="btn draw-border" id="roll-button" hidden={false} > Roll </button>
-    < div className="dice" >
-      <img src="./images/dice/dice1.png" alt="" id="dice" />
+    <PlayersBox players={players} />
+    < div id="current-player" > {currentPlayerStatus}</div>
+    < button className="btn draw-border" id="roll-button" hidden={!rollButtonVisiblity} onClick={handleRoll}> Roll </button>
+    < div className="dice" hidden={!diceVisibility} >
+      <img src={`./images/dice/${currentDiceNumber}.png`} alt="" id="dice" />
     </div>
-    < button className="btn draw-border" id="restart-btn" hidden={false} > Restart </button>
+    < button className="btn draw-border" id="restart-btn" hidden={!restartButtonVisibility} onClick={causeRestart}> Restart </button>
   </div>
 }
 

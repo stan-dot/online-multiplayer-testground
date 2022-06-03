@@ -3,10 +3,13 @@ import React, { ComponentType, createContext, lazy, LazyExoticComponent, Suspens
 import { GameCard } from "../types/GameCard";
 
 export type GameContext = {
+  renderingContext?: CanvasRenderingContext2D,
+  canvas: HTMLCanvasElement,
   socialInterface?: any,
   nftInterface?: any,
   fsInterface?: any,
 }
+
 export const gameContext = createContext({} as GameContext);
 
 export const GameField = (props: { gameCard: GameCard }) => {

@@ -17,10 +17,10 @@ export const availableGames: GameCard[] = [
     folder: 'raw-canvas',
     componentName: 'CanvasGame',
   },
-  // {
-  //   folder: 'snake',
-  //   componentName: 'Snake',
-  // },
+  {
+    folder: 'snake',
+    componentName: 'SnakeGame',
+  },
   {
     folder: 'tictactoe',
     componentName: 'TicTacToe',
