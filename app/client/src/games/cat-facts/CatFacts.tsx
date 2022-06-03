@@ -1,17 +1,17 @@
 import React from 'react';
-import { defaultText } from '../../utils/defaults';
+import { defaultText } from './defaults';
 
-export function CatFacts(): JSX.Element {
+export default function CatFacts(): JSX.Element {
   const [mainText, setMainText] = React.useState(defaultText.fact);
   const getFacts = () => {
     fetch('/api/cats/')
-      .then(result => result.json())
-      .then(handleIncoming);
+      .then(handleIncoming)
+      .catch((error) => console.error("couldn't react the remote API", error));
   };
 
-  const handleIncoming = (body: any): void => {
-    const text: string = body.fact;
-    console.log('text:', text);
+  const handleIncoming = (result: any): void => {
+    const json = result.json();
+    const text: string = json.fact;
     setMainText(text);
   };
   return <div>

@@ -1,11 +1,17 @@
-import React from 'react';
+import { availableGames } from '../data/games';
+import { GameCard } from '../types/GameCard';
 
-export function MainNavigation(): JSX.Element {
+export function MainNavigation(props: { gameCardCallback: Function }): JSX.Element {
   return <nav>
     <ul>
-      <li><a href='#footer'>goto footer</a></li>
-      <li><a href='#footer'>goto footer</a></li>
+      {availableGames.map((card: GameCard, index: number) => {
+        return <li key={index.valueOf()}>
+          <button onClick={() => props.gameCardCallback(card)}>
+            {card.componentName}
+          </button>
+        </li>
+      })}
       <li><a href='#footer'>goto footer</a></li>
     </ul>
-  </nav>;
+  </nav>
 }

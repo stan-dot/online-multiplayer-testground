@@ -1,4 +1,4 @@
-import { CatOutput } from "../types/CatOutput";
+import { CatOutput } from "./CatOutput";
 
 export const defaultText: CatOutput = {
   fact: 'empty fact',

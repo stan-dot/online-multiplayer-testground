@@ -22,7 +22,6 @@ export function SocketWrapper(props: {
 }): ReactElement {
 
   useEffect(() => {
-
     const socket = io(document.baseURI, socketOptions);
     socket?.on('connect_error', (err: { message: any }) => {
       console.log(`connect_error due to ${err.message}`);

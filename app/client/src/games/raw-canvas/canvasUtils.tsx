@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react'
-import { CanvasOptions, DrawingConstant } from '../types/drawingTypes';
+import { DrawingConstant, CanvasOptions } from './drawingTypes';
 
 
 export const drawArc: DrawingConstant = (ctx: CanvasRenderingContext2D, frameCount: number): void => {
