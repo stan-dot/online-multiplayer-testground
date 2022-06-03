@@ -7,5 +7,7 @@ export type GameCard = {
   options?: {
     usesCanvas?: boolean
     usesSockets?: boolean
+    canvasWidth?: number
+    canvasHeight?: number
   }
 }

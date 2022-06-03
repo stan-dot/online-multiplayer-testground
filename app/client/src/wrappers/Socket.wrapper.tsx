@@ -39,7 +39,7 @@ export function SocketWrapper(props: {
 
   useEffect(() => {
     console.log('socket has been updated', socket);
-    socket?.emit('hello', '');
+    socket?.emit('hello again');
   }, [socket]);
 
   return socket ? (

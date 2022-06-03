@@ -13,6 +13,7 @@ export default function App() {
   const changeGame = (card: GameCard): void => {
     setCurrentGameCard(card);
     setGameIsOn(true);
+    console.log('changing the game');
   }
   return (
     <div className="App">

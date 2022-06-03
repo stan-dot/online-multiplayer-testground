@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { SocketContext } from "../../wrappers/Socket.wrapper";
-import { rollDice } from "./utils/roll";
 import { images, LAST_SQUARE } from "./constants";
 import { Player } from "./Player";
 import { PlayersBox } from "./PlayerBox";
 import { readContext } from "./readContext";
+import { rollDice } from "./utils/roll";
 
 export default function SnakeGame(): JSX.Element {
+  // todo might change this context to be moved into a simple prop, and that prop as ComponentType<Game>
   const { socket, renderingContext, canvas } = readContext();
+  // console.log('socket:', socket, 'rendering:', renderingContext, ' canvas: ', canvas);
 
   const [currentPlayerStatus, setCurrentPlayerStatus] = React.useState("Wait or click to join")
   const [currentDiceNumber, setCurrentDiceSource] = React.useState('6');
@@ -17,11 +18,8 @@ export default function SnakeGame(): JSX.Element {
   const [nameDisabled, setNameDisabled] = React.useState(false);
   const [startButtonVisibility, setStartButtonVisibility] = React.useState(true);
   // MAIN CODE
-  socket?.emit("joined");
   let players: Player[] = [];
   let currentPlayer: Player;
-
-  // handleStart();
 
   // SOCKET HANDLING
   socket.on("restart", () => {
@@ -32,40 +30,40 @@ export default function SnakeGame(): JSX.Element {
     socket.emit("restart");
   }
 
-  // socket.on("join", (data) => {
-  //   players.push(new Player(players.length, data.name, data.pos, data.img));
-  //   drawPins();
-  // });
+  socket.on("join", (data) => {
+    players.push(new Player(players.length, data.name, data.pos, data.img));
+    drawPins();
+  });
 
-  // socket.on("joined", (data) => {
-  //   data.forEach((player: { name: any; pos: any; img: any; }, index: any) => {
-  //     players.push(new Player(index, player.name, player.pos, player.img));
-  //     console.log(player);
-  //   });
-  //   drawPins();
-  // });
+  socket.on("joined", (data) => {
+    console.log('data:', data);
+    data.forEach((player: { name: any; pos: any; img: any; }, index: any) => {
+      players.push(new Player(index, player.name, player.pos, player.img));
+      console.log(player);
+    });
+    drawPins();
+  });
 
-  // socket.on("rollDice", (data, turn) => {
-  //   players[data.id].updatePos(data.num);
-  //   setCurrentDiceSource(data.num);
-  //   drawPins();
-  //   if (turn != currentPlayer.id) {
-  //     setRollButtonVisiblity(false);
-  //     setCurrentPlayerStatus(`It's ${players[turn].name}'s turn`);
-  //   } else {
-  //     setRestartButtonVisibility(true);
-  //     setCurrentPlayerStatus(`It's your turn`);
-  //   }
-  //   const winner: Player | undefined = players.find(player => player.pos === LAST_SQUARE);
-  //   winner && reactToWinner(winner);
-  // });
+  socket.on("rollDice", (data, turn) => {
+    players[data.id].updatePos(data.num);
+    setCurrentDiceSource(data.num);
+    drawPins();
+    if (turn != currentPlayer.id) {
+      setRollButtonVisiblity(false);
+      setCurrentPlayerStatus(`It's ${players[turn].name}'s turn`);
+    } else {
+      setRestartButtonVisibility(true);
+      setCurrentPlayerStatus(`It's your turn`);
+    }
+    const winner: Player | undefined = players.find(player => player.pos === LAST_SQUARE);
+    winner && reactToWinner(winner);
+  });
 
   // CANVAS EXECUTION
   function drawPins() {
     renderingContext.clearRect(0, 0, canvas.width, canvas.height);
     players.forEach(player => player.draw(canvas, renderingContext));
   };
-
 
   // STATE HANDLING
   function reactToWinner(winner: Player) {
@@ -76,6 +74,7 @@ export default function SnakeGame(): JSX.Element {
   }
 
   function handleStart() {
+    // socket?.emit("joined");
     setNameDisabled(true);
     setStartButtonVisibility(false);
     setRollButtonVisiblity(true);
@@ -114,7 +113,7 @@ export default function SnakeGame(): JSX.Element {
           required
           disabled={nameDisabled}
         />
-        <button className="btn draw-border" id="start-btn" hidden={!startButtonVisibility}> Join </button>
+        <button className="btn draw-border" id="start-btn" hidden={!startButtonVisibility} onClick={() => handleStart}> Join </button>
       </div>
     </div>
     <PlayersBox players={players} />

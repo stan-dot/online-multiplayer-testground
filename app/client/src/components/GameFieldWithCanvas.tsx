@@ -1,34 +1,31 @@
-import React, { ComponentType, lazy, LazyExoticComponent, Suspense } from 'react';
+import React, { ComponentType, lazy, LazyExoticComponent, ReactElement, Suspense } from 'react';
 import { Socket } from "socket.io-client";
 import { Game } from "../types/Game";
 import { GameCard } from "../types/GameCard";
 import { GameContext, GameContextType } from "../types/GameContextType";
 import { correctSocket } from "../utils/correctSocket";
+import { CanvasContext, CanvasInterface } from "../wrappers/CanvasContextWrapper";
 import { SocketContext } from "../wrappers/Socket.wrapper";
-import { ProvidedCanvas } from "./ProvidedCanvas";
 
-export const GameField = (props: { gameCard: GameCard }): JSX.Element => {
+export const GameFieldWithCanvas = (props: { gameCard: GameCard }): ReactElement => {
   const card: GameCard = props.gameCard;
+  let context: GameContextType = {} as GameContextType;
 
-  if (card.options?.usesCanvas) {
-    return <>
-      <ProvidedCanvas
-        height={card.options?.canvasHeight ?? undefined}
-        width={card.options?.canvasWidth ?? undefined}
-        gameCard={props.gameCard}
-      />
-    </>
-  }
+  // wrong call check
+  if (!card.options?.usesCanvas) return <p>Component error</p>
 
+  // PROVIDING SOCKETS
   const usesSockets: boolean = Boolean(card.options?.usesSockets);
   const socket: Socket = React.useContext(SocketContext);
   const earlyReturn: boolean = usesSockets && !correctSocket(socket);
+  if (earlyReturn) {
+    return <p>Connection to the server error</p>
+  }
+  context.socketInterface = usesSockets ? socket : undefined
 
-  if (earlyReturn) return <p>Connection to the server error</p>
-
-  const context: GameContextType = {
-    socketInterface: usesSockets ? socket : undefined
-  };
+  // PROVIDING CANVAS INTERFACE
+  const canvasInterface: CanvasInterface = React.useContext(CanvasContext);
+  context.canvasContext = canvasInterface ?? undefined;
 
   // LOADING THE GAME
   console.log('loading the game', card.componentName);

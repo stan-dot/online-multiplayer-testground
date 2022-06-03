@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { CanvasInterface } from "../components/CanvasWrapper";
+import { CanvasInterface } from "../wrappers/CanvasContextWrapper";
 import { Socket } from "socket.io-client";
 
 

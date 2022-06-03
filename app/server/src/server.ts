@@ -22,13 +22,16 @@ io.attach(httpServer);
 io.on('connection', (socket) => {
   console.log("made socket connection", socket.id);
   socket.on("join", (data) => {
+    if (users.length > 4) {
+      users = []
+    }
     users.push(data);
     io.sockets.emit("join", data);
   });
 
-  socket.on("joined", () => {
-    socket.emit("joined", users);
-  });
+  // socket.on("joined", () => {
+  //   socket.emit("joined", users);
+  // });
 
   socket.on("rollDice", (data) => {
     users[data.id].pos = data.pos;

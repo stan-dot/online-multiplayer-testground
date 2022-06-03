@@ -16,9 +16,6 @@ export const availableGames: GameCard[] = [
   {
     folder: 'raw-canvas',
     componentName: 'CanvasGame',
-    options: {
-      usesCanvas: true
-    }
   },
   {
     folder: 'snake',
