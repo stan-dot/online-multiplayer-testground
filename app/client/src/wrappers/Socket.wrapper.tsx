@@ -1,15 +1,8 @@
 import React, { ReactElement, useEffect } from 'react';
-import { io, ManagerOptions, Socket, SocketOptions } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
+import { socketUrl, socketOptions } from '../utils/socketOptions';
 
 export const SocketContext: React.Context<Socket<any, any>> = React.createContext({} as Socket);
-
-const socketOptions: Partial<ManagerOptions & SocketOptions> = {
-  rejectUnauthorized: false,
-  withCredentials: true,
-  reconnection: true,
-  transports: ['*', 'websockets', 'polling', 'udp', 'xhr'],
-  secure: false,
-};
 
 /**
  * Connects to sockets
@@ -20,9 +13,10 @@ export function SocketWrapper(props: {
   children: any;
   socket?: any;
 }): ReactElement {
+  const [socket, setSocket] = React.useState(props.socket || null);
 
   useEffect(() => {
-    const socket = io(document.baseURI, socketOptions);
+    const socket = io(socketUrl, socketOptions);
     socket?.on('connect_error', (err: { message: any }) => {
       console.log(`connect_error due to ${err.message}`);
     });
@@ -31,6 +25,7 @@ export function SocketWrapper(props: {
       /* istanbul ignore next */
       console.log('message from the backend', message);
     });
+    setSocket(socket);
     return () => {
       socket?.off('message', (message: any) => {
         /* istanbul ignore next */
@@ -42,7 +37,6 @@ export function SocketWrapper(props: {
     };
   }, []);
 
-  const [socket, setSocket] = React.useState(props.socket || null);
   useEffect(() => {
     console.log('socket has been updated', socket);
     socket?.emit('hello', '');
@@ -53,6 +47,9 @@ export function SocketWrapper(props: {
       {props.children}
     </SocketContext.Provider>
   ) : (
-    <p>disconnected</p>
+    <div>
+      <h4>disconnected</h4>
+      {props.children}
+    </div>
   );
 }

@@ -5,7 +5,7 @@ import { rollDice } from "./utils/roll";
 import { images, LAST_SQUARE } from "./constants";
 import { Player } from "./Player";
 import { PlayersBox } from "./PlayerBox";
-import { GameContext, GameContextType } from "../../components/GameField";
+import { GameContext, GameContextType } from "../../types/GameContextType";
 
 export default function SnakeGame(): JSX.Element {
   const gameInterface: GameContextType = React.useContext(GameContext)!;

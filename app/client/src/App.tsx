@@ -5,12 +5,12 @@ import { LandingFooter } from './components/LandingFooter';
 import { MainNavigation } from './components/MainNavigation';
 import { DescriptionPage } from './components/DescriptionPage';
 import { GameCard } from './types/GameCard';
+import { SocketWrapper } from './wrappers/Socket.wrapper';
 
 export default function App() {
   const [gameIsOn, setGameIsOn] = React.useState(false);
   const [currentGameCard, setCurrentGameCard] = React.useState({} as GameCard)
   const changeGame = (card: GameCard): void => {
-    console.log('changing the game to', card);
     setCurrentGameCard(card);
     setGameIsOn(true);
   }
@@ -20,11 +20,13 @@ export default function App() {
         <h1>test landing page</h1>
       </header>
       <button onClick={() => setGameIsOn(false)}>Close current game</button>
-      <MainNavigation gameCardCallback={changeGame} />
-      {gameIsOn ? <GameField gameCard={currentGameCard} /> : `here'll be your game`}
-      <DescriptionPage />
-      <FriendsBar />
-      <LandingFooter />
+      <SocketWrapper>
+        <MainNavigation gameCardCallback={changeGame} />
+        {gameIsOn ? <GameField gameCard={currentGameCard} /> : `here'll be your game`}
+        <DescriptionPage />
+        <FriendsBar />
+        <LandingFooter />
+      </SocketWrapper>
     </div>
   );
 }

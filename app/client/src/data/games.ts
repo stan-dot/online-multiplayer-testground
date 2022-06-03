@@ -28,8 +28,8 @@ export const availableGames: GameCard[] = [
       usesSockets: true
     }
   },
-  {
-    folder: 'tictactoe',
-    componentName: 'TicTacToe',
-  },
+  // {
+  //   folder: 'tictactoe',
+  //   componentName: 'TicTacToe',
+  // },
 ];

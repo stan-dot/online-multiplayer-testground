@@ -4,7 +4,7 @@ export function DescriptionPage() {
   return <section>
     <header>
       <h3>
-        About this io website - origin sotry
+        About snekden.io - origin story
       </h3>
     </header>
     <article>origin story
