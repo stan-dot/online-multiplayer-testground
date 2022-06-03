@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect } from 'react';
-import { io, ManagerOptions, SocketOptions } from 'socket.io-client';
+import { io, ManagerOptions, Socket, SocketOptions } from 'socket.io-client';
 
-export const SocketContext = React.createContext(null);
+export const SocketContext: React.Context<Socket<any, any>> = React.createContext({} as Socket);
 
 const socketOptions: Partial<ManagerOptions & SocketOptions> = {
   rejectUnauthorized: false,

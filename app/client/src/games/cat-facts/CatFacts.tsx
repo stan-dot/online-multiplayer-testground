@@ -5,13 +5,13 @@ export default function CatFacts(): JSX.Element {
   const [mainText, setMainText] = React.useState(defaultText.fact);
   const getFacts = () => {
     fetch('/api/cats/')
-      .then(handleIncoming)
-      .catch((error) => console.error("couldn't react the remote API", error));
+      .then(result => result.json())
+      .then(handleIncoming);
   };
 
-  const handleIncoming = (result: any): void => {
-    const json = result.json();
-    const text: string = json.fact;
+  const handleIncoming = (body: any): void => {
+    const text: string = body.fact;
+    console.log('text:', text);
     setMainText(text);
   };
   return <div>

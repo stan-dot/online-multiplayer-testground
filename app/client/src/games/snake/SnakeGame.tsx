@@ -5,13 +5,13 @@ import { rollDice } from "./utils/roll";
 import { images, LAST_SQUARE } from "./constants";
 import { Player } from "./Player";
 import { PlayersBox } from "./PlayerBox";
-import { GameContext, gameContext } from "../../components/GameField";
+import { GameContext, GameContextType } from "../../components/GameField";
 
-export function SnakeGame(): JSX.Element {
-  const socket: Socket = React.useContext(SocketContext)!;
-  const gameInterface: GameContext = React.useContext(gameContext)!;
-  const ctx: CanvasRenderingContext2D = gameInterface.renderingContext!;
-  const canvas: HTMLCanvasElement = gameInterface.canvas;
+export default function SnakeGame(): JSX.Element {
+  const gameInterface: GameContextType = React.useContext(GameContext)!;
+  const renderingContext: CanvasRenderingContext2D = gameInterface.canvasContext?.renderingContext!;
+  const canvas: HTMLCanvasElement = gameInterface.canvasContext?.canvas!;
+  const socket: Socket = gameInterface.socketInterface!;
 
   const [currentPlayerStatus, setCurrentPlayerStatus] = React.useState("Wait or click to join")
   const [currentDiceNumber, setCurrentDiceSource] = React.useState('0');
@@ -21,7 +21,7 @@ export function SnakeGame(): JSX.Element {
   const [nameDisabled, setNameDisabled] = React.useState(false);
   const [startButtonVisibility, setStartButtonVisibility] = React.useState(true);
   // MAIN CODE
-  socket.emit("joined");
+  socket?.emit("joined");
   let players: Player[] = [];
   let currentPlayer: Player;
 
@@ -50,8 +50,8 @@ export function SnakeGame(): JSX.Element {
   });
 
   function drawPins() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    players.forEach(player => player.draw(canvas, ctx));
+    renderingContext.clearRect(0, 0, canvas.width, canvas.height);
+    players.forEach(player => player.draw(canvas, renderingContext));
   };
 
   socket.on("rollDice", (data, turn) => {

@@ -1,19 +1,36 @@
 import { Game } from "../types/Game";
 import React, { ComponentType, createContext, lazy, LazyExoticComponent, Suspense } from 'react';
 import { GameCard } from "../types/GameCard";
+import { CanvasContext, CanvasInterface } from "./CanvasWrapper";
+import { SocketContext } from "../wrappers/Socket.wrapper";
+import { Socket } from "socket.io-client";
+import { correctSocket } from "../utils/correctSocket";
 
-export type GameContext = {
-  renderingContext?: CanvasRenderingContext2D,
-  canvas: HTMLCanvasElement,
-  socialInterface?: any,
-  nftInterface?: any,
-  fsInterface?: any,
+export type GameContextType = {
+  canvasContext?: CanvasInterface,
+  socketInterface?: Socket,
+  socialInterface?: any, // todo when lens
+  nftInterface?: any, // todo when nfts ready
+  fsInterface?: any, // todo when filesystem downloads of data ready
 }
 
-export const gameContext = createContext({} as GameContext);
+export const GameContext = createContext({} as GameContextType);
 
 export const GameField = (props: { gameCard: GameCard }) => {
-  // const [currentGame, setCurrentGame] = React.useState({} as Game);
+
+  const usesSockets: boolean = Boolean(props.gameCard.options?.usesSockets);
+  const socket: Socket = React.useContext(SocketContext);
+  const earlyReturn = usesSockets && !correctSocket(socket);
+  if (earlyReturn) {
+    return <p>Connection to the server error</p>
+  }
+  const canvasInterface = React.useContext(CanvasContext);
+  const context: GameContextType = {
+    canvasContext: props.gameCard.options?.usesCanvas ? canvasInterface : undefined,
+    socketInterface: usesSockets ? socket : undefined
+  };
+
+  console.log('loading the game', props.gameCard.componentName);
   const Game: LazyExoticComponent<ComponentType<Game>> =
     lazy(() => import(`../games/${props.gameCard.folder}/${props.gameCard.componentName}`));
   return (
@@ -23,10 +40,13 @@ export const GameField = (props: { gameCard: GameCard }) => {
           <p>{props.gameCard.componentName}</p> is Loading...
         </div>
       }>
-        <section>
-          <Game />
-        </section>
+        <GameContext.Provider value={context}>
+          <section>
+            <Game />
+          </section>
+        </GameContext.Provider>
       </Suspense>
     </div>
   );
 }
+

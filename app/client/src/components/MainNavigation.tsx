@@ -11,7 +11,6 @@ export function MainNavigation(props: { gameCardCallback: Function }): JSX.Eleme
           </button>
         </li>
       })}
-      <li><a href='#footer'>goto footer</a></li>
     </ul>
   </nav>
 }
