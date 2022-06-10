@@ -6,6 +6,7 @@
 - [x] [more on cavas](https://stackoverflow.com/questions/65796640/clear-way-to-use-canvas-html5-with-react-without-render-all-canvas-shapes-all-ti)
 - [ ] add the snake socket io game  [tutorial](https://dev.to/nitdgplug/learn-the-basics-of-socket-io-by-making-a-multiplayer-game-394g) 
 - [ ] add room support
+- [ ] add a simple [phaser](https://www.npmjs.com/package/phaser) game
 
 ### Lens bit
 - [ ] setup the blockchain locally, [instructions](https://docs.lens.xyz/docs/deploying-the-protocol) - 2 hours
