@@ -18,6 +18,10 @@ export const availableGames: GameCard[] = [
     componentName: 'CanvasGame',
   },
   {
+    folder: 'webgl-test',
+    componentName: 'WebGlTest',
+  },
+  {
     folder: 'snake',
     componentName: 'SnakeGame',
     options: {
