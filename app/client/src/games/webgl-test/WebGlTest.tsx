@@ -20,11 +20,25 @@ export default function WebGlTest(props: {}): JSX.Element {
     const shaderProgram: WebGLProgram = initShaderProgram(gl, vsSource, fsSource) as WebGLProgram;
     const programInfo: ProgramInfo = getProgramInfo(shaderProgram, gl);
     const buffers: GraphicsBuffers = initBuffers(gl);
-    drawScene(gl, programInfo, buffers);
+
+    // Draw the scene repeatedly
+    function render(now: number): void {
+      let then = 0;
+      now *= 0.001;  // convert to seconds
+      const deltaTime: number = now - then;
+      then = now;
+
+      drawScene(gl, programInfo, buffers, deltaTime);
+
+      requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
   };
 
+
+
   return <div>
-    <p>test</p>
     <Canvas draw={draw} height={400} width={400} />
   </div>
 }

@@ -6,7 +6,9 @@ export function drawScene(
   gl: WebGL2RenderingContext,
   programInfo: ProgramInfo,
   buffers: GraphicsBuffers,
+  deltaTime?: number,
 ): void {
+  console.log('drawing the scene');
   gl.clearColor(0.0, 0.0, 0.0, 1.0); // Clear to black, fully opaque
   gl.clearDepth(1.0); // Clear everything
   gl.enable(gl.DEPTH_TEST); // Enable depth testing
@@ -35,7 +37,7 @@ export function drawScene(
 
   // Set the drawing position to the "identity" point, which is
   // the center of the scene.
-  const modelViewMatrix = mat4.create();
+  const modelViewMatrix: mat4 = mat4.create();
 
   // Now move the drawing position a bit to where we want to
   // start drawing the square.
@@ -45,6 +47,21 @@ export function drawScene(
     modelViewMatrix, // matrix to translate
     [-0.0, 0.0, -6.0],
   ); // amount to translate
+
+  let squareRotation = 0.0;
+
+  mat4.translate(
+    modelViewMatrix, // destination matrix
+    modelViewMatrix, // matrix to translate
+    [-0.0, 0.0, -6.0],
+  ); // amount to translate
+  mat4.rotate(
+    modelViewMatrix, // destination matrix
+    modelViewMatrix, // matrix to rotate
+    squareRotation, // amount to rotate in radians
+    [0, 0, 1],
+  ); // axis to rotate around
+  // console.log(modelViewMatrix);
 
   // Tell WebGL how to pull out the positions from the position
   // buffer into the vertexPosition attribute.
@@ -103,5 +120,9 @@ export function drawScene(
     const offset = 0;
     const vertexCount = 4;
     gl.drawArrays(gl.TRIANGLE_STRIP, offset, vertexCount);
+  }
+  if (deltaTime) {
+    squareRotation += deltaTime;
+    console.log('rotation: ', squareRotation);
   }
 }
