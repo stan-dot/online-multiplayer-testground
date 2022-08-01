@@ -2,11 +2,13 @@ import React from "react";
 import { Canvas } from "./Canvas";
 import { drawScene } from "./drawScene";
 import { ProgramInfo } from "./ProgramInfo";
-import { getProgramInfo, initBuffers, initShaderProgram } from "./shaders";
-import { vsSource, fsSource } from "./shaper-constants";
+import { getProgramInfo, initShaderProgram } from "./shaders";
+import { initBuffers } from "./initBuffers";
+import { vsSource, fsSource } from "./shader-constants";
+import { GraphicsBuffers } from "./GraphicsBuffers";
 
 export default function WebGlTest(props: {}): JSX.Element {
-  const draw = (gl: WebGL2RenderingContext):void => {
+  const draw = (gl: WebGL2RenderingContext): void => {
     if (gl === null) {
       alert('unable to initalize WebGl. Your browser or machine may not support it');
       return;
@@ -17,7 +19,7 @@ export default function WebGlTest(props: {}): JSX.Element {
     gl.clear(gl.COLOR_BUFFER_BIT);
     const shaderProgram: WebGLProgram = initShaderProgram(gl, vsSource, fsSource) as WebGLProgram;
     const programInfo: ProgramInfo = getProgramInfo(shaderProgram, gl);
-    const buffers: WebGLBuffer = initBuffers(gl);
+    const buffers: GraphicsBuffers = initBuffers(gl);
     drawScene(gl, programInfo, buffers);
   };
 

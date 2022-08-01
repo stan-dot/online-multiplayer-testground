@@ -1,10 +1,11 @@
 import { mat4 } from 'gl-matrix';
+import { GraphicsBuffers } from './GraphicsBuffers';
 import { ProgramInfo } from './ProgramInfo';
 
 export function drawScene(
   gl: WebGL2RenderingContext,
   programInfo: ProgramInfo,
-  buffers: any,
+  buffers: GraphicsBuffers,
 ): void {
   gl.clearColor(0.0, 0.0, 0.0, 1.0); // Clear to black, fully opaque
   gl.clearDepth(1.0); // Clear everything
@@ -54,7 +55,7 @@ export function drawScene(
     const stride = 0; // how many bytes to get from one set of values to the next
     // 0 = use type and numComponents above
     const offset = 0; // how many bytes inside the buffer to start from
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position!);
     gl.vertexAttribPointer(
       programInfo.attribLocations.vertexPosition,
       numComponents,
@@ -65,12 +66,27 @@ export function drawScene(
     );
     gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
   }
-
-  // Tell WebGL to use our program when drawing
+  // Tell WebGL how to pull out the colors from the color buffer
+  // into the vertexColor attribute.
+  {
+    const numComponents = 4;
+    const type = gl.FLOAT;
+    const normalize = false;
+    const stride = 0;
+    const offset = 0;
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.color!);
+    gl.vertexAttribPointer(
+      programInfo.attribLocations.vertexColor!,
+      numComponents,
+      type,
+      normalize,
+      stride,
+      offset,
+    );
+    gl.enableVertexAttribArray(programInfo.attribLocations.vertexColor!);
+  }
 
   gl.useProgram(programInfo.program);
-
-  // Set the shader uniforms
 
   gl.uniformMatrix4fv(
     programInfo.uniformLocations.projectionMatrix,
