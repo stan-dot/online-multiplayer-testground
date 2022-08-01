@@ -1,17 +1,24 @@
 import React from "react";
 import { Canvas } from "./Canvas";
+import { drawScene } from "./drawScene";
+import { ProgramInfo } from "./ProgramInfo";
+import { getProgramInfo, initBuffers, initShaderProgram } from "./shaders";
+import { vsSource, fsSource } from "./shaper-constants";
 
 export default function WebGlTest(props: {}): JSX.Element {
-  const draw = (ctx: WebGL2RenderingContext) => {
-    if (ctx === null) {
+  const draw = (gl: WebGL2RenderingContext):void => {
+    if (gl === null) {
       alert('unable to initalize WebGl. Your browser or machine may not support it');
       return;
     }
     // Set clear color to black, fully opaque
-    ctx.clearColor(0.0, 0.0, 0.0, 1.0);
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
     // Clear the color buffer with specified clear color
-    ctx.clear(ctx.COLOR_BUFFER_BIT);
-
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    const shaderProgram: WebGLProgram = initShaderProgram(gl, vsSource, fsSource) as WebGLProgram;
+    const programInfo: ProgramInfo = getProgramInfo(shaderProgram, gl);
+    const buffers: WebGLBuffer = initBuffers(gl);
+    drawScene(gl, programInfo, buffers);
   };
 
   return <div>

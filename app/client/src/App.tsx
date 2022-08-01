@@ -17,26 +17,26 @@ export default function App() {
   }
   return (
     <div className="App">
-      <SocketWrapper>
-        {gameIsOn
-          ?
-          <>
-            <button onClick={() => setGameIsOn(false)}>Close current game</button>
-            <GameField gameCard={currentGameCard} />
-          </>
-          :
-          <>
-            <header className="App-header">
-              <h1>test landing page</h1>
-            </header>
-            <MainNavigation gameCardCallback={changeGame} />
-            above there 'll be your game
-            <DescriptionPage />
-            <FriendsBar />
-            <LandingFooter />
-          </>
-        }
-      </SocketWrapper>
+      {/* <SocketWrapper> */}
+      {gameIsOn
+        ?
+        <>
+          <button onClick={() => setGameIsOn(false)}>Close current game</button>
+          <GameField gameCard={currentGameCard} />
+        </>
+        :
+        <>
+          <header className="App-header">
+            <h1>test landing page</h1>
+          </header>
+          <MainNavigation gameCardCallback={changeGame} />
+          above there 'll be your game
+          <DescriptionPage />
+          <FriendsBar />
+          <LandingFooter />
+        </>
+      }
+      {/* </SocketWrapper> */}
     </div>
   );
 }
