@@ -50,18 +50,15 @@ export function drawScene(
 
   let squareRotation = 0.0;
 
-  mat4.translate(
-    modelViewMatrix, // destination matrix
-    modelViewMatrix, // matrix to translate
-    [-0.0, 0.0, -6.0],
-  ); // amount to translate
-  mat4.rotate(
+  console.log(modelViewMatrix);
+  let result = mat4.rotate(
     modelViewMatrix, // destination matrix
     modelViewMatrix, // matrix to rotate
     squareRotation, // amount to rotate in radians
     [0, 0, 1],
   ); // axis to rotate around
-  // console.log(modelViewMatrix);
+  console.log(modelViewMatrix);
+  console.log(squareRotation);
 
   // Tell WebGL how to pull out the positions from the position
   // buffer into the vertexPosition attribute.

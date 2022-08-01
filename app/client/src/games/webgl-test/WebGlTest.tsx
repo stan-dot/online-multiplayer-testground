@@ -27,16 +27,12 @@ export default function WebGlTest(props: {}): JSX.Element {
       now *= 0.001;  // convert to seconds
       const deltaTime: number = now - then;
       then = now;
-
       drawScene(gl, programInfo, buffers, deltaTime);
-
       requestAnimationFrame(render);
     }
 
     requestAnimationFrame(render);
   };
-
-
 
   return <div>
     <Canvas draw={draw} height={400} width={400} />
