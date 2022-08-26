@@ -1,5 +1,5 @@
 // Vertex shader program
-export const vsSource = `
+export const vsSource: string = `
     attribute vec4 aVertexPosition;
     attribute vec4 aVertexColor;
 
@@ -14,7 +14,7 @@ export const vsSource = `
     }
   `;
 
-export const fsSource = `
+export const fsSource: string = `
     varying lowp vec4 vColor;
     void main() {
       gl_FragColor = vColor;

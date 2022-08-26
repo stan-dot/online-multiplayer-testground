@@ -1,9 +1,9 @@
-import { ProgramInfo } from "./types/ProgramInfo.type";
+import { ProgramInfo } from './types/ProgramInfo.type';
 
 export function initShaderProgram(
   gl: WebGL2RenderingContext,
-  vsSource: any,
-  fsSource: any,
+  vsSource: string,
+  fsSource: string,
 ) {
   const vertexShader = loadShader(
     gl,
@@ -16,7 +16,6 @@ export function initShaderProgram(
     gl.FRAGMENT_SHADER,
     fsSource,
   ) as WebGLShader;
-
 
   const shaderProgram: WebGLProgram = gl.createProgram() as WebGLProgram;
   gl.attachShader(shaderProgram, vertexShader);
@@ -43,7 +42,7 @@ export function getProgramInfo(
     program: shaderProgram,
     attribLocations: {
       vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
-      vertexColor: gl.getAttribLocation(shaderProgram, 'aVertexColor')
+      vertexColor: gl.getAttribLocation(shaderProgram, 'aVertexColor'),
     },
     uniformLocations: {
       projectionMatrix: gl.getUniformLocation(
