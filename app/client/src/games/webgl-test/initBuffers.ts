@@ -8,6 +8,7 @@ export function initBuffers(gl: WebGL2RenderingContext): GraphicsBuffers {
     // color: initColorBuffer(gl),
     textureCoord: initTextureBuffer(gl),
     indices: initIndicesBuffer(gl),
+    normal: initShadingBuffer(gl),
   };
 }
 
@@ -88,10 +89,8 @@ const vertexNormals = [
   // Left
   -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0,
 ];
-function initShadingBuffer(
-  gl: WebGL2RenderingContext,
-  programInfo: ProgramInfo,
-): WebGLBuffer {
+
+function initShadingBuffer(gl: WebGL2RenderingContext): WebGLBuffer {
   const normalBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
 
@@ -101,4 +100,41 @@ function initShadingBuffer(
     gl.STATIC_DRAW,
   );
   return normalBuffer!;
+}
+
+function initTexture(gl: WebGL2RenderingContext) {
+  const texture: WebGLTexture = gl.createTexture()!;
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+
+  // Because video has to be download over the internet
+  // they might take a moment until it's ready so
+  // put a single pixel in the texture so we can
+  // use it immediately.
+  const level = 0;
+  const internalFormat = gl.RGBA;
+  const width = 1;
+  const height = 1;
+  const border = 0;
+  const srcFormat = gl.RGBA;
+  const srcType = gl.UNSIGNED_BYTE;
+  const pixel = new Uint8Array([0, 0, 255, 255]); // opaque blue
+  gl.texImage2D(
+    gl.TEXTURE_2D,
+    level,
+    internalFormat,
+    width,
+    height,
+    border,
+    srcFormat,
+    srcType,
+    pixel,
+  );
+
+  // Turn off mips and set wrapping to clamp to edge so it
+  // will work regardless of the dimensions of the video.
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+
+  return texture;
 }
