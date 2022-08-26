@@ -1,6 +1,6 @@
 import { mat4 } from 'gl-matrix';
-import { GraphicsBuffers } from './GraphicsBuffers';
-import { ProgramInfo } from './ProgramInfo';
+import { GraphicsBuffers } from './types/GraphicsBuffers.type';
+import { ProgramInfo } from './types/ProgramInfo.type';
 
 export function drawScene(
   gl: WebGL2RenderingContext,
@@ -13,8 +13,6 @@ export function drawScene(
   gl.clearDepth(1.0); // Clear everything
   gl.enable(gl.DEPTH_TEST); // Enable depth testing
   gl.depthFunc(gl.LEQUAL); // Near things obscure far things
-
-  // Clear the canvas before we start drawing on it.
 
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
@@ -50,15 +48,12 @@ export function drawScene(
 
   let squareRotation = 0.0;
 
-  console.log(modelViewMatrix);
-  let result = mat4.rotate(
+  mat4.rotate(
     modelViewMatrix, // destination matrix
     modelViewMatrix, // matrix to rotate
-    squareRotation, // amount to rotate in radians
+    deltaTime ?? squareRotation, // amount to rotate in radians
     [0, 0, 1],
   ); // axis to rotate around
-  console.log(modelViewMatrix);
-  console.log(squareRotation);
 
   // Tell WebGL how to pull out the positions from the position
   // buffer into the vertexPosition attribute.
@@ -118,8 +113,8 @@ export function drawScene(
     const vertexCount = 4;
     gl.drawArrays(gl.TRIANGLE_STRIP, offset, vertexCount);
   }
-  if (deltaTime) {
-    squareRotation += deltaTime;
-    console.log('rotation: ', squareRotation);
-  }
+  // if (deltaTime) {
+  //   squareRotation += deltaTime;
+  //   console.log('rotation: ', squareRotation);
+  // }
 }

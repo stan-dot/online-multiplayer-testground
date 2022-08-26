@@ -1,8 +1,5 @@
-import { ProgramInfo } from './ProgramInfo';
+import { ProgramInfo } from "./types/ProgramInfo.type";
 
-//
-// Initialize a shader program, so WebGL knows how to draw our data
-//
 export function initShaderProgram(
   gl: WebGL2RenderingContext,
   vsSource: any,
@@ -13,20 +10,18 @@ export function initShaderProgram(
     gl.VERTEX_SHADER,
     vsSource,
   ) as WebGLShader;
+
   const fragmentShader = loadShader(
     gl,
     gl.FRAGMENT_SHADER,
     fsSource,
   ) as WebGLShader;
 
-  // Create the shader program
 
   const shaderProgram: WebGLProgram = gl.createProgram() as WebGLProgram;
   gl.attachShader(shaderProgram, vertexShader);
   gl.attachShader(shaderProgram, fragmentShader);
   gl.linkProgram(shaderProgram);
-
-  // If creating the shader program failed, alert
 
   if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
     alert(
@@ -63,10 +58,6 @@ export function getProgramInfo(
   };
 }
 
-//
-// creates a shader of the given type, uploads the source and
-// compiles it.
-//
 export function loadShader(
   gl: WebGL2RenderingContext,
   type: number,
@@ -74,15 +65,8 @@ export function loadShader(
 ) {
   const shader = gl.createShader(type) as WebGLShader;
 
-  // Send the source to the shader object
-
   gl.shaderSource(shader, source);
-
-  // Compile the shader program
-
   gl.compileShader(shader);
-
-  // See if it compiled successfully
 
   if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
     alert(

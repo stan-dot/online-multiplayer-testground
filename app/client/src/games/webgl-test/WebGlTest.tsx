@@ -1,11 +1,11 @@
 import React from "react";
 import { Canvas } from "./Canvas";
 import { drawScene } from "./drawScene";
-import { ProgramInfo } from "./ProgramInfo";
 import { getProgramInfo, initShaderProgram } from "./shaders";
 import { initBuffers } from "./initBuffers";
 import { vsSource, fsSource } from "./shader-constants";
-import { GraphicsBuffers } from "./GraphicsBuffers";
+import { GraphicsBuffers } from "./types/GraphicsBuffers.type";
+import { ProgramInfo } from "./types/ProgramInfo.type";
 
 export default function WebGlTest(props: {}): JSX.Element {
   const draw = (gl: WebGL2RenderingContext): void => {
