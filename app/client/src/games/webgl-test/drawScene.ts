@@ -29,8 +29,6 @@ export function drawScene(
   const zFar = 100.0;
   const projectionMatrix = mat4.create();
 
-  // note: glmatrix.js always has the first argument
-  // as the destination to receive the result.
   mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
 
   // Set the drawing position to the "identity" point, which is
@@ -54,57 +52,12 @@ export function drawScene(
     modelViewMatrix, // destination matrix
     modelViewMatrix, // matrix to rotate
     deltaTime ?? squareRotation, // amount to rotate in radians
-    [0, 0, 1],
-  ); // axis to rotate around
+    [0, 0, 1], // axis to rotate around
+  );
 
-  // BINDING VERTEX POSITIONS
-  {
-    const numComponents = 3; // pull out 3 values per iteration
-    const type = gl.FLOAT; // the data in the buffer is 32bit floats
-    const normalize = false; // don't normalize
-    const stride = 0; // how many bytes to get from one set of values to the next
-    // 0 = use type and numComponents above
-    const offset = 0; // how many bytes inside the buffer to start from
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position!);
-    gl.vertexAttribPointer(
-      programInfo.attribLocations.vertexPosition,
-      numComponents,
-      type,
-      normalize,
-      stride,
-      offset,
-    );
-    gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
-  }
-
-  // BNDING VERTEX COLOR
-  {
-    const numComponents = 4;
-    const type = gl.FLOAT;
-    const normalize = false;
-    const stride = 0;
-    const offset = 0;
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.color!);
-    gl.vertexAttribPointer(
-      programInfo.attribLocations.vertexColor!,
-      numComponents,
-      type,
-      normalize,
-      stride,
-      offset,
-    );
-    gl.enableVertexAttribArray(programInfo.attribLocations.vertexColor!);
-  }
-
-  // BINDING INDICES
-  {
-    // Tell WebGL which indices to use to index the vertices
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices!);
-    const vertexCount = 36;
-    const type = gl.UNSIGNED_SHORT;
-    const offset = 0;
-    gl.drawElements(gl.TRIANGLES, vertexCount, type, offset);
-  }
+  gl = bindVertexPositions(gl, buffers, programInfo);
+  gl = bindVertexColor(gl, buffers, programInfo);
+  gl = bindIndices(gl, buffers);
 
   gl.useProgram(programInfo.program);
 
@@ -124,4 +77,64 @@ export function drawScene(
     const vertexCount = 4;
     gl.drawArrays(gl.TRIANGLE_STRIP, offset, vertexCount);
   }
+}
+
+function bindIndices(
+  gl: WebGL2RenderingContext,
+  buffers: GraphicsBuffers,
+): WebGL2RenderingContext {
+  // Tell WebGL which indices to use to index the vertices
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices!);
+  const vertexCount = 36;
+  const type = gl.UNSIGNED_SHORT;
+  const offset = 0;
+  gl.drawElements(gl.TRIANGLES, vertexCount, type, offset);
+  return gl;
+}
+
+function bindVertexColor(
+  gl: WebGL2RenderingContext,
+  buffers: GraphicsBuffers,
+  programInfo: ProgramInfo,
+): WebGL2RenderingContext {
+  const numComponents = 4;
+  const type = gl.FLOAT;
+  const normalize = false;
+  const stride = 0;
+  const offset = 0;
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffers.color!);
+  gl.vertexAttribPointer(
+    programInfo.attribLocations.vertexColor!,
+    numComponents,
+    type,
+    normalize,
+    stride,
+    offset,
+  );
+  gl.enableVertexAttribArray(programInfo.attribLocations.vertexColor!);
+  return gl;
+}
+
+function bindVertexPositions(
+  gl: WebGL2RenderingContext,
+  buffers: GraphicsBuffers,
+  programInfo: ProgramInfo,
+): WebGL2RenderingContext {
+  const numComponents = 3; // pull out 3 values per iteration
+  const type = gl.FLOAT; // the data in the buffer is 32bit floats
+  const normalize = false; // don't normalize
+  const stride = 0; // how many bytes to get from one set of values to the next
+  // 0 = use type and numComponents above
+  const offset = 0; // how many bytes inside the buffer to start from
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position!);
+  gl.vertexAttribPointer(
+    programInfo.attribLocations.vertexPosition,
+    numComponents,
+    type,
+    normalize,
+    stride,
+    offset,
+  );
+  gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
+  return gl;
 }

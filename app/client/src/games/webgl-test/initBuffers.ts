@@ -23,7 +23,9 @@ function initIndicesBuffer(gl: WebGL2RenderingContext): WebGLBuffer {
 
 function initColorBuffer(gl: WebGL2RenderingContext): WebGLBuffer {
   // Convert the array of colors into a table for all the vertices.
-  const colors: number[] = faceColors.flat();
+  const colors: number[] = faceColors.map((arr: number[]) =>
+    [arr, arr, arr, arr].flat(),
+  ).flat();
   const colorBuffer = gl.createBuffer() as WebGLBuffer;
   gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
