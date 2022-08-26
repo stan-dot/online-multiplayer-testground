@@ -1,3 +1,4 @@
+import { SurfaceModes } from './SurfaceModes';
 import { ProgramInfo } from './types/ProgramInfo.type';
 
 export function initShaderProgram(
@@ -37,7 +38,32 @@ export function initShaderProgram(
 export function getProgramInfo(
   shaderProgram: WebGLProgram,
   gl: WebGL2RenderingContext,
+  mode: SurfaceModes,
 ): ProgramInfo {
+  if (mode === SurfaceModes.Texture) {
+    const programInfo = {
+      program: shaderProgram,
+      attribLocations: {
+        vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
+        textureCoord: gl.getAttribLocation(shaderProgram, 'aTextureCoord'),
+      },
+      uniformLocations: {
+        projectionMatrix: gl.getUniformLocation(
+          shaderProgram,
+          'uProjectionMatrix',
+        ) as WebGLUniformLocation,
+        modelViewMatrix: gl.getUniformLocation(
+          shaderProgram,
+          'uModelViewMatrix',
+        ) as WebGLUniformLocation,
+        uSampler: gl.getUniformLocation(
+          shaderProgram,
+          'uSampler',
+        ) as WebGLUniformLocation,
+      },
+    };
+    return programInfo;
+  }
   return {
     program: shaderProgram,
     attribLocations: {

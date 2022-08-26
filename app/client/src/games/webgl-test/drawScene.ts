@@ -7,6 +7,7 @@ export function drawScene(
   programInfo: ProgramInfo,
   buffers: GraphicsBuffers,
   deltaTime?: number,
+  textures?: WebGLTexture,
 ): void {
   // console.log('drawing the scene');
   gl.clearColor(0.0, 0.0, 0.0, 1.0); // Clear to black, fully opaque
@@ -56,7 +57,8 @@ export function drawScene(
   );
 
   gl = bindVertexPositions(gl, buffers, programInfo);
-  gl = bindVertexColor(gl, buffers, programInfo);
+  // gl = bindVertexColor(gl, buffers, programInfo);
+  gl = bindTextures(gl, buffers, programInfo);
   gl = bindIndices(gl, buffers);
 
   gl.useProgram(programInfo.program);
@@ -71,6 +73,15 @@ export function drawScene(
     false,
     modelViewMatrix,
   );
+
+  // Tell WebGL we want to affect texture unit 0
+  gl.activeTexture(gl.TEXTURE0);
+
+  // Bind the texture to texture unit 0
+  gl.bindTexture(gl.TEXTURE_2D, textures!);
+
+  // Tell the shader we bound the texture to texture unit 0
+  gl.uniform1i(programInfo.uniformLocations.uSampler!, 0);
 
   {
     const offset = 0;
@@ -136,5 +147,30 @@ function bindVertexPositions(
     offset,
   );
   gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
+  return gl;
+}
+
+function bindTextures(
+  gl: WebGL2RenderingContext,
+  buffers: GraphicsBuffers,
+  programInfo: ProgramInfo,
+): WebGL2RenderingContext {
+  // tell webgl how to pull out the texture coordinates from buffer
+  const num = 2; // every coordinate composed of 2 values
+  const type = gl.FLOAT; // the data in the buffer is 32-bit float
+  const normalize = false; // don't normalize
+  const stride = 0; // how many bytes to get from one set to the next
+  const offset = 0; // how many bytes inside the buffer to start from
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffers.textureCoord!);
+  gl.vertexAttribPointer(
+    programInfo.attribLocations.textureCoord!,
+    num,
+    type,
+    normalize,
+    stride,
+    offset,
+  );
+  gl.enableVertexAttribArray(programInfo.attribLocations.textureCoord!);
+
   return gl;
 }
