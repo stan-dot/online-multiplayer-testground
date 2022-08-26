@@ -1,5 +1,6 @@
 import { indices, faceColors, positions } from './cubeBufferConstants';
 import { GraphicsBuffers } from './types/GraphicsBuffers.type';
+import { ProgramInfo } from './types/ProgramInfo.type';
 
 export function initBuffers(gl: WebGL2RenderingContext): GraphicsBuffers {
   return {
@@ -67,4 +68,37 @@ function initTextureBuffer(gl: WebGL2RenderingContext): WebGLBuffer {
   );
 
   return textureCoordBuffer!;
+}
+
+const vertexNormals = [
+  0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0,
+
+  // Back
+  0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0,
+
+  // Top
+  0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,
+
+  // Bottom
+  0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0,
+
+  // Right
+  1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0,
+
+  // Left
+  -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0,
+];
+function initShadingBuffer(
+  gl: WebGL2RenderingContext,
+  programInfo: ProgramInfo,
+): WebGLBuffer {
+  const normalBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
+
+  gl.bufferData(
+    gl.ARRAY_BUFFER,
+    new Float32Array(vertexNormals),
+    gl.STATIC_DRAW,
+  );
+  return normalBuffer!;
 }

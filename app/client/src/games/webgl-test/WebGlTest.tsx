@@ -4,7 +4,7 @@ import { drawScene } from "./drawScene";
 import { getProgramInfo, initShaderProgram } from "./shaders";
 import { SurfaceModes } from "./SurfaceModes";
 import { initBuffers } from "./initBuffers";
-import { colorVsSource, colorFsSource, textureVsSource, textureFsSource } from "./shaderConstants";
+import { colorVsSource, colorFsSource, textureVsSource, textureFsSource, shadesVsSource, shadesFsSource } from "./shaderConstants";
 import { GraphicsBuffers } from "./types/GraphicsBuffers.type";
 import { ProgramInfo } from "./types/ProgramInfo.type";
 import { loadTexture } from "./loadTextures";
@@ -20,8 +20,8 @@ export default function WebGlTest(props: {}): JSX.Element {
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
     // Clear the color buffer with specified clear color
     gl.clear(gl.COLOR_BUFFER_BIT);
-    const shaderProgram: WebGLProgram = initShaderProgram(gl, textureVsSource, textureFsSource) as WebGLProgram;
-    const programInfo: ProgramInfo = getProgramInfo(shaderProgram, gl, SurfaceModes.Texture);
+    const shaderProgram: WebGLProgram = initShaderProgram(gl, shadesVsSource, shadesFsSource) as WebGLProgram;
+    const programInfo: ProgramInfo = getProgramInfo(shaderProgram, gl, SurfaceModes.Texture, true);
     const buffers: GraphicsBuffers = initBuffers(gl);
     const textures: WebGLTexture = loadTexture(gl, textureUrl);
     // Flip image pixels into the bottom-to-top order that WebGL expects.

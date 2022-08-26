@@ -36,49 +36,38 @@ export function initShaderProgram(
 }
 
 export function getProgramInfo(
-  shaderProgram: WebGLProgram,
+  p: WebGLProgram,
   gl: WebGL2RenderingContext,
   mode: SurfaceModes,
+  lightning?: boolean,
 ): ProgramInfo {
-  if (mode === SurfaceModes.Texture) {
-    const programInfo = {
-      program: shaderProgram,
-      attribLocations: {
-        vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
-        textureCoord: gl.getAttribLocation(shaderProgram, 'aTextureCoord'),
-      },
-      uniformLocations: {
-        projectionMatrix: gl.getUniformLocation(
-          shaderProgram,
-          'uProjectionMatrix',
-        ) as WebGLUniformLocation,
-        modelViewMatrix: gl.getUniformLocation(
-          shaderProgram,
-          'uModelViewMatrix',
-        ) as WebGLUniformLocation,
-        uSampler: gl.getUniformLocation(
-          shaderProgram,
-          'uSampler',
-        ) as WebGLUniformLocation,
-      },
-    };
-    return programInfo;
-  }
+  const isTexture = mode === SurfaceModes.Texture;
   return {
-    program: shaderProgram,
+    program: p,
     attribLocations: {
-      vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
-      vertexColor: gl.getAttribLocation(shaderProgram, 'aVertexColor'),
+      vertexPosition: gl.getAttribLocation(p, 'aVertexPosition'),
+      vertexColor: isTexture
+        ? undefined
+        : gl.getAttribLocation(p, 'aVertexColor'),
+      textureCoord: isTexture
+        ? gl.getAttribLocation(p, 'aTextureCoord')
+        : undefined,
     },
     uniformLocations: {
       projectionMatrix: gl.getUniformLocation(
-        shaderProgram,
+        p,
         'uProjectionMatrix',
       ) as WebGLUniformLocation,
       modelViewMatrix: gl.getUniformLocation(
-        shaderProgram,
+        p,
         'uModelViewMatrix',
       ) as WebGLUniformLocation,
+      normalMatrix: lightning
+        ? (gl.getUniformLocation(p, 'uNormalMatrix') as WebGLUniformLocation)
+        : undefined,
+      uSampler: isTexture
+        ? (gl.getUniformLocation(p, 'uSampler') as WebGLUniformLocation)
+        : undefined,
     },
   };
 }
