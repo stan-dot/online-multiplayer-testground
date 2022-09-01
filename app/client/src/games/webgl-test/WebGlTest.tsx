@@ -30,9 +30,9 @@ export default function WebGlTest(props: {}): JSX.Element {
     // Flip image pixels into the bottom-to-top order that WebGL expects.
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 
-    const callback: void = copyVideoReady ? console.log('video already loaded') : setCopyVideoReady(true);
-    console.log('callback is now:', callback);
-    const video: HTMLVideoElement = setupVideo('videos/Firefox.mp4', () => callback);
+    // const callback: void = copyVideoReady ? console.log('video already loaded') : setCopyVideoReady(true);
+    // console.log('callback is now:', callback);
+    // const video: HTMLVideoElement = setupVideo('videos/Firefox.mp4', () => callback);
 
     // Draw the scene repeatedly
     function render(now: number): void {
@@ -40,10 +40,10 @@ export default function WebGlTest(props: {}): JSX.Element {
       now *= 0.001;  // convert to seconds
       const deltaTime: number = now - then;
       then = now;
-      if (copyVideoReady) {
-        console.log('video callback called');
-        updateTextureWithVideo(gl, textures, video)
-      }
+      // if (copyVideoReady) {
+      //   console.log('video callback called');
+      //   updateTextureWithVideo(gl, textures, video)
+      // }
       drawScene(gl, programInfo, buffers, deltaTime, textures);
       requestAnimationFrame(render);
     }
