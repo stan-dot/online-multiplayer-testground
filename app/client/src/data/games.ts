@@ -5,10 +5,10 @@ export const availableGames: GameCard[] = [
     folder: 'cat-facts',
     componentName: 'CatFacts'
   },
-  // {
-  //   folder: 'eliza',
-  //   componentName: 'Eliza',
-  // },
+  {
+    folder: 'eliza',
+    componentName: 'Eliza',
+  },
   // {
   //   folder: 'minesweeper',
   //   componentName: 'Minesweeper',

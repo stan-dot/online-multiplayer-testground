@@ -32,7 +32,7 @@ export default function App() {
           <MainNavigation gameCardCallback={changeGame} />
           above there 'll be your game
           <DescriptionPage />
-          <FriendsBar />
+          {/* <FriendsBar /> */}
           <LandingFooter />
         </>
       }

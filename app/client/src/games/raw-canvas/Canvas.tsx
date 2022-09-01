@@ -1,5 +1,5 @@
-import { CanvasOptions } from './drawingTypes';
-import { useCanvas } from './canvasUtils';
+import { CanvasOptions } from './types/drawingTypes';
+import { useCanvas } from './useCanvas';
 
 export const Canvas = (props: { draw: any; predraw?: any; postdraw?: any; }) => {
   const options: CanvasOptions = { predraw: props.predraw, postdraw: props.postdraw };

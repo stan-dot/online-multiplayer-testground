@@ -6,5 +6,5 @@ export function FriendsBar(): JSX.Element {
     <ul>
       <li></li>
     </ul>
-  </aside>;
+  </aside>
 }
