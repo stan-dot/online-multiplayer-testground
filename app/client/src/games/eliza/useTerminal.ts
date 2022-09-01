@@ -1,17 +1,23 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import { Terminal } from 'xterm';
 
-export const useTerminal = (draw: any) => {
+export const useTerminal = (say?: any) => {
   const terminalRef = useRef({} as HTMLDivElement);
+  const term = new Terminal();
+  const [first, setfirst] = useState(true);
   useEffect(() => {
-    const canvas = terminalRef.current;
+    if (first) {
+      term.open(document.getElementById('terminal')!);
+      setfirst(false);
+    }
     const render = () => {
-      draw();
+      term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ');
     };
     render();
     return () => {
       // window.cancelAnimationFrame(animationFrameId);
     };
-  }, [draw]);
+  }, [say]);
 
   return terminalRef;
 };

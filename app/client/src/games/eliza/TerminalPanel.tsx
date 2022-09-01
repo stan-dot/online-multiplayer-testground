@@ -1,6 +1,7 @@
+import React from "react";
 import { useTerminal } from "./useTerminal";
 
-export const TerminalPanel = (props: { draw: any; predraw?: any; postdraw?: any; }) => {
+export const TerminalPanel = (props: { draw?: any;  }) => {
   const termRef = useTerminal(props.draw);
   return <>
     <h1>Eliza terminal</h1>
