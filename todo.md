@@ -1,5 +1,12 @@
 
 
+
+## general todo
+- [ ] global achievements
+- [ ] achievements and chat tab in each game(?)
+- [ ] games catalogue
+
+
 ## Startup
 - [x] follow the [tutorial](https://rapidapi.com/blog/create-react-app-express/) to setup cra with proxy of express - axios - 30 minutes
 - rejected - [canvas tutorial](https://medium.com/@pdx.lucasm/canvas-with-react-js-32e133c05258)
