@@ -1,34 +1,29 @@
-import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from "axios";
 import React from 'react';
 import { defaultText } from './defaults';
 
+const url: string = 'https://catfact.ninja/fact';
+
 export default function CatFacts(): JSX.Element {
   const [mainText, setMainText] = React.useState(defaultText.fact);
-  const getFacts = () => getCatFact().then(handleIncoming);
+  const getFacts = () => fetch(url).then(handleIncoming);
 
-  const handleIncoming = (body: any): void => {
-    const text: string = body.fact;
-    console.log('text:', text);
-    setMainText(text);
+  const handleIncoming = (r: Response): void => {
+
+    try {
+      const reader: ReadableStreamDefaultReader<Uint8Array> = r.body!.getReader();
+      reader.read().then(({ done, value }) => {
+        const str: string = new TextDecoder().decode(value);
+        const j = JSON.parse(str);
+        setMainText(j.fact!);
+      });
+    } catch (error) {
+      console.error('could not log the cat fact');
+    }
+
   };
   return <div>
     <h1> cat facts</h1>
     <button onClick={getFacts}>Find Cat Facts</button>
     {mainText}
   </div>;
-}
-
-const url: string = 'https://catfact.ninja/fact';
-
-const headers: AxiosRequestHeaders = {
-  'Content-type': 'application/json',
-  Accept: 'text/plain',
-};
-
-const requestConfig: AxiosRequestConfig = { headers: headers };
-const requestBody = {};
-
-async function getCatFact(): Promise<any> {
-  const data: AxiosResponse = await axios.get(url);
-  return data.data;
 }

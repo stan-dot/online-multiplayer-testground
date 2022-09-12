@@ -25,14 +25,14 @@ export const availableGames: GameCard[] = [
     folder: 'webgl-test',
     componentName: 'WebGlTest',
   },
-  {
-    folder: 'snake',
-    componentName: 'SnakeGame',
-    options: {
-      usesCanvas: true,
-      usesSockets: true
-    }
-  },
+  // {
+  //   folder: 'snake',
+  //   componentName: 'SnakeGame',
+  //   options: {
+  //     usesCanvas: true,
+  //     usesSockets: true
+  //   }
+  // },
   // {
   //   folder: 'tictactoe',
   //   componentName: 'TicTacToe',
