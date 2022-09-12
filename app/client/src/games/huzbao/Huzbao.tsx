@@ -1,32 +1,49 @@
-import React, { useState } from 'react';
-import { initialSetting } from './defaults';
-import { HuzbaoGameState } from './engine/types/Move';
-import { PlayingArea } from './PlayingArea';
-import { StatusDisplay } from './StatusDisplay';
-import { HuzbaoSettings } from './types/settings';
+import { useState } from 'react';
+import { boardVariants } from './boardVariants';
+import { possibleBots } from './bot/bots';
+import { ActiveHuzbaoGame } from './components/ActiveHuzbaoGame';
+import {
+  DEFAULT_BOARD_GENERATION,
+  DEFAULT_OPPONENT,
+  INITIAL_SETTINGS,
+} from './defaults';
+import { PlayerSignature, PlayerType } from './engine/types/PlayerSignature';
+import { MenuPicker } from './MenuPicker';
 
 export default function Huzbao(): JSX.Element {
-  const [gameSettings, setGameSettings] = useState({ gameMode: initialSetting } as HuzbaoSettings);
+  const [gameSettings, setGameSettings] = useState(INITIAL_SETTINGS);
+  const [boardVariant, setBoardVariant] = useState(DEFAULT_BOARD_GENERATION);
+  const [opponent, setOpponent] = useState(DEFAULT_OPPONENT);
 
-  return <>
-    <h2> Huzbao game</h2>
-    <div id='huzbao-holder'>
-      <StatusDisplay />
-      <PlayingArea />
-    </div>
-    <div id='start-menu'>
-      <div id="dropdown">
-        <button id="dropbtn">Dropdown</button>
-        <div id="dropdown-content">
-          <a href="#">AI type 1</a>
-          <a href="#">Predicting AI</a>
-          <a href="#">Old AI</a>
+  // todo make self player use the higher up LENS solution
+  const selfPlayer: PlayerSignature = {
+    name: 'localhost',
+    id: '0',
+    type: PlayerType.HUMAN,
+  };
+
+  const turnGameOn = () =>
+    setGameSettings({ gameMode: gameSettings.gameMode, gameIsOn: true });
+
+  return (
+    <>
+      <h2>Huzbao</h2>
+      {gameSettings.gameIsOn ? (
+        <ActiveHuzbaoGame
+          variant={boardVariant}
+          self={selfPlayer}
+          opponent={opponent}
+        />
+      ) : (
+        <div id="start-menu">
+          <MenuPicker name='board-picker' items={boardVariants} callback={setBoardVariant} />
+          <MenuPicker name='opponent-picker' items={possibleBots} callback={setOpponent} />
+          <button id="start-huzbao-game" onClick={turnGameOn}>
+            <p>START NEW GAME</p>
+          </button>
         </div>
-      </div>
-      <button id='start-huzbao'>
-        <p>START NEW GAME!</p>
-      </button>
-    </div>
-  </>
+      )}
+    </>
+  );
 }
 

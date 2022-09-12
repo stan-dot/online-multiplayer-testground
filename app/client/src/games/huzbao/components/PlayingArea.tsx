@@ -1,6 +1,7 @@
 import React from 'react';
+import { HuzbaoGameState } from '../engine/types/boardTypes';
 
-export function PlayingArea() {
+export function PlayingArea(props:{game: HuzbaoGameState}) {
   return <div id='huzbao-background'>
     <p>can play on any image from the internet</p>
     <div id='huzbao-board'>

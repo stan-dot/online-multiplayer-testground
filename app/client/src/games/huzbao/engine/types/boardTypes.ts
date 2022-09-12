@@ -8,6 +8,7 @@ export type GameStats = {
   movesDone: number;
   takenGems: number;
   roundCounter: number;
+  startingTime: number;
 };
 export type Move = {
   direction: Direction;
@@ -16,6 +17,7 @@ export type Move = {
 };
 
 export type HuzbaoGameState = {
-  boards: HalfBoard[];
+  ownBoard: HalfBoard;
+  opponentBoard: HalfBoard;
   stats: GameStats;
 };

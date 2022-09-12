@@ -3,9 +3,11 @@ export enum GameMode {
   UNRANKED,
   BATTLE_ROYALE,
   AI,
-  HOT_SEAT
+  HOT_SEAT,
+  AI_BATTLE,
 }
 
-export type HuzbaoSettings = {
+export type LauncherSettings = {
   gameMode: GameMode;
+  gameIsOn: boolean;
 };
