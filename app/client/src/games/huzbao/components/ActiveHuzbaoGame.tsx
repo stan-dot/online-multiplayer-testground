@@ -22,7 +22,7 @@ export function ActiveHuzbaoGame(props: {
   return (
     <div id="huzbao-holder">
       <StatusDisplay game={game} />
-      <PlayingArea game={game} />
+      <PlayingArea game={game} opponent={props.opponent} self={props.self} />
     </div>
   );
 }
