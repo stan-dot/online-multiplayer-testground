@@ -1,8 +1,8 @@
 import { Bot } from '../../types/Bot';
-import { ElizaOptions } from './types/ElizaOptions';
 import MemoryManager from './MemoryManger';
 import TextTransformer from './TextTransformer';
 import { ElizaData } from './types/ElizaData';
+import { ElizaOptions } from './types/ElizaOptions';
 import { getRandomFromGenericArray } from './utils/getRandomFromGenericArray';
 
 export default class ElizaBot implements Bot {
@@ -30,12 +30,12 @@ export default class ElizaBot implements Bot {
     if (!this._dataParsed) this.textTransformer._init();
     this.reset();
   }
-
-  getFinal(): string {
+;
+private  getFinal(): string {
     return getRandomFromGenericArray(this.data.finals);
   }
 
-  getInitial(): string {
+  private getInitial(): string {
     return getRandomFromGenericArray(this.data.welcomes);
   }
 

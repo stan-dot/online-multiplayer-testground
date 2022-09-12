@@ -6,10 +6,12 @@ import { MainNavigation } from './components/MainNavigation';
 import { DescriptionPage } from './components/DescriptionPage';
 import { GameCard } from './types/GameCard';
 import { SocketWrapper } from './wrappers/Socket.wrapper';
+import { availableGames } from './data/games';
 
 export default function App() {
-  const [gameIsOn, setGameIsOn] = React.useState(false);
-  const [currentGameCard, setCurrentGameCard] = React.useState({} as GameCard)
+  const [gameIsOn, setGameIsOn] = React.useState(true);
+  const [currentGameCard, setCurrentGameCard] = React.useState(availableGames[1]);
+  // const [currentGameCard, setCurrentGameCard] = React.useState({} as GameCard)
   const changeGame = (card: GameCard): void => {
     setCurrentGameCard(card);
     setGameIsOn(true);

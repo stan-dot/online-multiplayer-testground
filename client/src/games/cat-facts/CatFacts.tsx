@@ -1,4 +1,5 @@
 import React from 'react';
+import { CatOutput } from './CatOutput';
 import { defaultText } from './defaults';
 
 const url: string = 'https://catfact.ninja/fact';
@@ -13,8 +14,8 @@ export default function CatFacts(): JSX.Element {
       const reader: ReadableStreamDefaultReader<Uint8Array> = r.body!.getReader();
       reader.read().then(({ done, value }) => {
         const str: string = new TextDecoder().decode(value);
-        const j = JSON.parse(str);
-        setMainText(j.fact!);
+        const j: CatOutput = JSON.parse(str);
+        setMainText(j.fact);
       });
     } catch (error) {
       console.error('could not log the cat fact');
