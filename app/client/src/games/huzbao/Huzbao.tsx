@@ -29,6 +29,7 @@ export default function Huzbao(): JSX.Element {
   return (
     <>
       <h2>Huzbao</h2>
+      <canvas id='canvas'>does not support</canvas>
       {gameSettings.gameIsOn ? (
         <ActiveHuzbaoGame
           variant={boardVariant}
