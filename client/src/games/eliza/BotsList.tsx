@@ -6,4 +6,4 @@ export const BotsList = () => <div>
     <li>Echo bot</li>
     <li>Eliza bot</li>
   </ul>
-</div>;
+</div>
