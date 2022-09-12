@@ -1,5 +1,6 @@
 /*
   elizabot.js v.1.1 - ELIZA JS library (N.Landsteiner 2005)
+  2022 update S.Malinowski
   Eliza is a mock Rogerian psychotherapist.
   Original program by Joseph Weizenbaum in MAD-SLIP for "Project MAC" at MIT.
   cf: Weizenbaum, Joseph "ELIZA - A Computer Program For the Study of Natural Language
@@ -14,7 +15,6 @@
 */
 export type ElizaOptions = {
   capitalizeFirstLetter: boolean;
-  randomResponses: boolean;
   version: string;
   debug: boolean;
 };

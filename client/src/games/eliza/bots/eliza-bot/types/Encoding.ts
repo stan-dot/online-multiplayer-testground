@@ -2,7 +2,7 @@ export type ElizaKeyword = [
   name: string,
   rank: number,
   mappings: DecompEncoding[],
-  originalIndex: number,
+  originalIndex?: number,
 ];
 export type DecompEncoding = [
   name: string,

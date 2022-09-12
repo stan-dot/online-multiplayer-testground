@@ -1,4 +1,4 @@
-import { ElizaKeyword } from "../types/PostTransform";
+import { ElizaKeyword } from "../types/Encoding";
 
 export const elizaKeywords: ElizaKeyword[] = [
   [

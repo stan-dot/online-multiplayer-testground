@@ -6,12 +6,37 @@ import { DecompEncoding, ElizaKeyword } from './types/Encoding';
 import { PostTransform } from './types/PostTransform';
 import { sortKeywords } from './utils/sortKeywords';
 import { unifyTextString } from './transformers/unifyTextString';
+import { TransformResponse } from './TransformResponse';
+import MemoryManager from './MemoryManger';
+
+type TransformerOptions = {
+  debug?: boolean;
+  randomResponses?: boolean;
+};
 
 export default class TextTransformer {
+  private lastchoice: any;
+  private options: TransformerOptions = { debug: true, randomResponses: false };
+  private preExp: RegExpExecArray;
+  private postExp: RegExpExecArray;
+  private _dataParsed: boolean;
+  private memoryManger: MemoryManager;
+  private sentence: string;
+  private data: ElizaData;
   constructor() {}
 
-  static execRule(data: ElizaData, random: boolean, debug?: boolean): string {
-    var rule = data.keyWords[k];
+  public reset(): void {
+    this.memoryManger.reset();
+    this.lastchoice = [];
+    for (var k = 0; k < this.data.keyWords.length; k++) {
+      this.lastchoice[k] = [];
+      var rules = this.data.keyWords[k][2];
+      for (var i = 0; i < rules.length; i++) this.lastchoice[k][i] = -1;
+    }
+  }
+
+  private _execRule(ruleNumber: number): string {
+    var rule = this.data.keyWords[ruleNumber];
     var decomps = rule[2];
     var paramre = /\(([0-9]+)\)/;
     for (var i = 0; i < decomps.length; i++) {
@@ -19,26 +44,29 @@ export default class TextTransformer {
       if (m != null) {
         var reasmbs = decomps[i][1];
         var memflag = decomps[i][2];
-        var ri = random ? 0 : Math.floor(Math.random() * reasmbs.length);
+        var ri = this.options.randomResponses
+          ? 0
+          : Math.floor(Math.random() * reasmbs.length);
         if (
-          (random && this.lastchoice[k][i] > ri) ||
-          this.lastchoice[k][i] == ri
+          (this.options.randomResponses &&
+            this.lastchoice[ruleNumber][i] > ri) ||
+          this.lastchoice[ruleNumber][i] == ri
         ) {
-          ri = ++this.lastchoice[k][i];
+          ri = ++this.lastchoice[ruleNumber][i];
           if (ri >= reasmbs.length) {
             ri = 0;
-            this.lastchoice[k][i] = -1;
+            this.lastchoice[ruleNumber][i] = -1;
           }
         } else {
-          this.lastchoice[k][i] = ri;
+          this.lastchoice[ruleNumber][i] = ri;
         }
         var rpl = reasmbs[ri];
-        if (this.debug)
+        if (this.options.debug)
           alert(
             'match:\nkey: ' +
-              data.keyWords[k][0] +
+              this.data.keyWords[ruleNumber][0] +
               '\nrank: ' +
-              data.keyWords[k][1] +
+              this.data.keyWords[ruleNumber][1] +
               '\ndecomp: ' +
               decomps[i][0] +
               '\nreasmb: ' +
@@ -46,7 +74,7 @@ export default class TextTransformer {
               '\nmemflag: ' +
               memflag,
           );
-        if (rpl.search('^goto ', 'i') == 0) {
+        if (rpl.search('^goto ') == 0) {
           let ki = this._getRuleIndexByKey(rpl.substring(5));
           if (ki) return this._execRule(ki);
         }
@@ -75,7 +103,7 @@ export default class TextTransformer {
           }
           rpl = lp + rp;
         }
-        rpl = this._postTransform(rpl, data.postTransforms);
+        rpl = this._postTransform(rpl, this.data.postTransforms);
         if (memflag) this.memoryManger.addToMemory(rpl);
         else return rpl;
       }
@@ -83,7 +111,98 @@ export default class TextTransformer {
     return '';
   }
 
-  _postTransform(
+  public init(): void {
+    // parse data and convert it from canonical form to internal use
+    const synPatterns: Map<string, string> = getPatterns(this.data.synonyms);
+    // check for keywords or install empty structure to prevent any errors
+    if (!this.data.keyWords) {
+      this.data.keyWords = [['###', 0, [['###', []]], 0]];
+    }
+    // check for elizaQuits and install default if missing
+    if (!this.data.farewells) {
+      this.data.farewells = [];
+    }
+
+    this.convertRulesToRegexes(synPatterns);
+    this.data.keyWords.sort(sortKeywords);
+
+    let preExp = {};
+    let pres = {};
+    let postExp = {};
+    let posts = {};
+    if (this.data.pres && this.data.pres.length) {
+      const res: FixesReturn = this.getFixes(this.data.pres);
+    }
+    if (this.data.posts && this.data.posts.length) {
+      const res: FixesReturn = this.getFixes(this.data.posts);
+    }
+    this._dataParsed = true;
+  }
+
+  public transform(text: string): TransformResponse {
+    var rpl = '';
+    const parts = unifyTextString(text).split('.');
+    for (var i = 0; i < parts.length; i++) {
+      var part = parts[i];
+      if (part !== '') {
+        // check for quit expression
+        for (var q = 0; q < this.data.farewells.length; q++) {
+          if (this.data.farewells[q] == part) {
+            return {
+              text: '',
+              quit: true,
+            };
+          }
+        }
+        var m = this.preExp.exec(part);
+        m = this.preExp.reduce((previous:string, current:string)=> current.exec)
+        if (m) {
+          var lp = '';
+          var rp = part;
+          while (m) {
+            lp += rp.substring(0, m.index) + this.preExp[m[1]];
+            rp = rp.substring(m.index + m[0].length);
+            m = this.preExp.exec(rp);
+          }
+          part = lp + rp;
+        }
+        this.sentence = part;
+        // loop trough keywords
+        for (let keyword in this.data.keyWords) {
+          if (part.search(new RegExp(`\\b ${keyword[0]}\\b`, 'i')) >= 0) {
+            rpl = this._execRule(k);
+          }
+          if (rpl != '') return { text: rpl, quit: false };
+        }
+        for (var k = 0; k < this.data.keyWords.length; k++) {
+          if (
+            part.search(
+              new RegExp(`\\b${this.data.keyWords[k][0]} \\b`, 'i'),
+            ) >= 0
+          ) {
+            rpl = this._execRule(k);
+          }
+          if (rpl != '') return { text: rpl, quit: false };
+        }
+      }
+    }
+    // nothing matched try mem
+    rpl = this.memoryManger.get(this.options.randomResponses ?? false);
+    // if nothing in mem, so try xnone
+    if (rpl == '') {
+      this.sentence = ' ';
+      const k:number = this._getRuleIndexByKey('xnone');
+      if (k) rpl = this._execRule(k);
+    }
+    // return reply or default string
+    const response: TransformResponse = {
+      text: rpl !== '' ? rpl : 'I am at a loss for words.',
+      quit: false,
+    };
+    return response;
+  }
+
+  private _postTransform(
     s: string,
     postTransforms: PostTransform[],
     capitalize?: boolean,
@@ -111,72 +230,16 @@ export default class TextTransformer {
     return s;
   }
 
-  transform(text): string {
-    var rpl = '';
-    this.quit = false;
-    // unify text string
-    text = unifyTextString(text);
-    // split text in part sentences and loop through them
-    var parts = text.split('.');
-    for (var i = 0; i < parts.length; i++) {
-      var part = parts[i];
-      if (part !== '') {
-        // check for quit expression
-        for (var q = 0; q < this.data.farewells.length; q++) {
-          if (this.data.farewells[q] == part) {
-            this.quit = true;
-            return this.getFinal();
-          }
-        }
-        var m = this.preExp.exec(part);
-        if (m) {
-          var lp = '';
-          var rp = part;
-          while (m) {
-            lp += rp.substring(0, m.index) + this.pres[m[1]];
-            rp = rp.substring(m.index + m[0].length);
-            m = this.preExp.exec(rp);
-          }
-          part = lp + rp;
-        }
-        this.sentence = part;
-        // loop trough keywords
-        for (let keyword in this.data.keyWords) {
-          if (part.search(new RegExp('\\b' + keyword[0] + '\\b', 'i')) >= 0) {
-            rpl = this._execRule(k);
-          }
-          if (rpl != '') return rpl;
-        }
-        for (var k = 0; k < this.data.keyWords.length; k++) {
-          if (
-            part.search(
-              new RegExp('\\b' + this.data.keyWords[k][0] + '\\b', 'i'),
-            ) >= 0
-          ) {
-            rpl = this._execRule(k);
-          }
-          if (rpl != '') return rpl;
-        }
-      }
-    }
-    // nothing matched try mem
-    rpl = this.memoryManger.get(this.options.randomResponses);
-    // if nothing in mem, so try xnone
-    if (rpl == '') {
-      this.sentence = ' ';
-      const k = this._getRuleIndexByKey('xnone');
-      if (k) rpl = this._execRule(k);
-    }
-    // return reply or default string
-    return rpl != '' ? rpl : 'I am at a loss for words.';
-  }
-
-  _getRuleIndexByKey(key): ElizaKeyword | undefined {
-    return this.data.keyWords.find((k: ElizaKeyword) => k[0] === key);
+  private _getRuleIndexByKey(key: string): number {
+    var index = 0;
+    this.data.keyWords.find(
+      (k: ElizaKeyword, index: number) => k[0] === key && index++,
+    ) ;
+    return index;
   }
 
   private getFixes(arr: any[]): FixesReturn {
-    let newArr = [];
+    let newArr: any[] = [];
     if (arr && arr.length) {
       var a = new Array();
       for (var i = 0; i < arr.length; i += 2) {
@@ -189,62 +252,38 @@ export default class TextTransformer {
       };
     }
     // default (should not match)
-    newArr['####'] = '####';
+    // newArr['####'] = '####';
     return {
       arr: newArr,
       regExp: /####/,
     };
   }
 
-  private _init(): void {
-    // parse data and convert it from canonical form to internal use
-    const synPatterns: Map<string, string> = getPatterns(this.data.synonyms);
-    // check for keywords or install empty structure to prevent any errors
-    if (!this.data.keyWords) {
-      this.data.keyWords = [['###', 0, [['###', []]], 0]];
+  private convertRulesToRegexes(synPatterns: Map<string, string>): void {
+    for (var k = 0; k < this.data.keyWords.length; k++) {
+      this.addRule(k, synPatterns);
     }
-    // check for elizaQuits and install default if missing
-    if (!this.data.farewells) {
-      this.data.farewells = [];
-    }
-
-    var i = this.rulesToRegexes(synPatterns);
-    this.data.keyWords.sort(sortKeywords);
-
-    let preExp = {};
-    let pres = {};
-    let postExp = {};
-    let posts = {};
-    if (this.data.pres && this.data.pres.length) {
-      const res: FixesReturn = this.getFixes(this.data.pres);
-    }
-    if (this.data.posts && this.data.posts.length) {
-      const res = this.getFixes(this.data.posts);
-    }
-    this._dataParsed = true;
   }
 
-  private rulesToRegexes(synPatterns: Map<string, string>) {
-    for (var k = 0; k < this.data.keyWords.length; k++) {
-      var rules = this.data.keyWords[k][2];
-      this.data.keyWords[k][3] = k; // save original index for sorting
-      for (var i = 0; i < rules.length; i++) {
-        var r = rules[i];
-        // check mem flag and store it as decomp's element 2
-        if (r[0].charAt(0) == '$') {
-          var ofs = 1;
-          while (r[0].charAt[ofs] == ' ') ofs++;
-          r[0] = r[0].substring(ofs);
-          r[2] = true;
-        } else {
-          r[2] = false;
-        }
-        let m: RegExpExecArray = this.expandSynonyms(r, synPatterns);
-        m = this.expandAsteriskExpressions(r, m);
-        const wsre = /\s+/g;
-        r[0] = r[0].replace(wsre, '\\s+');
-        wsre.lastIndex = 0;
+  private addRule(k: number, synPatterns: Map<string, string>) {
+    const rules: DecompEncoding[] = this.data.keyWords[k][2];
+    this.data.keyWords[k][3] = k; // save original index for sorting
+    for (var i = 0; i < rules.length; i++) {
+      var r = rules[i];
+      // check mem flag and store it as decomp's element 2
+      if (r[0].charAt(0) == '$') {
+        var ofs = 1;
+        while (r[0].charAt(ofs) === ' ') ofs++;
+        r[0] = r[0].substring(ofs);
+        r[2] = true;
+      } else {
+        r[2] = false;
       }
+      let m: RegExpExecArray = this.expandSynonyms(r, synPatterns);
+      m = this.expandAsteriskExpressions(r, m);
+      const wsre: RegExp = /\s+/g;
+      r[0] = r[0].replace(wsre, '\\s+');
+      wsre.lastIndex = 0;
     }
   }
 
@@ -255,7 +294,7 @@ export default class TextTransformer {
     const sre: RegExp = /@(\S+)/;
     var m: RegExpExecArray = sanitizeExec(sre.exec(r[0]));
     while (m) {
-      const sp = synPatterns[m[1]] ? synPatterns[m[1]] : m[1];
+      const sp = synPatterns.get(m[1]) ?? m[1];
       r[0] =
         r[0].substring(0, m.index) + sp + r[0].substring(m.index + m[0].length);
       m = sanitizeExec(sre.exec(r[0]));

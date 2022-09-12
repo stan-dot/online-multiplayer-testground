@@ -1,7 +1,7 @@
 // https://github.com/PatInshuti/ELIZA-api/blob/main/node_modules/eliza-as-promised/lib/elizadata.js
 
 import { Synonym } from '../types/Synonym';
-import { UnaryTransformer } from './UnaryTransformer';
+import { UnaryTransformer } from '../types/UnaryTransformer';
 
 export const elizaInitials: string[] = [
   'How do you do.  Please tell me your problem.',

@@ -1,9 +1,9 @@
-export function unifyTextString(text: any) {
-  text = text.toLowerCase();
-  text = text.replace(/@#\$%\^&\*\(\)_\+=~`\{\[\}\]\|:;<>\/\\\t/g, ' ');
-  text = text.replace(/\s+-+\s+/g, '.');
-  text = text.replace(/\s*[,\.\?!;]+\s*/g, '.');
-  text = text.replace(/\s*\bbut\b\s*/g, '.');
-  text = text.replace(/\s{2,}/g, ' ');
-  return text;
+export function unifyTextString(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/@#\$%\^&\*\(\)_\+=~`\{\[\}\]\|:;<>\/\\\t/g, ' ')
+    .replace(/\s+-+\s+/g, '.')
+    .replace(/\s*[,\.\?!;]+\s*/g, '.')
+    .replace(/\s*\bbut\b\s*/g, '.')
+    .replace(/\s{2,}/g, ' ');
 }
