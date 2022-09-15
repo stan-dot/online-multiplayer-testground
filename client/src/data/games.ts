@@ -25,6 +25,10 @@ export const availableGames: GameCard[] = [
     folder: 'webgl-test',
     componentName: 'WebGlTest',
   },
+  {
+    folder: 'game-of-life',
+    componentName: 'ConwaysGame',
+  }
   // {
   //   folder: 'snake',
   //   componentName: 'SnakeGame',
