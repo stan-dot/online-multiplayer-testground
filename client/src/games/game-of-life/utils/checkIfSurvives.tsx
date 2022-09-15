@@ -1,7 +1,7 @@
 
-function checkIfSurvives(x: number, y: number, cell: number): number {
-  let count = countNeighbours(x, y, cell);
-  if (cell > 0) {
+function checkIfSurvives(x: number, y: number, cellValue: number, cells: number[][]): number {
+  let count = countNeighbours(x, y, cells);
+  if (cellValue > 0) {
     return (count === 2 || count === 3) ? 1 : 0;
   }
   return count === 3 ? 1 : 0;
@@ -43,9 +43,8 @@ export function getUpdatedGrid(cells: number[][]): number[][] {
   var result: number[][] = [];
 
   cells.forEach((row, x) => {
-    result[x] = row.map((cell, yCoor) => checkIfSurvives(x, yCoor, cell));
+    result[x] = row.map((cellValue, yCoor) => checkIfSurvives(x, yCoor, cellValue, cells));
   });
 
-  cells = result;
-  return cells;
+  return result
 }
