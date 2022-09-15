@@ -7,6 +7,7 @@ just replicate this, add some starting choice to be able to select the starting 
 maybe the available shapes??
 
 
+- [ ] speed setting
 - [ ] a choice of direction the glider and obstacles
 - [ ] a choice of different gliders & other structures
 - [ ] rewriting the mechanics of the update in Rust

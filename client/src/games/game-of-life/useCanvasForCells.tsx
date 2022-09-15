@@ -15,13 +15,22 @@ export const useCanvasForCells = (
     ctx.strokeStyle = '#e1e1e1';
     ctx.fillStyle = 'cadetblue';
     let cells: number[][] = data.cells;
-    // const render = () => draw(ctx, data.cells);
-    setTimeout(() => {
-      cells = getUpdatedGrid(cells)
-      draw(ctx, cells);
-      console.log('drawgin the new bit');
-    }, DEFAULT_TIME_PERIOD);
-    // render();
+    let frameCount = 0;
+    let animationFrameId = 0;
+    const render = () => {
+      frameCount++;
+      // todo change to seconds based approach
+      if (frameCount > DEFAULT_TIME_PERIOD) {
+        cells = getUpdatedGrid(cells);
+        draw(ctx, cells);
+        frameCount = 0
+      }
+      animationFrameId = window.requestAnimationFrame(render);
+    }
+    render();
+    return () => {
+      window.cancelAnimationFrame(animationFrameId);
+    }
   }, [draw]);
 
   return canvasRef;
