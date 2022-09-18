@@ -1,4 +1,4 @@
-import { SideEffectCanvasFunction } from "../types/drawingTypes";
+import { SideEffectCanvasFunction } from "../../raw-canvas/types/drawingTypes";
 
 export const postdraw: SideEffectCanvasFunction = (context: CanvasRenderingContext2D, canvas: HTMLCanvasElement): void => {
   context.restore();

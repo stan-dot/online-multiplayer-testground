@@ -17,6 +17,9 @@ export default class MaxMoveBot extends HuzbaoBot {
     return getBestMove(movesWithGems);
   }
 
-  public getMoveGemsTaken(state: HuzbaoGameState, move: Move): number {}
+  // todo fix this
+  public getMoveGemsTaken(state: HuzbaoGameState, move: Move): number {
+    return 1;
+  }
 
 }

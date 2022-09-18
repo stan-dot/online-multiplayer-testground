@@ -17,4 +17,5 @@ export type ElizaOptions = {
   capitalizeFirstLetter: boolean;
   version: string;
   debug: boolean;
+  randomResponses: boolean;
 };

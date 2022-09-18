@@ -18,5 +18,8 @@ export default class PreventEnemyMoves extends HuzbaoBot {
     return getBestMove(movesWithGems);
   }
 
-  public getMoveReduction(state: HuzbaoGameState, move: Move): number {}
+  // todo clear this
+  public getMoveReduction(state: HuzbaoGameState, move: Move): number {
+    return 1;
+  }
 }

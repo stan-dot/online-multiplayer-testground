@@ -5,6 +5,7 @@ import PreventEnemyMoves from './PreventEnemyMoves.bot';
 
 export const possibleBots: BotCaller[] = [
   {
+    name: 'maxGemsPerMoveBot',
     signature: {
       id: '1',
       name: 'maxGemsPerMoveBot',
@@ -13,6 +14,7 @@ export const possibleBots: BotCaller[] = [
     caller: (signature: PlayerSignature) => new MaxMoveBot(signature),
   },
   {
+    name: 'maxMovesPreventedBot',
     signature: {
       id: '2',
       name: 'maxMovesPreventedBot',
