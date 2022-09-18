@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { BotCaller } from '../huzbao/bot/BotCaller';
+import { possibleBots } from '../huzbao/bot/bots';
 import { BotsList } from './BotsList';
 import { TerminalPanel } from './TerminalPanel';
 
 export default function Eliza(): JSX.Element {
+  const defaultBot: BotCaller = possibleBots[0];
+  const [currentBot, setCurrentBot] = useState(defaultBot)
   // todo lazy load the bots
   return <div id='terminal-container'>
-    <BotsList />
-    <TerminalPanel />
+    <BotsList callback={setCurrentBot} />
+    <TerminalPanel bot={currentBot} />
     <Footer />
   </div>
 }

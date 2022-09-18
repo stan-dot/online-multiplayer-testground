@@ -1,4 +1,4 @@
 export type FixesReturn = {
-  arr: any[];
+  arr: Map<string, string>;
   regExp: RegExp;
 };

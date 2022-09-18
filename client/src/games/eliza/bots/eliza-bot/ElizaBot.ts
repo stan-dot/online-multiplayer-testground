@@ -1,7 +1,7 @@
 import { Bot } from '../../types/Bot';
 import MemoryManager from './MemoryManger';
 import TextTransformer from './TextTransformer';
-import { TransformResponse } from './TransformResponse';
+import { TransformResponse } from './types/TransformResponse';
 import { ElizaData } from './types/ElizaData';
 import { ElizaOptions } from './types/ElizaOptions';
 import { getRandomFromGenericArray } from './utils/getRandomFromGenericArray';
@@ -11,7 +11,6 @@ export default class ElizaBot implements Bot {
   private data: ElizaData;
   private textTransformer: TextTransformer;
   private options: ElizaOptions;
-  private _dataIsParsed: boolean;
 
   constructor(data: ElizaData, noRandomFlag: boolean) {
     this.options = {
@@ -22,9 +21,7 @@ export default class ElizaBot implements Bot {
     };
     this.name = 'elizaBot';
     this.data = data;
-    this._dataIsParsed = false;
     this.textTransformer = new TextTransformer(); // todo tbh that might just be static, as it's stateless
-    if (!this._dataIsParsed) this.textTransformer.init();
     this.reset();
   }
   private getFinal(): string {
@@ -36,9 +33,10 @@ export default class ElizaBot implements Bot {
   }
 
   // todo this was async, might not quite work that way. the problems of oop...
-  public getResponse(statement: string): string {
-    const reply: TransformResponse = this.textTransformer.transform(statement);
+  public getResponse(question: string): string {
+    const reply: TransformResponse = this.textTransformer.transform(question);
     if (reply.quit) {
+      this.reset();
       return this.getFinal();
     }
     return reply.text;
@@ -46,6 +44,5 @@ export default class ElizaBot implements Bot {
 
   private reset() {
     this.textTransformer.reset();
-
   }
 }

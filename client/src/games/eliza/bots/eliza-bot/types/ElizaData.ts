@@ -9,7 +9,7 @@ export type ElizaData = {
   synonyms: Synonym[];
   finals: string[];
   welcomes: string[];
-  farewells: string[];
-  posts: UnaryTransformer;
-  pres: UnaryTransformer;
+  quits: string[];
+  posts: UnaryTransformer[];
+  pres: UnaryTransformer[];
 };
