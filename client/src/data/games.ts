@@ -5,30 +5,31 @@ export const availableGames: GameCard[] = [
     folder: 'cat-facts',
     componentName: 'CatFacts',
   },
-  // {
-  //   folder: 'eliza',
-  //   componentName: 'Eliza',
-  // },
-  // {
-  //   folder: 'minesweeper',
-  //   componentName: 'Minesweeper',
-  // },
   {
     folder: 'raw-canvas',
     componentName: 'CanvasGame',
   },
-  // {
-  //   folder: 'huzbao',
-  //   componentName: 'Huzbao',
-  // },
   {
     folder: 'webgl-test',
     componentName: 'WebGlTest',
   },
   {
+    folder: 'eliza',
+    componentName: 'Eliza',
+  },
+
+  {
+    folder: 'huzbao',
+    componentName: 'Huzbao',
+  },
+  {
     folder: 'game-of-life',
     componentName: 'ConwaysGame',
   },
+  // {
+  //   folder: 'minesweeper',
+  //   componentName: 'Minesweeper',
+  // },
   // {
   //   folder: 'snake',
   //   componentName: 'SnakeGame',

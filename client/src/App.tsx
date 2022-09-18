@@ -8,9 +8,11 @@ import { GameCard } from './types/GameCard';
 import { SocketWrapper } from './wrappers/Socket.wrapper';
 import { availableGames } from './data/games';
 
+// font and background
+const colors = ['#80F', '#0AA']
 export default function App() {
   const [gameIsOn, setGameIsOn] = React.useState(true);
-  const gameName: string = 'ConwaysGame';
+  const gameName: string = 'Eliza';
   const game: GameCard = availableGames.find(g => g.componentName === gameName) || availableGames[0];
   const [currentGameCard, setCurrentGameCard] = React.useState(game);
   // const [currentGameCard, setCurrentGameCard] = React.useState({} as GameCard)
