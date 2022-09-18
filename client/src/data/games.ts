@@ -1,14 +1,14 @@
-import { GameCard } from "../types/GameCard";
+import { GameCard } from '../types/GameCard';
 
 export const availableGames: GameCard[] = [
   {
     folder: 'cat-facts',
-    componentName: 'CatFacts'
+    componentName: 'CatFacts',
   },
-  {
-    folder: 'eliza',
-    componentName: 'Eliza',
-  },
+  // {
+  //   folder: 'eliza',
+  //   componentName: 'Eliza',
+  // },
   // {
   //   folder: 'minesweeper',
   //   componentName: 'Minesweeper',
@@ -17,10 +17,10 @@ export const availableGames: GameCard[] = [
     folder: 'raw-canvas',
     componentName: 'CanvasGame',
   },
-  {
-    folder: 'huzbao',
-    componentName: 'Huzbao',
-  },
+  // {
+  //   folder: 'huzbao',
+  //   componentName: 'Huzbao',
+  // },
   {
     folder: 'webgl-test',
     componentName: 'WebGlTest',
@@ -28,7 +28,7 @@ export const availableGames: GameCard[] = [
   {
     folder: 'game-of-life',
     componentName: 'ConwaysGame',
-  }
+  },
   // {
   //   folder: 'snake',
   //   componentName: 'SnakeGame',

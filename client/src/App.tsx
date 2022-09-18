@@ -10,7 +10,9 @@ import { availableGames } from './data/games';
 
 export default function App() {
   const [gameIsOn, setGameIsOn] = React.useState(true);
-  const [currentGameCard, setCurrentGameCard] = React.useState(availableGames[5]);
+  const gameName: string = 'ConwaysGame';
+  const game: GameCard = availableGames.find(g => g.componentName === gameName) || availableGames[0];
+  const [currentGameCard, setCurrentGameCard] = React.useState(game);
   // const [currentGameCard, setCurrentGameCard] = React.useState({} as GameCard)
   const changeGame = (card: GameCard): void => {
     setCurrentGameCard(card);
