@@ -45,7 +45,7 @@ export default function TerminalHandler(props: {}): JSX.Element {
         const char = key.domEvent.key;
         console.log('the click was at', char);
         if (char === "Enter") {
-          prompt();
+          prompt(term);
         } else if (char === "Backspace") {
           term.write("\b \b");
         } else {
