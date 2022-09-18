@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BotCaller } from '../huzbao/bot/BotCaller';
 import { possibleBots } from '../huzbao/bot/bots';
 import { BotsList } from './BotsList';
+import TerminalHandler from './TerminalHandler';
 import { TerminalPanel } from './TerminalPanel';
 
 export default function Eliza(): JSX.Element {
@@ -10,8 +11,9 @@ export default function Eliza(): JSX.Element {
   // todo lazy load the bots
   return <div id='terminal-container'>
     <BotsList callback={setCurrentBot} />
-    <TerminalPanel bot={currentBot} />
+    {/* <TerminalPanel bot={currentBot} /> */}
     <Footer />
+    <TerminalHandler />
   </div>
 }
 
