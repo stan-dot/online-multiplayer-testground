@@ -22,7 +22,7 @@ const TerminalContainerStyle: React.CSSProperties = {
 };
 
 // const RESET_MAGIC_SPELL: string = '\\33[2K\r\u001b[32mscm> \u001b[37m';
-const RESET_MAGIC_SPELL: string = '\\33[2K\r\u001b[32mscm> \u001b[37m';
+const RESET_MAGIC_SPELL: string = '';
 
 export default function TerminalHandler(props: { bot: Bot }): JSX.Element {
   const [entries, setEntries] = useState([] as string[]);
@@ -35,33 +35,16 @@ export default function TerminalHandler(props: { bot: Bot }): JSX.Element {
   useEffect(() => {
     if (!term.element) {
       terminal.loadAddon(fitAddon);
+      fitAddon.fit();
       const terminalElement: HTMLElement = document.getElementById('xterm')!;
+      // Make the terminal's size and geometry fit the size of #terminal-container
       terminal.open(terminalElement);
       terminal.write(WELCOME_TEXT);
-      // Make the terminal's size and geometry fit the size of #terminal-container
-      fitAddon.fit();
       console.log('just after fitting the addon');
       prompt(term);
       return () => { };
     }
   }, []);
-
-  terminal.onKey(v => {
-    console.log('key detected');
-    handleEvent(
-      terminal,
-      props,
-      prompt,
-      currentLine,
-      setEntries,
-      entries,
-      setCurrentLine,
-      setCurrentPosition,
-      currentPosition,
-      setTerminal,
-      term,
-    )(v);
-  });
 
   const prompt = (term?: Terminal): void => {
     console.log('trying out prompt', terminal);
@@ -71,6 +54,19 @@ export default function TerminalHandler(props: { bot: Bot }): JSX.Element {
       term?.write('\r\n' + PROMPT_SIGN);
     }
   };
+
+  const handler = handleEvent(
+    terminal,
+    props,
+    prompt,
+    currentLine,
+    setEntries,
+    entries,
+    setCurrentLine,
+    setCurrentPosition,
+    currentPosition,
+  );
+  terminal.onKey(handler);
 
   return (
     <div id={'terminal-container'} style={TerminalContainerStyle}>
@@ -107,7 +103,6 @@ function handleEvent(
   currentLine: string,
   setEntries: {
     (value: SetStateAction<string[]>): void;
-    (value: SetStateAction<string[]>): void;
     (arg0: string[]): void;
   },
   entries: string[],
@@ -117,19 +112,9 @@ function handleEvent(
   },
   setCurrentPosition: {
     (value: SetStateAction<number>): void;
-    (value: SetStateAction<number>): void;
-    (arg0: number): void;
-    (value: SetStateAction<number>): void;
-    (arg0: number): void;
-    (value: SetStateAction<number>): void;
     (arg0: number): void;
   },
   currentPosition: number,
-  setTerminal: {
-    (value: SetStateAction<Terminal>): void;
-    (arg0: Terminal): void;
-  },
-  term: Terminal,
 ) {
   return (keyboardEvent: { key: string; domEvent: KeyboardEvent }): void => {
     console.log('keyhandler defined');
@@ -189,14 +174,14 @@ function handleEvent(
         terminal.write(RESET_MAGIC_SPELL + currentLine);
         // terminal.write('\\033['.concat(currentPosition.toString()).concat('D'));
         // terminal.write('\\033[<N>D');
-      } else {
-        terminal.write(char);
       }
+      // else {
+      //   terminal.write(char);
+      // }
     } else {
       terminal.write(char);
     }
-    setTerminal(term);
-    prompt(term);
+    // setTerminal(term);
   };
 }
 
@@ -231,7 +216,7 @@ function reactToEnter(
     });
   }
   prompt(terminal);
-  const checkValue:RegExp = /^\s+|\s+$/g;
+  const checkValue: RegExp = /^\s+|\s+$/g;
   if (currentLine.replace(checkValue, '').length !== 0) {
     // Check if string is all whitespace
     setEntries(entries.concat([currentLine]));
@@ -309,7 +294,10 @@ function reactToBackspace(
     );
     const pos: number = currentLine.length - terminal.buffer.active.cursorX + 6;
     terminal.write(RESET_MAGIC_SPELL + currentLine);
-    terminal.write('\\033['.concat(pos.toString()).concat('D')); //term.write('\033[<N>D');
+    const testString = '\\033['.concat(pos.toString()).concat('D');
+    console.log(testString);
+    terminal.write(testString);
+    terminal.write('\\033[<N>D');
     if (
       terminal.buffer.active.cursorX == 5 ||
       terminal.buffer.active.cursorX == currentLine.length + 6
