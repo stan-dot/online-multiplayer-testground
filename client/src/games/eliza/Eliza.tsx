@@ -9,14 +9,16 @@ import { Bot } from './types/Bot';
 export default function Eliza(): JSX.Element {
   const defaultBot: Bot = new EchoBot('EchoBot1', 'some description');
   const [currentBot, setCurrentBot] = useState(defaultBot)
-  // todo lazy load the bots
+  const name = currentBot.name;
+  console.log('name', name);
+  console.log('bot', currentBot);
   return <div id='terminal-container'>
     <div>
       <div>
-        current bot:{currentBot.name}
+        current bot:{name}
       </div>
     </div>
-    <BotsList callback={setCurrentBot} />
+    <BotsList callback={setCurrentBot} startingBot={currentBot} />
     <TerminalHandler bot={currentBot} />
     <Footer currentBot={currentBot} />
   </div>

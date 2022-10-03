@@ -1,8 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { AvailableBots } from './types/AvailableBots';
+import { EchoBot } from './bots/echo-bot/EchoBot';
+import ElizaBot from './bots/eliza-bot/ElizaBot';
+import { RemoteBot } from './bots/remote-bot/RemoteBot';
+import { Bot } from './types/Bot';
 
-export function BotsList(props: { callback: Function }) {
-  const [chosen, setchosen] = useState(AvailableBots.ECHO);
+const botNameMap: Map<string, Bot> = new Map([
+  ['echo', new EchoBot('test1')],
+]);
+
+function BotCreator(name: string): Bot {
+  const n = 0;
+  // const bot: Bot = new ElizaBot(`name${n}`, true);
+
+  const bot = botNameMap.get(name) ?? new EchoBot('echo1');
+  return bot;
+}
+
+export function BotsList(props: { callback: React.Dispatch<React.SetStateAction<Bot>>, startingBot: Bot }) {
+  const [chosen, setchosen] = useState(props.startingBot);
   const [remoteUrl, setRemoteUrl] = useState('');
 
   useEffect(() => {
@@ -14,19 +29,20 @@ export function BotsList(props: { callback: Function }) {
 
   const handleRemoteClick = (v: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     console.log('clicked remote button', v);
-    setchosen(AvailableBots.REMOTE)
+    setchosen(new RemoteBot('gold2') as Bot)
   };
+
   return <div>
     <h2>List of bots available</h2>
     <ul>
       <li>
-        <button onClick={v => setchosen(AvailableBots.ECHO)}>
-          {AvailableBots.ECHO}
+        <button onClick={v => setchosen(BotCreator('echo'))}>
+          Echo bot
         </button>
       </li>
       <li>
-        <button onClick={v => setchosen(AvailableBots.ELIZA)}>
-          {AvailableBots.ELIZA}
+        <button disabled onClick={v => setchosen(BotCreator('eliza'))}>
+          Eliza Bot
         </button>
       </li>
     </ul>
@@ -35,7 +51,7 @@ export function BotsList(props: { callback: Function }) {
       <div>
         <input type={"url"} value={remoteUrl} onChange={v => setRemoteUrl(v.target.value)} />
         <button onClick={handleRemoteClick}>
-          {AvailableBots.REMOTE}
+          Remote Bot
         </button>
       </div>
     </div>
