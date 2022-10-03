@@ -11,11 +11,11 @@ import "./xterm.css";
 export default function TerminalHandler(props: { bot: Bot }): JSX.Element {
   const [logs, setlogs] = useState('');
   const fitAddon = new FitAddon();
-  const [terminal, setTerminal] = useState(null as unknown as Terminal);
+  const term: Terminal = new Terminal(DEFAULT_TERMINAL_SETTINGS);
+  const [terminal, setTerminal] = useState(term);
   useEffect(() => {
-    if (!terminal) {
-      const term: Terminal = new Terminal(DEFAULT_TERMINAL_SETTINGS);
-
+    console.log(terminal.element);
+    if (!term.element) {
       term.loadAddon(fitAddon);
       const terminalElement: HTMLElement = document.getElementById("xterm")!;
       term.open(terminalElement);
@@ -35,7 +35,15 @@ export default function TerminalHandler(props: { bot: Bot }): JSX.Element {
         if (char === "Enter") {
           const statement = 'test';
           term.write('\n\r' + statement + '\r\n\u001b[32mscm> \u001b[37m');
-          term.write(props.bot.getResponse(statement));
+          const response: string | Promise<string> = props.bot.getResponse(statement);
+          if (typeof response === 'string') {
+            term.write(response);
+          } else {
+            term.write('...');
+            response.then((v: string) => {
+              term.write(v);
+            })
+          }
           prompt(term);
           // Enter key
           // if (curr_line.replace(/^\s+|\s+$/g, '').length != 0) {

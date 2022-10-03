@@ -7,24 +7,26 @@ import { TerminalPanel } from './TerminalPanel';
 import { Bot } from './types/Bot';
 
 export default function Eliza(): JSX.Element {
-  const defaultBot: Bot = new EchoBot('EchoBot1');
+  const defaultBot: Bot = new EchoBot('EchoBot1', 'some decription');
   const [currentBot, setCurrentBot] = useState(defaultBot)
   // todo lazy load the bots
   return <div id='terminal-container'>
     <BotsList callback={setCurrentBot} />
     {/* <TerminalPanel bot={currentBot} /> */}
-    <Footer />
     <TerminalHandler bot={currentBot} />
+    <Footer currentBot={currentBot} />
   </div>
 }
 
-function Footer(): JSX.Element {
-  return <div>
-    <p>this is a modern typescript reimplementation of the 2005 js version, uploaded <a
-      href='
-        https://github.com/PatInshuti/ELIZA-api/tree/main/node_modules/eliza-as-promised)
-      '>here</a> in 2020.
-      made in 2020 by <a href='https://github.com/stan-dot'>stan-dot</a>
+function Footer(props: { currentBot: Bot }): JSX.Element {
+  const additionalText: string =  '';
+  // const additionalText: string = props.currentBot.getDescription() ?? '';
+  return <>
+    <p>
+      {additionalText}
     </p>
-  </div>
+    <p>
+      made in 2022 by <a href='https://github.com/stan-dot'>stan-dot</a>
+    </p>
+  </>
 }

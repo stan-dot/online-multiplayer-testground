@@ -6,13 +6,16 @@ import { ElizaData } from './types/ElizaData';
 import { ElizaOptions } from './types/ElizaOptions';
 import { getRandomFromGenericArray } from './utils/getRandomFromGenericArray';
 
-export default class ElizaBot implements Bot {
+export default class ElizaBot extends Bot {
   public name: string;
   private data: ElizaData;
   private textTransformer: TextTransformer;
   private options: ElizaOptions;
 
   constructor(data: ElizaData, noRandomFlag: boolean) {
+    const description: string =
+      'this is a modern typescript reimplementation of the 2005 js version, uploaded      https://github.com/PatInshuti/ELIZA-api/tree/main/node_modules/eliza-as-promised here ';
+    super('ElizaBot', description);
     this.options = {
       capitalizeFirstLetter: true,
       randomResponses: noRandomFlag ? false : true,
