@@ -5,20 +5,21 @@ import { RemoteBot } from './bots/remote-bot/RemoteBot';
 import { Bot } from './types/Bot';
 
 const botNameMap: Map<string, Bot> = new Map([
-  ['echo', new EchoBot('test1')],
+  ['echo', new EchoBot('Echo 1')],
 ]);
 
 function BotCreator(name: string): Bot {
   const n = 0;
   // const bot: Bot = new ElizaBot(`name${n}`, true);
 
-  const bot = botNameMap.get(name) ?? new EchoBot('echo1');
+  const bot = botNameMap.get(name) ?? new EchoBot('Default Bot');
   return bot;
 }
 
 export function BotsList(props: { callback: React.Dispatch<React.SetStateAction<Bot>>, startingBot: Bot }) {
   const [chosen, setchosen] = useState(props.startingBot);
-  const [remoteUrl, setRemoteUrl] = useState('');
+  const DEFAULT_DEVELEMENT_URL: string = 'http://localhost:5000/get';
+  const [remoteUrl, setRemoteUrl] = useState(DEFAULT_DEVELEMENT_URL);
 
   useEffect(() => {
     props.callback(chosen);
