@@ -7,19 +7,23 @@ import { TerminalPanel } from './TerminalPanel';
 import { Bot } from './types/Bot';
 
 export default function Eliza(): JSX.Element {
-  const defaultBot: Bot = new EchoBot('EchoBot1', 'some decription');
+  const defaultBot: Bot = new EchoBot('EchoBot1', 'some description');
   const [currentBot, setCurrentBot] = useState(defaultBot)
   // todo lazy load the bots
   return <div id='terminal-container'>
+    <div>
+      <div>
+        current bot:{currentBot.name}
+      </div>
+    </div>
     <BotsList callback={setCurrentBot} />
-    {/* <TerminalPanel bot={currentBot} /> */}
     <TerminalHandler bot={currentBot} />
     <Footer currentBot={currentBot} />
   </div>
 }
 
 function Footer(props: { currentBot: Bot }): JSX.Element {
-  const additionalText: string =  '';
+  const additionalText: string = '';
   // const additionalText: string = props.currentBot.getDescription() ?? '';
   return <>
     <p>
