@@ -1,166 +1,320 @@
-import { Resizable } from "re-resizable";
-import { useEffect, useState } from "react";
-import ResizeObserver from "react-resize-observer";
-import { Terminal } from "xterm";
-import { FitAddon } from "xterm-addon-fit";
-import "./App.css";
-import { DEFAULT_TERMINAL_SETTINGS, WelcomeText, PROMPT_SIGN } from "./defaults";
-import { Bot } from "./types/Bot";
-import "./xterm.css";
+import { Resizable } from 're-resizable';
+import { SetStateAction, useEffect, useState } from 'react';
+import ResizeObserver from 'react-resize-observer';
+import { Terminal } from 'xterm';
+import { FitAddon } from 'xterm-addon-fit';
+import {
+  DEFAULT_TERMINAL_SETTINGS,
+  WELCOME_TEXT,
+  PROMPT_SIGN,
+} from './defaults';
+import { Bot } from './types/Bot';
+import './xterm.css';
+
+const TerminalStyle: React.CSSProperties = {
+  height: '50rem',
+  width: '100rem',
+};
+const TerminalContainerStyle: React.CSSProperties = {
+  background: '',
+  fontFamily: 'sans-serif',
+  textAlign: 'center',
+};
+
+// const RESET_MAGIC_SPELL: string = '\\33[2K\r\u001b[32mscm> \u001b[37m';
+const RESET_MAGIC_SPELL: string = '\\33[2K\r\u001b[32mscm> \u001b[37m';
 
 export default function TerminalHandler(props: { bot: Bot }): JSX.Element {
-  const [logs, setlogs] = useState('');
+  const [entries, setEntries] = useState([] as string[]);
   const fitAddon = new FitAddon();
   const term: Terminal = new Terminal(DEFAULT_TERMINAL_SETTINGS);
   const [terminal, setTerminal] = useState(term);
-  useEffect(() => {
-    console.log(terminal.element);
-    if (!term.element) {
-      term.loadAddon(fitAddon);
-      const terminalElement: HTMLElement = document.getElementById("xterm")!;
-      term.open(terminalElement);
-      term.write(WelcomeText);
+  const [currentLine, setCurrentLine] = useState('');
+  const [currentPosition, setCurrentPosition] = useState(0);
 
+  useEffect(() => {
+    if (!term.element) {
+      terminal.loadAddon(fitAddon);
+      const terminalElement: HTMLElement = document.getElementById('xterm')!;
+      terminal.open(terminalElement);
+      terminal.write(WELCOME_TEXT);
       // Make the terminal's size and geometry fit the size of #terminal-container
       fitAddon.fit();
-
-      const keyHandler = (key: { key: string; domEvent: KeyboardEvent; }): void => {
-        const ev = key.domEvent;
-        const printable =
-          !ev.altKey &&
-          !ev.ctrlKey &&
-          !ev.metaKey;
-        const char = key.domEvent.key;
-        console.log('the click was at', char);
-        if (char === "Enter") {
-          const statement = 'test';
-          term.write('\n\r' + statement + '\r\n\u001b[32mscm> \u001b[37m');
-          const response: string | Promise<string> = props.bot.getResponse(statement);
-          if (typeof response === 'string') {
-            term.write(response);
-          } else {
-            term.write('...');
-            response.then((v: string) => {
-              term.write(v);
-            })
-          }
-          prompt(term);
-          // Enter key
-          // if (curr_line.replace(/^\s+|\s+$/g, '').length != 0) {
-          //   // Check if string is all whitespace
-          //   entries.push(curr_line);
-          //   currPos = entries.length - 1;
-          //   curr_line = '';
-          //   term.prompt();
-          // } else {
-          //   term.write('\n\33[2K\r\u001b[32mscm> \u001b[37m');
-          // }
-        } else if (char === "Backspace") {
-          term.write("\b \b");
-          // Backspace
-          // if (term.buffer.cursorX > 5) {
-          //   curr_line =
-          //     curr_line.slice(0, term.buffer.cursorX - 6) +
-          //     curr_line.slice(term.buffer.cursorX - 5);
-          //   pos = curr_line.length - term.buffer.cursorX + 6;
-          //   term.write('\33[2K\r\u001b[32mscm> \u001b[37m' + curr_line);
-          //   term.write('\033['.concat(pos.toString()).concat('D')); //term.write('\033[<N>D');
-          //   if (
-          //     term.buffer.cursorX == 5 ||
-          //     term.buffer.cursorX == curr_line.length + 6
-          //   ) {
-          //     term.write('\033[1C');
-          //   }
-          // }
-        } else if (ev.keyCode === 38) {
-          // Up arrow
-          // if (entries.length > 0) {
-          //   if (currPos > 0) {
-          //     currPos -= 1;
-          //   }
-          //   curr_line = entries[currPos];
-          //   term.write('\33[2K\r\u001b[32mscm> \u001b[37m' + curr_line);
-          // }
-        } else if (ev.keyCode === 40) {
-          // Down arrow
-          // currPos += 1;
-          // if (currPos === entries.length || entries.length === 0) {
-          //   currPos -= 1;
-          //   curr_line = '';
-          //   term.write('\33[2K\r\u001b[32mscm> \u001b[37m');
-          // } else {
-          //   curr_line = entries[currPos];
-          //   term.write('\33[2K\r\u001b[32mscm> \u001b[37m' + curr_line);
-          // }
-        } else if (
-          printable
-          // !(ev.keyCode === 39 && term.buffer.cursorX > curr_line.length + 4)
-        ) {
-          // if (ev.keyCode != 37 && ev.keyCode != 39) {
-          //   var input = ev.key;
-          //   if (ev.keyCode == 9) {
-          //     // Tab
-          //     input = '    ';
-          //   }
-          //   pos = curr_line.length - term.buffer.cursorX + 4;
-          //   curr_line = [
-          //     curr_line.slice(0, term.buffer.cursorX - 5),
-          //     input,
-          //     curr_line.slice(term.buffer.cursorX - 5),
-          //   ].join('');
-          //   term.write('\33[2K\r\u001b[32mscm> \u001b[37m' + curr_line);
-          //   term.write('\033['.concat(pos.toString()).concat('D')); //term.write('\033[<N>D');
-          // } else {
-          //   term.write(key);
-          // }
-          // }
-        } else {
-          term.write(char);
-        }
-
-        term.onKey(keyHandler);
-
-        setTerminal(term);
-        prompt(term);
-      }
-      return () => {
-      }
+      console.log('just after fitting the addon');
+      prompt(term);
+      return () => { };
     }
   }, []);
+
+  terminal.onKey(v => {
+    console.log('key detected');
+    handleEvent(
+      terminal,
+      props,
+      prompt,
+      currentLine,
+      setEntries,
+      entries,
+      setCurrentLine,
+      setCurrentPosition,
+      currentPosition,
+      setTerminal,
+      term,
+    )(v);
+  });
 
   const prompt = (term?: Terminal): void => {
     console.log('trying out prompt', terminal);
     if (terminal) {
+      terminal.write('\r\n' + PROMPT_SIGN);
     } else {
-      term?.write("\r\n" + PROMPT_SIGN);
+      term?.write('\r\n' + PROMPT_SIGN);
     }
   };
 
-  const TerminalSTyle = { height: '50rem', width: '100rem' };
   return (
-    <div className="App" style={{ background: "" }}>
+    <div id={'terminal-container'} style={TerminalContainerStyle}>
       <h1>{props.bot.name}</h1>
       <Resizable
         minWidth={350}
         minHeight={350}
         maxHeight={20}
         style={{
-          background: "firebrick",
-          padding: "0.4em",
-          margin: "1em"
+          background: 'firebrick',
+          padding: '0.4em',
+          margin: '1em',
         }}
       >
-        <div id="xterm" style={TerminalSTyle} />
+        <div id="xterm" style={TerminalStyle} />
         <ResizeObserver
           onResize={rect => {
             fitAddon.fit();
-            console.log("Resized. New bounds:", rect.width, "x", rect.height);
+            // console.log("Resized. New bounds:", rect.width, "x", rect.height);
           }}
           onPosition={rect => {
-            console.log("Moved. New position:", rect.left, "x", rect.top);
+            // console.log("Moved. New position:", rect.left, "x", rect.top);
           }}
         />
       </Resizable>
     </div>
   );
+}
+
+function handleEvent(
+  terminal: Terminal,
+  props: { bot: Bot },
+  prompt: (term?: Terminal) => void,
+  currentLine: string,
+  setEntries: {
+    (value: SetStateAction<string[]>): void;
+    (value: SetStateAction<string[]>): void;
+    (arg0: string[]): void;
+  },
+  entries: string[],
+  setCurrentLine: {
+    (value: SetStateAction<string>): void;
+    (arg0: string): void;
+  },
+  setCurrentPosition: {
+    (value: SetStateAction<number>): void;
+    (value: SetStateAction<number>): void;
+    (arg0: number): void;
+    (value: SetStateAction<number>): void;
+    (arg0: number): void;
+    (value: SetStateAction<number>): void;
+    (arg0: number): void;
+  },
+  currentPosition: number,
+  setTerminal: {
+    (value: SetStateAction<Terminal>): void;
+    (arg0: Terminal): void;
+  },
+  term: Terminal,
+) {
+  return (keyboardEvent: { key: string; domEvent: KeyboardEvent }): void => {
+    console.log('keyhandler defined');
+    const ev: KeyboardEvent = keyboardEvent.domEvent;
+    const printable: boolean = !ev.altKey && !ev.ctrlKey && !ev.metaKey;
+    const char: string = keyboardEvent.domEvent.key;
+    console.log('the click was at', char);
+    if (char === 'Enter') {
+      reactToEnter(
+        terminal,
+        props,
+        prompt,
+        currentLine,
+        setEntries,
+        entries,
+        setCurrentLine,
+        setCurrentPosition,
+      );
+    } else if (char === 'Backspace') {
+      reactToBackspace(terminal, setCurrentLine, currentLine);
+    } else if (char === 'UpArrow') {
+      reactToUpArrow(
+        entries,
+        currentPosition,
+        setCurrentPosition,
+        setCurrentLine,
+        terminal,
+        currentLine,
+      );
+    } else if (char === 'DownArrow') {
+      reactToDownArrow(
+        setCurrentPosition,
+        currentPosition,
+        entries,
+        setCurrentLine,
+        terminal,
+        currentLine,
+      );
+    } else if (
+      printable &&
+      !(
+        char === 'RightArrow' &&
+        terminal.buffer.active.cursorX > currentLine.length + 4
+      )
+    ) {
+      if (char !== 'LeftArrow' && char !== 'RightArrow') {
+        console.log('looks like regular string');
+        const input: string = char === 'Tab' ? '    ' : char;
+        setCurrentPosition(currentLine.length - terminal.buffer.active.cursorX + 4);
+        setCurrentLine(
+          [
+            currentLine.slice(0, terminal.buffer.active.cursorX - 5),
+            input,
+            currentLine.slice(terminal.buffer.active.cursorX - 5),
+          ].join(''),
+        );
+        terminal.write(RESET_MAGIC_SPELL + currentLine);
+        // terminal.write('\\033['.concat(currentPosition.toString()).concat('D'));
+        // terminal.write('\\033[<N>D');
+      } else {
+        terminal.write(char);
+      }
+    } else {
+      terminal.write(char);
+    }
+    setTerminal(term);
+    prompt(term);
+  };
+}
+
+function reactToEnter(
+  terminal: Terminal,
+  props: { bot: Bot },
+  prompt: (term?: Terminal) => void,
+  currentLine: string,
+  setEntries: {
+    (value: SetStateAction<string[]>): void;
+    (arg0: string[]): void;
+  },
+  entries: string[],
+  setCurrentLine: {
+    (value: SetStateAction<string>): void;
+    (arg0: string): void;
+  },
+  setCurrentPosition: {
+    (value: SetStateAction<number>): void;
+    (arg0: number): void;
+  },
+) {
+  const statement = 'test';
+  terminal.write('\n\r' + statement + '\r\n\u001b[32mscm> \u001b[37m');
+  const response: string | Promise<string> = props.bot.getResponse(statement);
+  if (typeof response === 'string') {
+    terminal.write(response);
+  } else {
+    terminal.write('...');
+    response.then((v: string) => {
+      terminal.write(v);
+    });
+  }
+  prompt(terminal);
+  const checkValue:RegExp = /^\s+|\s+$/g;
+  if (currentLine.replace(checkValue, '').length !== 0) {
+    // Check if string is all whitespace
+    setEntries(entries.concat([currentLine]));
+    setCurrentPosition(entries.length - 1);
+    setCurrentLine('');
+    prompt(terminal);
+  } else {
+    // todo odd string
+    const text = '\n\\33[2K\r\u001b[32mscm> \u001b[37m';
+    terminal.write(text);
+  }
+}
+
+function reactToDownArrow(
+  setCurrentPosition: {
+    (value: SetStateAction<number>): void;
+    (arg0: number): void;
+  },
+  currentPosition: number,
+  entries: string[],
+  setCurrentLine: {
+    (value: SetStateAction<string>): void;
+    (arg0: string): void;
+  },
+  terminal: Terminal,
+  currentLine: string,
+): void {
+  setCurrentPosition(currentPosition + 1);
+  if (currentPosition === entries.length || entries.length === 0) {
+    setCurrentPosition(currentPosition - 1);
+    setCurrentLine('');
+    terminal.write(RESET_MAGIC_SPELL);
+  } else {
+    setCurrentLine(entries[currentPosition]);
+    terminal.write(RESET_MAGIC_SPELL + currentLine);
+  }
+}
+
+function reactToUpArrow(
+  entries: string[],
+  currentPosition: number,
+  setCurrentPosition: {
+    (value: SetStateAction<number>): void;
+    (arg0: number): void;
+  },
+  setCurrentLine: {
+    (value: SetStateAction<string>): void;
+    (arg0: string): void;
+  },
+  terminal: Terminal,
+  currentLine: string,
+): void {
+  if (entries.length > 0) {
+    if (currentPosition > 0) {
+      setCurrentPosition(currentPosition - 1);
+    }
+    setCurrentLine(entries[currentPosition]);
+    terminal.write(RESET_MAGIC_SPELL + currentLine);
+  }
+}
+
+function reactToBackspace(
+  terminal: Terminal,
+  setCurrentLine: {
+    (value: SetStateAction<string>): void;
+    (arg0: string): void;
+  },
+  currentLine: string,
+): void {
+  terminal.write('\b \b');
+  if (terminal.buffer.active.cursorX > 5) {
+    setCurrentLine(
+      currentLine.slice(0, terminal.buffer.active.cursorX - 6) +
+      currentLine.slice(terminal.buffer.active.cursorX - 5),
+    );
+    const pos: number = currentLine.length - terminal.buffer.active.cursorX + 6;
+    terminal.write(RESET_MAGIC_SPELL + currentLine);
+    terminal.write('\\033['.concat(pos.toString()).concat('D')); //term.write('\033[<N>D');
+    if (
+      terminal.buffer.active.cursorX == 5 ||
+      terminal.buffer.active.cursorX == currentLine.length + 6
+    ) {
+      terminal.write('\\033[1C');
+    }
+  }
 }

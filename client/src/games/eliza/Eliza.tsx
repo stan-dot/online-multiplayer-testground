@@ -1,27 +1,20 @@
-import React, { useState } from 'react';
-import { possibleBots } from '../huzbao/bot/bots';
+import { useState } from 'react';
 import { EchoBot } from './bots/echo-bot/EchoBot';
 import { BotsList } from './BotsList';
 import TerminalHandler from './TerminalHandler';
-import { TerminalPanel } from './TerminalPanel';
 import { Bot } from './types/Bot';
 
 export default function Eliza(): JSX.Element {
   const defaultBot: Bot = new EchoBot('EchoBot1', 'some description');
   const [currentBot, setCurrentBot] = useState(defaultBot)
-  const name = currentBot.name;
-  console.log('name', name);
-  console.log('bot', currentBot);
-  return <div id='terminal-container'>
+  return <>
     <div>
-      <div>
-        current bot:{name}
-      </div>
+      current bot:{currentBot.name}
     </div>
     <BotsList callback={setCurrentBot} startingBot={currentBot} />
     <TerminalHandler bot={currentBot} />
     <Footer currentBot={currentBot} />
-  </div>
+  </>
 }
 
 function Footer(props: { currentBot: Bot }): JSX.Element {
