@@ -5,6 +5,9 @@ import { PlayersBox } from "./PlayerBox";
 import { readContext } from "./readContext";
 import { rollDice } from "./utils/roll";
 import "./styles.css";
+
+// todo make it play against AI
+
 export default function SnakeGame(): JSX.Element {
   // todo might change this context to be moved into a simple prop, and that prop as ComponentType<Game>
   const { socket, renderingContext, canvas } = readContext();

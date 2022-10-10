@@ -43,8 +43,6 @@ export class Player {
     return canvas.height - (Math.floor(this.pos / 10) * side + offset);
   }
 
-
-
   private newPositionAfterTranslation(pos: number): number {
     let newPos = pos;
 
