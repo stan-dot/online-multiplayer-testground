@@ -1,16 +1,18 @@
-import Constants from '../Constants.js';
 
 const RELATION_CONSTANTS = new Constants();
 
 export default class Relation{
+  lower: any;
+  higher: any;
+  truthValue: any;
 
-  constructor(lower, higher, truthValue){
+  constructor(lower: any, higher: any, truthValue: any){
     this.lower = lower;
     this.higher = higher;
     this.truthValue = truthValue;
   };
 
-  setTruthValue(truthValue){
+  setTruthValue(truthValue: any){
     this.truthValue = truthValue;
   }
 

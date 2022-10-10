@@ -1,13 +1,14 @@
-import Operator from "./Operator.js";
-import Module from "../../Module.js";
-
 //logic is for treatise to search its operators to match user - inputed string signifying that logical relation
+
+import Operator from "./Operator";
 
 //now it's just an implementation of module
 //it all starts with the https://en.wikipedia.org/wiki/Turnstile_(symbol) turnstile
-export default class Logic extends Module {
+export default class Logic {
+  name: any;
+  operators: any;
   //let's say for now that the users are not able to modify this part
-  constructor(name, operators) {
+  constructor(name: any, operators: any) {
     this.name = name;
     this.operators = operators;
   }
@@ -16,13 +17,13 @@ export default class Logic extends Module {
     return this.name;
   }
 
-  add(symbol, name, evaluate) {
+  add(symbol: any, name: any, evaluate: any) {
     this.operators.push(new Operator(symbol, name, evaluate));
   }
 
   toString() {
-    var result = "Operators used in this logic: \n";
-    this.operators.forEach((item, i) => {
+    var result = 'Operators used in this logic: \n';
+    this.operators.forEach((item: { toString: () => string; }, i: any) => {
       result += item.toString();
     });
     return result;
@@ -33,7 +34,7 @@ export default class Logic extends Module {
   //because it's not hierarchical, can list operators easily
   toCSV() {}
 
-  logicMode(command) {
+  logicMode(command: (string | number)[]) {
     //here should be logging current logic name; tbh logical document should be as tabs property (logic not, maybe; but that would be another file)
 
     var construct = () => {};
@@ -79,7 +80,13 @@ export default class Logic extends Module {
       t: err,
       thing: err,
     };
-    console.log("command[0]:" + command[0] + "command[1]" + command[1]);
+    console.log('command[0]:' + command[0] + 'command[1]' + command[1]);
     return this.commandResult(args[command[0]]);
+  }
+  backToStandard() {
+    throw new Error("Method not implemented.");
+  }
+  commandResult(arg0: any) {
+    throw new Error("Method not implemented.");
   }
 }

@@ -1,11 +1,10 @@
 
-import Logic from "../Logic.js";
 
 //axiomatic definitions
 
 //D7
-export var inclusion = ((first, second) => {
-  var members = [];
+export var inclusion = ((first: any, second: any) => {
+  var members: any[] = [];
   //members = scroll.searchForRelation(any, first, 'yes');
   //return (scroll.searchForRelation(first, second) === 'yes')
   members.forEach((item, i) => {
@@ -17,9 +16,9 @@ export var inclusion = ((first, second) => {
 });
 
 //D11
-export var abstraction = ((condition, array) => {
+export var abstraction = ((condition: (arg0: any) => any, array: any[]) => {
   var result = [];
-  array.forEach((item, i) => {
+  array.forEach((item: any, i: any) => {
     if(condition(item){
       result.push(item);
     })
@@ -28,7 +27,7 @@ export var abstraction = ((condition, array) => {
 });
 
 export default class NF extends Logic{
-  constructor(name, operators){
+  constructor(name: any, operators: any){
     super(name, operators);
     this.add("∈", "Inclusion", inclusion);
     //these evaluation stuff must be doable out of other operators
@@ -37,7 +36,7 @@ export default class NF extends Logic{
 //derived
 
   expand(){
-    var denial = ((first) =>{
+    var denial = ((first: any) =>{
       //just the first matters
       return altDenial(first, first);
     });

@@ -1,7 +1,10 @@
 
 export default class Operator{
+  symbol: any;
+  name: any;
+  evaluate: any;
 
-  constructor(symbol, name, evaluate){
+  constructor(symbol: any, name: any, evaluate: any){
     this.symbol = symbol;
     this.name = name;
     this.evaluate = evaluate;
