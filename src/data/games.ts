@@ -2,6 +2,10 @@ import { GameCard } from '../types/GameCard';
 
 export const availableGames: GameCard[] = [
   {
+    folder: 'react-konva-playground',
+    componentName: 'KonvaDisplay',
+  },
+  {
     folder: 'canvas-interactive',
     componentName: 'CanvasInteractive',
   },
