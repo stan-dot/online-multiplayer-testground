@@ -1,4 +1,0 @@
-
-DOMAIN={
-  'people':{}
-}
