@@ -1,10 +1,15 @@
-import Relation from "./Relation.js";
-import Constants from "../Constants.js";
+import Relation from './Relation.js';
+import Constants from '../Constants.js';
 
 const SCROLL_CONSTANTS = new Constants();
 
 const Conditions = {
-  equals: (object, lower, higher, truthValue) => {
+  equals: (
+    object: { lower: any; higher: any; truthValue: any },
+    lower: any,
+    higher: any,
+    truthValue: any,
+  ) => {
     return (
       object.lower === lower &&
       object.higher === higher &&
@@ -14,7 +19,7 @@ const Conditions = {
 };
 
 export default class DataModel extends Model {
-  static className = "Treatise";
+  static className = 'Treatise';
   static schema = {
     title: {
       type: String,
@@ -35,17 +40,20 @@ export default class DataModel extends Model {
   static defaults = {
     verisimilitude: 5,
   };
+  arrayRelations: never[];
+  title: any;
+  quizCounter: number;
 
-  constructor(title) {
+  constructor(title: any) {
     this.arrayRelations = [];
     this.title = title;
     this.quizCounter = 0;
   }
 
   incrementCounter() {
-    console.log("counter before increament: " + this.getCounter());
+    console.log('counter before increament: ' + this.getCounter());
     this.quizCounter++;
-    console.log("counter after increment: " + this.getCounter());
+    console.log('counter after increment: ' + this.getCounter());
   }
 
   getCounter() {
@@ -55,17 +63,17 @@ export default class DataModel extends Model {
   counterToString() {
     return (
       this.getCurrentRelation().toQuiz() +
-      " @ " +
+      ' @ ' +
       (this.getCounter() + 1) +
-      "/" +
+      '/' +
       this.arrayRelations.length
     );
   }
 
   getCurrentRelation() {
-    console.log("current counter in get: " + this.getCounter());
+    console.log('current counter in get: ' + this.getCounter());
     if (this.quizCounter === this.arrayRelations.length) {
-      console.log("reseting the counter: " + this.getCounter());
+      console.log('reseting the counter: ' + this.getCounter());
       this.quizCounter = 0;
     }
     return this.arrayRelations[this.getCounter()];
@@ -89,7 +97,7 @@ export default class DataModel extends Model {
     });
   }
 
-  setTitle(string) {
+  setTitle(string: any) {
     this.title = string;
   }
 
@@ -97,13 +105,13 @@ export default class DataModel extends Model {
     return this.title;
   }
 
-  static unRoll(simplicity, positivity) {
-    if (simplicity === "1") {
-      if (positivity === "1") {
+  static unRoll(simplicity: string, positivity: string) {
+    if (simplicity === '1') {
+      if (positivity === '1') {
         return SCROLL_CONSTANTS.TETRA.YES;
       }
       return SCROLL_CONSTANTS.TETRA.NO;
-    } else if (positivity === "1") {
+    } else if (positivity === '1') {
       return SCROLL_CONSTANTS.TETRA.BOTH;
     }
     return SCROLL_CONSTANTS.TETRA.NEITHER;
@@ -111,16 +119,16 @@ export default class DataModel extends Model {
 
   copy() {
     var copy = new Scroll(this.getTitle);
-    this.arrayRelations.forEach((relation) => {
+    this.arrayRelations.forEach(relation => {
       copy.createSingleRelation(
         relation.lower,
         relation.higher,
-        relation.truthValue
+        relation.truthValue,
       );
     });
     return copy;
   }
-  deleteOic(object) {
+  deleteOic(object: string) {
     for (var i = 0; i < this.arrayRelations.length; i++) {
       for (var property in this.arrayRelations[i]) {
         if (property === object) {
@@ -129,25 +137,25 @@ export default class DataModel extends Model {
       }
     }
     this.arrayRelations = this.arrayRelations.filter(
-      (relation) => relation != null
+      relation => relation != null,
     );
     return (
-      "Object " + object + " successfuly deleted, along with all its relations."
+      'Object ' + object + ' successfuly deleted, along with all its relations.'
     );
   }
 
   displayAllDone() {
-    console.log("relations array length: " + this.arrayRelations.length);
-    var stringAnswer = "All relations here:";
+    console.log('relations array length: ' + this.arrayRelations.length);
+    var stringAnswer = 'All relations here:';
     for (var i = 0; i < this.arrayRelations.length; i++) {
-      stringAnswer += "\n\t" + this.arrayRelations[i].toString();
-      console.log("displaying relation number " + i);
+      stringAnswer += '\n\t' + this.arrayRelations[i].toString();
+      console.log('displaying relation number ' + i);
     }
-    stringAnswer += "\nEnd of relations here.";
+    stringAnswer += '\nEnd of relations here.';
     return stringAnswer;
   }
 
-  displayObject(command, location) {
+  displayObject(command: any, location) {
     //all up and down parts of the object; wait still looks like wrong place; wait it should return; no, it must be
     //a part that gets all above and below of a given object should be cool
     //how about list?
@@ -159,21 +167,21 @@ export default class DataModel extends Model {
     Object.assign(location, tmpLocation);
   }
 
-  colorify(truthValue) {
+  colorify(truthValue: any) {
     //red,(no) black(neither), blue(both), green(yes)?
     switch (this.resolveTruthValue(truthValue)) {
       case SCROLL_CONSTANTS.TETRA.BOTH:
-        return "#0000ff";
+        return '#0000ff';
       case SCROLL_CONSTANTS.TETRA.YES:
-        return "#00ff1e"; //green lime
+        return '#00ff1e'; //green lime
       case SCROLL_CONSTANTS.TETRA.NO:
-        return "#ff0000";
+        return '#ff0000';
       default:
-        return "#000000";
+        return '#000000';
     }
   }
 
-  contains(name) {
+  contains(name: any) {
     var positionInScroll = -1;
     //checking if name exists in any object
     for (var j = 0; j < this.arrayRelations.length; j++) {
@@ -182,10 +190,10 @@ export default class DataModel extends Model {
         this.arrayRelations[j].higher === name
       ) {
         console.log(
-          "object exists in array of length: " +
+          'object exists in array of length: ' +
             this.arrayRelations.length +
-            " and at j =" +
-            j
+            ' and at j =' +
+            j,
         );
         positionInScroll = j;
         break;
@@ -194,27 +202,31 @@ export default class DataModel extends Model {
     return positionInScroll;
   }
 
-  createNewOic(name, locationArray) {
+  createNewOic(name: string, locationArray: string | any[]) {
     if (
       this.contains(name) === -1 &&
       this.contains(name.toUpperCase()) === -1
     ) {
       for (var i = 0; i < locationArray.length; i++) {
-        this.createSingleRelation(name, locationArray[i], "yes");
+        this.createSingleRelation(name, locationArray[i], 'yes');
       }
-      return "successfuly created an OIC: " + name;
+      return 'successfuly created an OIC: ' + name;
     }
-    return "OIC " + name + " already exists";
+    return 'OIC ' + name + ' already exists';
   }
 
-  createNewRelation(object1, object2, truthValue) {
-    var isString = (object) => typeof object == "string";
-    var result = "";
+  createNewRelation(
+    object1: string | any[],
+    object2: string | any[],
+    truthValue: any,
+  ) {
+    var isString = (object: any) => typeof object == 'string';
+    var result = '';
     if (isString(object1) && isString(object2)) {
       return this.createSingleRelation(object1, object2, truthValue);
       //for serial relation creation
     } else if (Array.isArray(object1) && Array.isArray(object2)) {
-      return "Serial relation creation is allowed with multiple arugments only on one side";
+      return 'Serial relation creation is allowed with multiple arugments only on one side';
     } else if (Array.isArray(object1) && isString(object2)) {
       for (var i = 0; i < object1.length; i++) {
         result += this.createSingleRelation(object1[i], object2, truthValue);
@@ -224,78 +236,79 @@ export default class DataModel extends Model {
         result += this.createSingleRelation(object1, object2[j], truthValue);
       }
     }
-    return "creating new relation:" + result;
+    return 'creating new relation:' + result;
   }
 
-  createSingleRelation(object1, object2, truthValue) {
+  createSingleRelation(object1: any, object2: any, truthValue: string) {
     if (object1 === object2) {
-      return "names must be different";
+      return 'names must be different';
     }
     //console.log("all the arguments after resolving " + object1 + object2 + truthValue);
     var results = this.searchForRelation(
       object1,
       object2,
       SCROLL_CONSTANTS.DIRECTION.ANY,
-      null
+      null,
     );
     if (results.length === 0) {
       this.arrayRelations.push(
-        new Relation(object1, object2, this.resolveTruthValue(truthValue))
+        new Relation(object1, object2, this.resolveTruthValue(truthValue)),
       );
-      return "Relation created.";
+      return 'Relation created.';
     } else {
-      return "Relation already exists: " + results.toString();
+      return 'Relation already exists: ' + results.toString();
     }
   }
 
-  deleteRelation(lower, higher, truthValue) {
+  deleteRelation(lower: any, higher: any, truthValue: any) {
     for (var i = 0; i < this.arrayRelations.length; i++) {
       if (
         Conditions.equals(this.arrayRelations[i], lower, higher, truthValue)
       ) {
-        this.arrayRelations[i] = this.arrayRelations[
-          this.arrayRelations.length - 1
-        ];
+        this.arrayRelations[i] =
+          this.arrayRelations[this.arrayRelations.length - 1];
         this.arrayRelations.pop();
       }
     }
   }
 
   download() {
-    var element = document.createElement("a");
+    var element = document.createElement('a');
     //GML variant
     //element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(this.toGML()));
     //element.setAttribute('download', this.title+".graphml");
     //csv variant
     element.setAttribute(
-      "href",
-      "data:text/plain;charset=utf-8," + encodeURIComponent(this.toCSV())
+      'href',
+      'data:text/plain;charset=utf-8,' + encodeURIComponent(this.toCSV()),
     );
-    element.setAttribute("download", this.title + ".csv");
-    element.style.display = "none";
+    element.setAttribute('download', this.title + '.csv');
+    element.style.display = 'none';
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
-    return "Download should start";
+    return 'Download should start';
   }
 
-  fillFromSet(set) {
-    set.forEach((relation, i) => {
-      this.createSingleRelation(
-        relation.lower,
-        relation.higher,
-        relation.truthValue
-      );
-    });
-    return "Scrolls merged, the result in the main tab";
+  fillFromSet(set: any[]) {
+    set.forEach(
+      (relation: { lower: any; higher: any; truthValue: any }, i: any) => {
+        this.createSingleRelation(
+          relation.lower,
+          relation.higher,
+          relation.truthValue,
+        );
+      },
+    );
+    return 'Scrolls merged, the result in the main tab';
   }
-  getStatsByTruth(truthValue) {
+  getStatsByTruth(truthValue: any) {
     return this.arrayRelations.filter(
-      (relation) => relation.truthValue === truthValue
+      relation => relation.truthValue === truthValue,
     );
   }
 
-  matchName(oic) {
+  matchName(oic: string) {
     //search if one letter different
     var variations = [
       oic.toLowerCase(),
@@ -303,50 +316,50 @@ export default class DataModel extends Model {
       oic.substring(0, 1),
       oic.substring(0, 3),
     ];
-    console.log("matching oic name");
+    console.log('matching oic name');
     //maybe return an array and make it string elsewhere? parsing array easier
-    var list = "";
+    var list = '';
     for (var i = 0; i < this.arrayRelations.length; i++) {
       //only suffices to search for lower stuff, that is internal nodes and leaves; root is only one
       for (var j = 0; j < variations.length; j++) {
         if (this.arrayRelations[i].lower.includes() === variations[j]) {
-          list += this.arrayRelations[i].lower + "|";
+          list += this.arrayRelations[i].lower + '|';
         }
       }
     }
-    console.log("list in the end: " + list);
+    console.log('list in the end: ' + list);
     //returns a list of matching terms
-    return "Similar OICs: " + list;
+    return 'Similar OICs: ' + list;
   }
 
-  nodify(string, objectCounter) {
+  nodify(string: string, objectCounter: string | number) {
     return (
       '\n<node id="n' +
       objectCounter +
       '"/>\n\t<data key="d0">' +
       string +
-      "</data>"
+      '</data>'
     );
   }
 
-  resolveTruthValue(truthValue) {
+  resolveTruthValue(truthValue: string | undefined) {
     if (truthValue !== undefined) {
       switch (truthValue.toLowerCase()) {
-        case "both":
-        case "paradox":
-        case "b":
+        case 'both':
+        case 'paradox':
+        case 'b':
           return SCROLL_CONSTANTS.TETRA.BOTH;
-        case "yes":
-        case "true":
-        case "y":
+        case 'yes':
+        case 'true':
+        case 'y':
           return SCROLL_CONSTANTS.TETRA.YES;
-        case "no":
-        case "false":
-        case "n":
+        case 'no':
+        case 'false':
+        case 'n':
           return SCROLL_CONSTANTS.TETRA.NO;
-        case "neither":
-        case "unknown":
-        case "u":
+        case 'neither':
+        case 'unknown':
+        case 'u':
           return SCROLL_CONSTANTS.TETRA.NEITHER;
         default:
           return SCROLL_CONSTANTS.TETRA.NEITHER;
@@ -356,7 +369,7 @@ export default class DataModel extends Model {
     }
   }
 
-  saveOic(oldName, newName) {
+  saveOic(oldName: string, newName: string) {
     for (var i = 0; i < this.arrayRelations.length; i++) {
       for (var relation in this.arrayRelations[i]) {
         if (relation.lower === oldName) {
@@ -367,14 +380,19 @@ export default class DataModel extends Model {
       }
     }
     return (
-      "Object " + oldName + " successfuly successfuly replaced with " + newName
+      'Object ' + oldName + ' successfuly successfuly replaced with ' + newName
     );
   }
 
-  searchForRelation(object1, object2, direction, truthValue) {
+  searchForRelation(
+    object1: any,
+    object2: any,
+    direction: any,
+    truthValue: null,
+  ) {
     //but meaybe easier just creating temporary relation, just one parameter would be passed; but wait also reverse relations; so maybe 2?
     //should it end if found one? if(found){push, break}
-    var results = [];
+    var results: never[] = [];
     var lowerIsOne = () => this.arrayRelations[i].lower === object1;
     var higherIsTwo = () => this.arrayRelations[i].higher === object2;
     var desiredVeritate = () => {
@@ -388,24 +406,24 @@ export default class DataModel extends Model {
       switch (direction) {
         case SCROLL_CONSTANTS.DIRECTION.ANY:
           if (
-            ((lowerIsOne && higherIsTwo) || !(lowerIsOne || higherIsTwo)) &&
-            desiredVeritate
+            ((lowerIsOne() && higherIsTwo) || !(lowerIsOne || higherIsTwo)) &&
+            desiredVeritate()
           ) {
             found = false;
           }
           break;
         case SCROLL_CONSTANTS.DIRECTION.UP:
-          if (lowerIsOne && higherIsTwo && desiredVeritate) {
+          if (lowerIsOne() && higherIsTwo() && desiredVeritate()) {
             found = true;
           }
           break;
         case SCROLL_CONSTANTS.DIRECTION.DOWN:
-          if (!lowerIsOne && !higherIsTwo && desiredVeritate) {
+          if (!lowerIsOne && !higherIsTwo && desiredVeritate()) {
             found = true;
           }
           break;
         default:
-          console.log("unknown direction");
+          console.log('unknown direction');
       }
       if (found) {
         results.push(this.arrayRelations[i]);
@@ -419,7 +437,7 @@ export default class DataModel extends Model {
 
   showStats() {
     var objectSet = new Set();
-    this.arrayRelations.forEach((relation) => {
+    this.arrayRelations.forEach(relation => {
       objectSet.add(relation.lower);
       objectSet.add(relation.higher);
     });
@@ -432,30 +450,32 @@ export default class DataModel extends Model {
     };
     //here must add more stuff, so that it displays
     return (
-      "Number of distinct OICs: " +
+      'Number of distinct OICs: ' +
       objectSet.size +
-      " \n Number of relations: " +
+      ' \n Number of relations: ' +
       this.arrayRelations.length
     );
   }
 
-  saveToGaia(userSession) {
+  saveToGaia(userSession: {
+    putFile: (arg0: string, arg1: string, arg2: { encrypt: boolean }) => void;
+  }) {
     //console.log(this.title + " is the file saved");
     const options = { encrypt: true };
-    userSession.putFile(this.title + ".csv", this.toCSV(), options);
+    userSession.putFile(this.title + '.csv', this.toCSV(), options);
   }
 
   setify() {
     var result = new Set();
-    this.arrayRelations.forEach((relation) => {
+    this.arrayRelations.forEach(relation => {
       result.add(relation);
     });
     return result;
   }
 
   toCSV() {
-    var csvString = "oic1,oic2,truthValue(simplicity),truthValue(positivity)\n";
-    this.arrayRelations.forEach((relation) => {
+    var csvString = 'oic1,oic2,truthValue(simplicity),truthValue(positivity)\n';
+    this.arrayRelations.forEach(relation => {
       csvString += relation.toCSV();
     });
     return csvString;
@@ -467,16 +487,16 @@ export default class DataModel extends Model {
     contents += '<graph id="G" edgedefault="undirected">';
     contents +=
       '<node id="n0"/>\n<node id="n1"/>\n<edge id="e1" source="n0" target="n1"/>\n';
-    contents += "</graph>\n</graphml>";
+    contents += '</graph>\n</graphml>';
     return contents;
   }
 
   toGMLRelations() {
-    var contents = "";
+    var contents = '';
     var objectMap = new Map();
     var objectCounter = 0;
     var edgeCounter = 0;
-    this.arrayRelations.forEach((relation) => {
+    this.arrayRelations.forEach((relation: Relation) => {
       if (!objectMap.has(relation.lower)) {
         objectMap.set(relation.lower, objectCounter);
         contents += this.nodify(relation.lower, objectCounter);
@@ -501,7 +521,7 @@ export default class DataModel extends Model {
         '\t<PolyLineEdge>\n \t\t<LineStyle type="line" width="1.0" color="' +
         this.colorify(relation.truthValue) +
         '"/>\n\t\t<Arrows source="none" target="standard"/>\n\t</PolyLineEdge>';
-      contents += "</data>\n</edge>";
+      contents += '</data>\n</edge>';
       edgeCounter++;
     });
     return contents;
@@ -512,7 +532,7 @@ export default class DataModel extends Model {
       '<?xml version="1.0" encoding="UTF-8"?>\n <graphml xmlns="http://graphml.graphdrawing.org/xmlns"\n xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" \n xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">';
     contents += '\n<graph id="G" edgedefault="directed">';
     contents += this.toGMLRelations();
-    contents += "\n</graph></graphml>";
+    contents += '\n</graph></graphml>';
     return contents;
   }
 
@@ -520,11 +540,11 @@ export default class DataModel extends Model {
     var contents =
       "<?xml version='1.0' encoding='UTF-8'?><relationslist><title>" +
       this.title +
-      "</title>\n<length></length><topic></topic><about></about>\n<contents>";
+      '</title>\n<length></length><topic></topic><about></about>\n<contents>';
     for (var i = 0; i < this.arrayRelations.length; i++) {
       contents += this.arrayRelations[i].toXML();
     }
-    contents += "</contents></relationslist>";
+    contents += '</contents></relationslist>';
     return contents;
   }
 }

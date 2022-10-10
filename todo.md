@@ -5,6 +5,7 @@
 - [ ] global achievements
 - [ ] achievements and chat tab in each game(?)
 - [ ] games catalogue
+- [ ] add 2 divs for games - done and Work In Progress
 
 
 ## Startup
