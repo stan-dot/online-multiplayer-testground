@@ -2,6 +2,10 @@ import { GameCard } from '../types/GameCard';
 
 export const availableGames: GameCard[] = [
   {
+    folder: 'canvas-interactive',
+    componentName: 'CanvasInteractive',
+  },
+  {
     folder: 'cat-facts',
     componentName: 'CatFacts',
   },
