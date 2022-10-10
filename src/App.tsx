@@ -33,10 +33,10 @@ export default function App() {
         :
         <>
           <header className="App-header">
-            <h1>test landing page</h1>
+            <h1>Welcome to Snekden</h1>
+            <h3>Choose your games</h3>
           </header>
           <MainNavigation gameCardCallback={changeGame} />
-          above there 'll be your game
           <DescriptionPage />
           {/* <FriendsBar /> */}
           <LandingFooter />
