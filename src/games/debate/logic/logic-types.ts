@@ -1,6 +1,7 @@
 // those that hold the token are then able to add more texts to decrease the total value
 // there need to be 2 opposite drives 
 // tbh the sort of thing like IPFS uses to not replicate data is ver important
+// todo there were old files:account operations, crux, global-values
 
 // TODO 'both' should trigger a flag
 export type Veracity = 'true' | 'false' | 'both' | 'neither';
