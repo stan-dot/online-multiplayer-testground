@@ -6,7 +6,6 @@ import { useCanvasForCells } from './useCanvasForCells';
 export const Canvas = (props: { draw: DrawingConstantWithCells, data: CellsCanvasData, options?: CanvasOptions }) => {
   const canvasRef: React.MutableRefObject<HTMLCanvasElement> = useCanvasForCells(props.draw, props.data);
   return <>
-    <h1>test canvas</h1>
     <canvas
       id="gameCanvas"
       width={props.options?.width ?? 200}

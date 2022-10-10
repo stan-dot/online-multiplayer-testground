@@ -2,11 +2,11 @@
 
 const radius = 36;
 
-var force = -2400; //-1200;
-var decay_force = force;
-var symbol = d3.symbol().size([radius * 100])
+let force = -2400; //-1200;
+let decay_force = force;
+let symbol = d3.symbol().size([radius * 100])
 
-var svg = d3.select("svg"),
+let svg = d3.select("svg"),
   width = +svg.attr("width"),
   height = +svg.attr("height");
 svg.call(d3.zoom()
@@ -19,17 +19,17 @@ svg.call(d3.zoom()
 svg.style("cursor", "move");
 
 //add encompassing group for the zoom
-var g = svg.append("g")
+let g = svg.append("g")
   .attr("class", "everything");
 
-var color = d3.scaleOrdinal(d3.schemeCategory20);
-var active_node = null;
-var focus_node = null;
+let color = d3.scaleOrdinal(d3.schemeCategory20);
+let active_node = null;
+let focus_node = null;
 
 const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
-var simulation = d3.forceSimulation()
+let simulation = d3.forceSimulation()
   .force("link", d3.forceLink().id(function (d) { return d.id; }).distance(50))
   .force("charge", d3.forceManyBody().strength(force))
   .force("collide", d3.forceCollide(radius + 10).iterations(10))
@@ -41,8 +41,8 @@ d3.json("sampleGraph.json", (error, graph) => {
     if (error)
       throw error;
 
-    var link_set = {};
-    var in_degree_dict = {};
+    let link_set = {};
+    let in_degree_dict = {};
     graph.links.forEach(function (d) {
       link_set[encode_link(d.source, d.target)] = true;
       if (!in_degree_dict[d.target])
@@ -64,7 +64,7 @@ d3.json("sampleGraph.json", (error, graph) => {
       .append("svg:path")
       .attr("d", "M0,-5L10,0L0,5");
 
-    var link = g.append("g")
+    let link = g.append("g")
       .attr("class", "links")
       .selectAll("line")
       .data(graph.links.filter(function (d) {
@@ -78,7 +78,7 @@ d3.json("sampleGraph.json", (error, graph) => {
       /*.attr("stroke-width", function (d) { return Math.sqrt(d.value); })*/
       .attr("stroke-width", "1px");
     // .style("stroke", function(d) { return color(d.group); });
-    var node = g.append("g")
+    let node = g.append("g")
       .attr("class", "nodes")
       .selectAll("g")
       .data(graph.nodes
@@ -96,7 +96,7 @@ d3.json("sampleGraph.json", (error, graph) => {
         .on("drag", dragged)
         .on("end", dragended));
 
-    var circles = node.append("path")
+    let circles = node.append("path")
       .style("fill", function (d) { return color(d.group); })
       .style("stroke", function (d) { return color(d.group); })
       .attr("d", symbol.type(function (d) {
@@ -106,7 +106,7 @@ d3.json("sampleGraph.json", (error, graph) => {
         return d3.symbolSquare;
       }));
 
-    var labels = node.append("text")
+    let labels = node.append("text")
       .html(function (d) {
         // Implement line break
         const pad = 1.2;
@@ -194,8 +194,8 @@ d3.json("sampleGraph.json", (error, graph) => {
     }
 
     function is_neighbor(v) {
-      var a = v.index;
-      for (var pair in link_set) {
+      let a = v.index;
+      for (let pair in link_set) {
         s = pair.split("->");
         if ((s[0] == a || s[1] == a)) {
           return true;
@@ -205,9 +205,9 @@ d3.json("sampleGraph.json", (error, graph) => {
     }
 
     function shade_color(color, percent) {
-      var R = parseInt(color.substring(1, 3), 16);
-      var G = parseInt(color.substring(3, 5), 16);
-      var B = parseInt(color.substring(5, 7), 16);
+      let R = parseInt(color.substring(1, 3), 16);
+      let G = parseInt(color.substring(3, 5), 16);
+      let B = parseInt(color.substring(5, 7), 16);
 
       R = parseInt(R * (100 + percent) / 100);
       G = parseInt(G * (100 + percent) / 100);
@@ -217,9 +217,9 @@ d3.json("sampleGraph.json", (error, graph) => {
       G = (G < 255) ? G : 255;
       B = (B < 255) ? B : 255;
 
-      var RR = ((R.toString(16).length == 1) ? "0" + R.toString(16) : R.toString(16));
-      var GG = ((G.toString(16).length == 1) ? "0" + G.toString(16) : G.toString(16));
-      var BB = ((B.toString(16).length == 1) ? "0" + B.toString(16) : B.toString(16));
+      let RR = ((R.toString(16).length == 1) ? "0" + R.toString(16) : R.toString(16));
+      let GG = ((G.toString(16).length == 1) ? "0" + G.toString(16) : G.toString(16));
+      let BB = ((B.toString(16).length == 1) ? "0" + B.toString(16) : B.toString(16));
 
       return "#" + RR + GG + BB;
     }
