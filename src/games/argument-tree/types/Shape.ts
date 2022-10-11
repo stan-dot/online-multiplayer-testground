@@ -67,7 +67,6 @@ export class Shape {
       const startingPoint: number[] = getStartingPointForRectangleText(
         this.points,
       );
-      console.log(startingPoint);
       ctx.textAlign = 'center';
       ctx.fillText(this.text, startingPoint[0], startingPoint[1]);
       // ctx.fillText(this.text, 50, 50);

@@ -19,12 +19,12 @@ export const starCorners: number[][] = [
   [-11.225718676699085, -15.450876230904202],
 ];
 
-export function getRectangleFromStartinPoint(points: number[]): number[][] {
+export function getRectangleFromStartingPoint(points: number[]): number[][] {
   return [
-    [20 + points[0], 20 + points[1]],
-    [20 + points[0], 40 + points[1]],
-    [80 + points[0], 40 + points[1]],
-    [80 + points[0], 20 + points[1]],
+    [rectangleCorners[0][0] + points[0], rectangleCorners[0][1] + points[1]],
+    [rectangleCorners[1][0] + points[0], rectangleCorners[1][1] + points[1]],
+    [rectangleCorners[2][0] + points[0], rectangleCorners[2][1] + points[1]],
+    [rectangleCorners[3][0] + points[0], rectangleCorners[3][1] + points[1]],
   ];
 }
 
@@ -37,7 +37,7 @@ export const rectangleCorners: number[][] = [
 
 export function getStartingPointForRectangleText(points: number[][]): number[] {
   const startingCorner: number[] = points[0];
-  const lastCorner: number[] = points[3];
+  const lastCorner: number[] = points[points.length - 1];
   return [
     startingCorner[0] + (lastCorner[0] - startingCorner[0]) / 2,
     startingCorner[1] + (lastCorner[1] - startingCorner[1]) / 2,
