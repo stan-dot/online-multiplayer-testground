@@ -12,7 +12,7 @@ import { availableGames } from './data/games';
 const colors = ['#80F', '#0AA']
 export default function App() {
   const [gameIsOn, setGameIsOn] = React.useState(true);
-  const gameName: string = 'KonvaDisplay';
+  const gameName: string = 'ArgumentTree';
   const game: GameCard = availableGames.find(g => g.componentName === gameName) || availableGames[0];
   const [currentGameCard, setCurrentGameCard] = React.useState(game);
   // const [currentGameCard, setCurrentGameCard] = React.useState({} as GameCard)

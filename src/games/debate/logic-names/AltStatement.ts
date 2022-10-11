@@ -1,4 +1,4 @@
-export default class Statement {
+export default class AltStatement {
   constructor(mentionCount = 0, emotion = neutral, smoothable = false) {
     //super line
     (this.mentionCount = mentionCount),
