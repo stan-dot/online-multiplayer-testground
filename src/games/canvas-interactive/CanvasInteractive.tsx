@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { Shape } from "./Shape";
+import { Shape } from "./types/Shape";
 import { starCorners, offsets } from "./starCorners";
-
-
 
 export default function CanvasInteractive(): JSX.Element {
   const canvasStyles: React.CSSProperties = { borderWidth: '1px', borderStyle: "solid", borderColor: "#c3c3c3" };

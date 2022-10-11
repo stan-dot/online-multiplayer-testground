@@ -1,5 +1,5 @@
 import { SegmentChecker } from "./SegmentChecker";
-import { c1, c2 } from "./starCorners";
+import { c1, c2 } from "../starCorners";
 
 export class Shape {
   public color: string = c1;
