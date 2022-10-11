@@ -1,70 +1,146 @@
-import { useEffect, useState } from "react";
-import { Shape } from "./types/Shape";
-import { starCorners, offsets, rectangleCorners, getRectangleFromStartingPoint } from "./constants";
-import axios, { AxiosResponse } from "axios";
-import { downwardArrowCorners } from "./downwardArrowCorners";
+import { useEffect, useState } from 'react';
+import { Shape } from './types/Shape';
+import {
+  starCorners,
+  offsets,
+  rectangleCorners,
+  getRectangleFromStartingPoint,
+} from './constants';
+import axios, { AxiosResponse } from 'axios';
+import { downwardArrowCorners } from './downwardArrowCorners';
 const canvasId = 'myCanvas';
 
 type Statement = {
-  title: string,
-  id: string,
-  idsSupported: string[],
-  idsOpposed: string[]
-}
+  title: string;
+  id: string;
+  idsSupported: string[];
+  idsOpposed: string[];
+};
 
 type TreeOfStatements = {
-  statements: Statement[]
-}
+  statements: Statement[];
+};
 
 const s2: Statement = {
-  title: "The clock has been showing 1:30 for some time now.",
-  id: "2",
-  idsSupported: ["1"],
-  idsOpposed: []
+  title: 'The clock has been showing 1:30 for some time now.',
+  id: '2',
+  idsSupported: ['1'],
+  idsOpposed: [],
 };
 
 const s1: Statement = {
-  title: "It must be different time than 1:30",
-  id: "1",
+  title: 'It must be different time than 1:30',
+  id: '1',
   idsSupported: [],
-  idsOpposed: []
+  idsOpposed: [],
 };
 
 const DEFAULT_TREE: TreeOfStatements = {
-  statements: [
-    s1, s2
-  ]
-}
+  statements: [s1, s2],
+};
 
-const red = "#FF000";
-const green = "#00FF00";
+const red = '#FF000';
+const green = '#00FF00';
 
 function isFinal(s: Statement): boolean {
   return s.idsOpposed.length === 0 && s.idsSupported.length === 0;
 }
 
 /**
- * todo the points need to be 7, not 3
- * need to add 4 more points 
- * @param from 
- * @param to 
- * @returns 
+ *
+ * @param start
+ * @param end
+ * @param proportion how much from the end the parting point is
+ * @returns
  */
-function getArrowPoints(from: number[], to: number[]): number[][] {
-  const output: number[][] = [from];
-  const radius = 15;
-  const xCenter = to[0];
-  const yCenter = to[1];
+function getPartPointBetweentPoints(
+  start: number[],
+  end: number[],
+  proportion: number,
+): number[] {
+  return [
+    start[0] + (start[0] - end[0]) / proportion,
+    start[1] + (start[1] - end[1]) / proportion,
+  ];
+}
 
-  let angle1 = Math.atan2(to[1] - from[1], to[0] - from[0]);
+/**
+ * todo the points need to be 7, not 3
+ * need to add 4 more points
+ * @param fromPoint
+ * @param targetPoint
+ * @returns
+ */
+function getArrowPoints(
+  fromPoint: number[],
+  targetPoint: number[],
+): number[][] {
+  const output: number[][] = [fromPoint]; // that is bottom right
+  const radius = 15;
+  const xCenter = targetPoint[0];
+  const yCenter = targetPoint[1];
+
+  let angle1 = Math.atan2(
+    targetPoint[1] - fromPoint[1],
+    targetPoint[0] - fromPoint[0],
+  );
   const getNewX = (a: number) => radius * Math.cos(a) + xCenter;
   const getNewY = (a: number) => radius * Math.sin(a) + yCenter;
-  const updateAngle = (a: number): number => a += (1.0 / 3.0) * (2 * Math.PI);
+  const updateAngle = (a: number): number => (a += (1.0 / 3.0) * (2 * Math.PI));
   const angle2 = updateAngle(angle1);
-  output.push([getNewX(angle2), getNewY(angle2)]);
+  const point2 = [getNewX(angle2), getNewY(angle2)]; // toprightmost
+  output.push(point2);
+
+  const ARROW_PROPORTION = 8;
+
+  // 1/8th of the distance from the end , just on the way
+  const cruxPoint = getPartPointBetweentPoints(
+    fromPoint,
+    targetPoint,
+    ARROW_PROPORTION,
+  );
+  const linearCoefficient: number[] = [
+    Math.abs(fromPoint[0] - targetPoint[0]),
+    Math.abs(fromPoint[1] - targetPoint[1]),
+  ];
+  const PERPENDICULAR_COSINE = -1;
+  const INTERNAL_POINT_DISTANCE: number = 5;
+  const SPIKE_POINT_DISTANCE = 10;
+
+  // the additional 4 points
+  const rightSpikePoint: number[] = [
+    cruxPoint[0] +
+    PERPENDICULAR_COSINE * linearCoefficient[0] * SPIKE_POINT_DISTANCE,
+    cruxPoint[1] +
+    PERPENDICULAR_COSINE * linearCoefficient[1] * SPIKE_POINT_DISTANCE,
+  ]; // 5 pixels outwards from the internal point
+  // output.push(rightSpikePoint);
+
+  const rightInternalPoint: number[] = [
+    cruxPoint[0] +
+    PERPENDICULAR_COSINE * linearCoefficient[0] * INTERNAL_POINT_DISTANCE,
+    cruxPoint[1] +
+    PERPENDICULAR_COSINE * linearCoefficient[1] * INTERNAL_POINT_DISTANCE,
+  ];
+  // output.push(rightInternalPoint);
 
   const angle3 = updateAngle(angle2);
-  output.push([getNewX(angle3), getNewY(angle3)]);
+  const point3 = [getNewX(angle3), getNewY(angle3)]; // leftmost
+  output.push(point3);
+  const leftInternalPoint: number[] = [
+    cruxPoint[0] -
+    PERPENDICULAR_COSINE * linearCoefficient[0] * INTERNAL_POINT_DISTANCE,
+    cruxPoint[1] -
+    PERPENDICULAR_COSINE * linearCoefficient[1] * INTERNAL_POINT_DISTANCE,
+  ]; // 1/8th of the distance from the end , just on the way
+  // output.push(leftInternalPoint);
+  const leftSpikePoint: number[] = [
+    cruxPoint[0] -
+    PERPENDICULAR_COSINE * linearCoefficient[0] * SPIKE_POINT_DISTANCE,
+    cruxPoint[1] -
+    PERPENDICULAR_COSINE * linearCoefficient[1] * SPIKE_POINT_DISTANCE,
+  ]; // 5 pixels outwards from the internal point
+  // output.push(leftSpikePoint);
   console.log(output);
   return output;
 }
@@ -74,7 +150,7 @@ type Layer = {
   width: number;
   color: string;
   shapes: Shape[];
-}
+};
 
 /**
  * todo
@@ -83,15 +159,22 @@ type Layer = {
  * then each layer with good proportional display
  * against on the left, supporting on the right
  * then arrows between the correct pairs
- * @param tree 
- * @returns 
+ * @param tree
+ * @returns
  */
-function getShapesFromStatementTree(tree: TreeOfStatements, distance?: number): Shape[] {
+function getShapesFromStatementTree(
+  tree: TreeOfStatements,
+  distance?: number,
+): Shape[] {
   const root: Statement = tree.statements.find(isFinal)!; // todo error handling
   // recursively build tree up to some distance
   const MAX_DISTANCE = 2;
-  const directSupportingChildren: Statement[] = tree.statements.filter(s => s.idsSupported.includes(root.id));
-  const directOpposingChildren: Statement[] = tree.statements.filter(s => s.idsOpposed.includes(root.id));
+  const directSupportingChildren: Statement[] = tree.statements.filter(s =>
+    s.idsSupported.includes(root.id),
+  );
+  const directOpposingChildren: Statement[] = tree.statements.filter(s =>
+    s.idsOpposed.includes(root.id),
+  );
   const STARTING_POINTS: number[] = [300, 500];
   let shapes: Shape[] = [];
   const rootPoints: number[][] = getRectangleFromStartingPoint(STARTING_POINTS);
@@ -105,13 +188,22 @@ function getShapesFromStatementTree(tree: TreeOfStatements, distance?: number): 
   console.log(directSupportingChildren);
   console.log(directOpposingChildren);
   const layer1Height: number = 300;
-  const supporterPoints: number[][] = getRectangleFromStartingPoint([200, layer1Height]);
-  const supporter = new Shape(supporterPoints, directSupportingChildren[0].title ?? 'unknown');
+  const supporterPoints: number[][] = getRectangleFromStartingPoint([
+    200,
+    layer1Height,
+  ]);
+  const supporter = new Shape(
+    supporterPoints,
+    directSupportingChildren[0].title ?? 'unknown',
+  );
   shapes.push(supporter);
 
   // const arrowPoints: number[][] = getArrowPoints([210, 300], [250, 260]);
   // todo function to get a middle point
-  const arrowPoints: number[][] = getArrowPoints(rootShape.points[0], supporter.points[0]);
+  const arrowPoints: number[][] = getArrowPoints(
+    rootShape.points[0],
+    supporter.points[0],
+  );
 
   const arrowLayer: Shape[] = [new Shape(arrowPoints, 'against')];
   shapes.push(arrowLayer[0]);
@@ -126,14 +218,20 @@ function getShapesFromStatementTree(tree: TreeOfStatements, distance?: number): 
 
 export default function ArgumentTree(): JSX.Element {
   const [data, setData] = useState(DEFAULT_TREE);
-  const canvasStyles: React.CSSProperties = { borderWidth: '1px', borderStyle: "solid", borderColor: "#c3c3c3" };
+  const canvasStyles: React.CSSProperties = {
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: '#c3c3c3',
+  };
   const textBox = new Shape(rectangleCorners, 'test');
   const [loaded, setLoaded] = useState(false);
   const newShapes: Shape[] = getShapesFromStatementTree(data);
 
   // todo add error handling
   useEffect(() => {
-    const c: HTMLCanvasElement = document.getElementById(canvasId) as HTMLCanvasElement;
+    const c: HTMLCanvasElement = document.getElementById(
+      canvasId,
+    ) as HTMLCanvasElement;
     const context: CanvasRenderingContext2D = c.getContext('2d')!;
     newShapes.forEach(s => s.draw(context));
     const clickHandler = (e: MouseEvent): void => {
@@ -145,30 +243,33 @@ export default function ArgumentTree(): JSX.Element {
           shape.draw(context);
       });
     };
-    c.addEventListener('click', clickHandler)
+    c.addEventListener('click', clickHandler);
     setLoaded(true);
     return () => {
       c.removeEventListener('click', clickHandler);
-    }
-  }, [])
+    };
+  }, []);
 
   const sendHandler = () => {
     const url = 'http://localhost:3001/argument';
     axios.post(url, data).then((res: AxiosResponse) => {
       console.log(res.data);
-    })
+    });
     console.log('clicked!');
   };
 
-  return <>
-    <p>Argument Tree</p>
-    <div id={'optionsPanel'}>
-      <button onClick={() => sendHandler()}> send data</button>
-      <button onClick={() => console.log('shape accepted')}>Accept shape</button>
-    </div>
-    <canvas id={canvasId} width={600}
-      height={600} style={canvasStyles}>
-      Your browser does not support the HTML5 canvas tag.
-    </canvas>
-  </>
+  return (
+    <>
+      <p>Argument Tree</p>
+      <div id={'optionsPanel'}>
+        <button onClick={() => sendHandler()}> send data</button>
+        <button onClick={() => console.log('shape accepted')}>
+          Accept shape
+        </button>
+      </div>
+      <canvas id={canvasId} width={1200} height={800} style={canvasStyles}>
+        Your browser does not support the HTML5 canvas tag.
+      </canvas>
+    </>
+  );
 }
