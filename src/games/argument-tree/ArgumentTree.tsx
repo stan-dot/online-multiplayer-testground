@@ -175,7 +175,7 @@ function getShapesFromStatementTree(
   const directOpposingChildren: Statement[] = tree.statements.filter(s =>
     s.idsOpposed.includes(root.id),
   );
-  const STARTING_POINTS: number[] = [300, 500];
+  const STARTING_POINTS: number[] = [400, 600];
   let shapes: Shape[] = [];
   const rootPoints: number[][] = getRectangleFromStartingPoint(STARTING_POINTS);
   const grey = '#808080';
