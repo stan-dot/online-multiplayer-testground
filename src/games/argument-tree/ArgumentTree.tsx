@@ -1,53 +1,16 @@
-import { useEffect, useState } from 'react';
-import { Shape } from './types/Shape';
-import {
-  starCorners,
-  offsets,
-  rectangleCorners,
-  getRectangleFromStartingPoint,
-} from './constants';
-import axios, { AxiosResponse } from 'axios';
-import { downwardArrowCorners } from './downwardArrowCorners';
-const canvasId = 'myCanvas';
+import axios, { AxiosResponse } from "axios";
+import React, { Dispatch, useEffect, useRef, useState } from "react";
+import Swal from "sweetalert2";
+import { getRectangleFromStartingPoint, rectangleCorners } from "./constants";
+import { DEFAULT_TREE } from "./DEFAULT_TREE";
+import { Statement, TreeOfStatements } from "./TreeOfStatements";
+import { Shape } from "./types/Shape";
+const canvasId = "myCanvas";
 
-type Statement = {
-  title: string;
-  id: string;
-  idsSupported: string[];
-  idsOpposed: string[];
-};
-
-type TreeOfStatements = {
-  statements: Statement[];
-};
-
-const s2: Statement = {
-  title: 'The clock has been showing 1:30 for some time now.',
-  id: '2',
-  idsSupported: ['1'],
-  idsOpposed: [],
-};
-
-const s1: Statement = {
-  title: 'It must be different time than 1:30',
-  id: '1',
-  idsSupported: [],
-  idsOpposed: [],
-};
-
-const DEFAULT_TREE: TreeOfStatements = {
-  statements: [s1, s2],
-};
-
-const red = '#FF000';
-const green = '#00FF00';
-
-function isFinal(s: Statement): boolean {
-  return s.idsOpposed.length === 0 && s.idsSupported.length === 0;
-}
+const red = "#FF000";
+const green = "#00FF00";
 
 /**
- *
  * @param start
  * @param end
  * @param proportion how much from the end the parting point is
@@ -110,37 +73,53 @@ function getArrowPoints(
   // the additional 4 points
   const rightSpikePoint: number[] = [
     cruxPoint[0] +
-    PERPENDICULAR_COSINE * linearCoefficient[0] * SPIKE_POINT_DISTANCE,
+    Math.abs(
+      PERPENDICULAR_COSINE * linearCoefficient[0] * SPIKE_POINT_DISTANCE,
+    ),
     cruxPoint[1] +
-    PERPENDICULAR_COSINE * linearCoefficient[1] * SPIKE_POINT_DISTANCE,
+    Math.abs(
+      PERPENDICULAR_COSINE * linearCoefficient[1] * SPIKE_POINT_DISTANCE,
+    ),
   ]; // 5 pixels outwards from the internal point
-  // output.push(rightSpikePoint);
+  output.push(rightSpikePoint);
 
   const rightInternalPoint: number[] = [
     cruxPoint[0] +
-    PERPENDICULAR_COSINE * linearCoefficient[0] * INTERNAL_POINT_DISTANCE,
+    Math.abs(
+      PERPENDICULAR_COSINE * linearCoefficient[0] * INTERNAL_POINT_DISTANCE,
+    ),
     cruxPoint[1] +
-    PERPENDICULAR_COSINE * linearCoefficient[1] * INTERNAL_POINT_DISTANCE,
+    Math.abs(
+      PERPENDICULAR_COSINE * linearCoefficient[1] * INTERNAL_POINT_DISTANCE,
+    ),
   ];
-  // output.push(rightInternalPoint);
+  output.push(rightInternalPoint);
 
   const angle3 = updateAngle(angle2);
   const point3 = [getNewX(angle3), getNewY(angle3)]; // leftmost
   output.push(point3);
   const leftInternalPoint: number[] = [
     cruxPoint[0] -
-    PERPENDICULAR_COSINE * linearCoefficient[0] * INTERNAL_POINT_DISTANCE,
+    Math.abs(
+      PERPENDICULAR_COSINE * linearCoefficient[0] * INTERNAL_POINT_DISTANCE,
+    ),
     cruxPoint[1] -
-    PERPENDICULAR_COSINE * linearCoefficient[1] * INTERNAL_POINT_DISTANCE,
+    Math.abs(
+      PERPENDICULAR_COSINE * linearCoefficient[1] * INTERNAL_POINT_DISTANCE,
+    ),
   ]; // 1/8th of the distance from the end , just on the way
-  // output.push(leftInternalPoint);
+  output.push(leftInternalPoint);
   const leftSpikePoint: number[] = [
     cruxPoint[0] -
-    PERPENDICULAR_COSINE * linearCoefficient[0] * SPIKE_POINT_DISTANCE,
+    Math.abs(
+      PERPENDICULAR_COSINE * linearCoefficient[0] * SPIKE_POINT_DISTANCE,
+    ),
     cruxPoint[1] -
-    PERPENDICULAR_COSINE * linearCoefficient[1] * SPIKE_POINT_DISTANCE,
+    Math.abs(
+      PERPENDICULAR_COSINE * linearCoefficient[1] * SPIKE_POINT_DISTANCE,
+    ),
   ]; // 5 pixels outwards from the internal point
-  // output.push(leftSpikePoint);
+  output.push(leftSpikePoint);
   console.log(output);
   return output;
 }
@@ -164,21 +143,23 @@ type Layer = {
  */
 function getShapesFromStatementTree(
   tree: TreeOfStatements,
+  rootId: string,
   distance?: number,
 ): Shape[] {
-  const root: Statement = tree.statements.find(isFinal)!; // todo error handling
+  const root: Statement = tree.statements.find((s) => s.id === rootId) ||
+    tree.statements[0];
   // recursively build tree up to some distance
   const MAX_DISTANCE = 2;
-  const directSupportingChildren: Statement[] = tree.statements.filter(s =>
-    s.idsSupported.includes(root.id),
+  const directSupportingChildren: Statement[] = tree.statements.filter((s) =>
+    s.supportingChildren.includes(root.id)
   );
-  const directOpposingChildren: Statement[] = tree.statements.filter(s =>
-    s.idsOpposed.includes(root.id),
+  const directOpposingChildren: Statement[] = tree.statements.filter((s) =>
+    s.opposingChildren.includes(root.id)
   );
   const STARTING_POINTS: number[] = [400, 600];
   let shapes: Shape[] = [];
   const rootPoints: number[][] = getRectangleFromStartingPoint(STARTING_POINTS);
-  const grey = '#808080';
+  const grey = "#808080";
   const rootShape: Shape = new Shape(rootPoints, root.title, grey);
   shapes.push(rootShape);
   // const testArrow: Shape = new Shape(downwardArrowCorners, 'supports');
@@ -194,7 +175,7 @@ function getShapesFromStatementTree(
   ]);
   const supporter = new Shape(
     supporterPoints,
-    directSupportingChildren[0].title ?? 'unknown',
+    directSupportingChildren[0].title ?? "unknown",
   );
   shapes.push(supporter);
 
@@ -205,7 +186,7 @@ function getShapesFromStatementTree(
     supporter.points[0],
   );
 
-  const arrowLayer: Shape[] = [new Shape(arrowPoints, 'against')];
+  const arrowLayer: Shape[] = [new Shape(arrowPoints, "against")];
   shapes.push(arrowLayer[0]);
 
   return shapes;
@@ -218,58 +199,220 @@ function getShapesFromStatementTree(
 
 export default function ArgumentTree(): JSX.Element {
   const [data, setData] = useState(DEFAULT_TREE);
+  const [dialogOpen, setdialogOpen] = useState(false);
   const canvasStyles: React.CSSProperties = {
-    borderWidth: '1px',
-    borderStyle: 'solid',
-    borderColor: '#c3c3c3',
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "#c3c3c3",
   };
-  const textBox = new Shape(rectangleCorners, 'test');
+  const textBox = new Shape(rectangleCorners, "test");
   const [loaded, setLoaded] = useState(false);
-  const newShapes: Shape[] = getShapesFromStatementTree(data);
+  const rootId = "2";
+  const newShapes: Shape[] = getShapesFromStatementTree(data, rootId);
+  const [largestId, setLargestId] = useState(
+    DEFAULT_TREE.statements.reduce((previous, current) =>
+      parseInt(current.id) > parseInt(previous.id) ? current : previous
+    ).id,
+  );
+
+  const addNewStatement = (s: Statement): void => {
+    const validSupportIds: boolean = true;
+    if (!validSupportIds) {
+      Swal.fire({
+        title: "Error!",
+        text: "Do you want to continue",
+        icon: "error",
+        confirmButtonText: "Cool",
+      });
+    }
+    const joined: TreeOfStatements = {
+      statements: data.statements.concat(s),
+    };
+    setData(joined);
+  };
 
   // todo add error handling
   useEffect(() => {
     const c: HTMLCanvasElement = document.getElementById(
       canvasId,
     ) as HTMLCanvasElement;
-    const context: CanvasRenderingContext2D = c.getContext('2d')!;
-    newShapes.forEach(s => s.draw(context));
+    const context: CanvasRenderingContext2D = c.getContext("2d")!;
+    newShapes.forEach((s) => s.draw(context));
     const clickHandler = (e: MouseEvent): void => {
       const x = e.pageX - c.offsetLeft;
       const y = e.pageY - c.offsetTop;
-      newShapes.forEach(shape => {
-        if (shape.interior(x, y))
+      newShapes.forEach((shape) => {
+        if (shape.interior(x, y)) {
           // todo here react on clicks and change the internal data structure
           shape.draw(context);
+        }
       });
     };
-    c.addEventListener('click', clickHandler);
+    c.addEventListener("click", clickHandler);
     setLoaded(true);
     return () => {
-      c.removeEventListener('click', clickHandler);
+      c.removeEventListener("click", clickHandler);
     };
   }, []);
 
   const sendHandler = () => {
-    const url = 'http://localhost:3001/argument';
+    const url = "http://localhost:3001/argument";
     axios.post(url, data).then((res: AxiosResponse) => {
       console.log(res.data);
     });
-    console.log('clicked!');
+    console.log("clicked!");
   };
 
   return (
     <>
       <p>Argument Tree</p>
-      <div id={'optionsPanel'}>
-        <button onClick={() => sendHandler()}> send data</button>
-        <button onClick={() => console.log('shape accepted')}>
+      <div id={"optionsPanel"}>
+        <button onClick={() => sendHandler()}>send data</button>
+        <button onClick={() => console.log("shape accepted")}>
           Accept shape
         </button>
+        <button onClick={() => setdialogOpen(true)}>
+          open node creation dialogue
+        </button>
+        <DialogWindow />
+      </div>
+      <div id="sidePanel">
+        <ul>
+          <li>option 1</li>
+          <li>option 2</li>
+        </ul>
       </div>
       <canvas id={canvasId} width={1200} height={800} style={canvasStyles}>
         Your browser does not support the HTML5 canvas tag.
       </canvas>
+      <ChatPanel
+        inSupportOf={data.statements[0]}
+        tree={data.statements}
+        callback={addNewStatement}
+      />
     </>
+  );
+}
+
+type Message = {
+  text: string;
+  sender: string;
+  readStatus: boolean;
+  id: string;
+};
+
+function DialogWindow(
+  props: {
+    dialogOpen: boolean;
+    closeCallback: Function;
+    creationCallback: (s: Statement) => void;
+    largestId: string;
+  },
+) {
+  const [newStatement, setNewStatement] = useState({} as Statement);
+  const dialogStyles: React.CSSProperties = {
+    position: "absolute",
+    left: "10px",
+    top: "10px",
+    height: "300px",
+    width: "300px",
+    zIndex: "auto",
+  };
+  const textRef = React.createRef();
+  const opposedIdRef = React.createRef();
+  const supportedIdRef = React.createRef();
+
+  const num: number = parseInt(props.largestId) ?? 0 + 1;
+  const newId: string = num.toString();
+  const handleSubmit = () => {
+    const n: Statement = {
+      title: textRef.current as string ?? 'empty',
+      id: newId,
+      supportingChildren: [],
+      opposingChildren: []
+    };
+
+    props.creationCallback(n);
+  }
+  return (
+    <dialog open={props.dialogOpen} style={dialogStyles} onSubmit={handleSubmit}>
+      <form>
+        <label htmlFor="title">
+          Text of the statement
+          <input type={"text"} id="title" ref={textRef}></input>
+        </label>
+        <label htmlFor="opposedId">
+          write 1 id of what this claim opposes
+          <input type={"text"} id="opposedId"></input>
+        </label>
+        <label htmlFor="supportedId">
+          write 1 id of what supports this claim
+          <input type={"text"} id="supportedId"></input>
+        </label>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            props.creationCallback(newStatement);
+          }}
+        >
+          ready
+        </button>
+      </form>
+
+      <button onClick={() => props.closeCallback()}>close</button>
+    </dialog>
+  );
+}
+
+function ChatPanel(
+  props: {
+    inSupportOf: Statement;
+    tree: Statement[];
+    callback: (s: Statement) => void;
+  },
+): JSX.Element {
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState([] as Message[]);
+
+  return (
+    <div id="chatPanel">
+      <div id="charDisplayArea">
+        <div>
+          <p>
+            position argued:
+            {props.inSupportOf.title}
+          </p>
+        </div>
+        {messages.map((m) => {
+          return (
+            <div id={`text-message-${m.id}`}>
+              <button onClick={() => console.log("clicked a message")}>
+                m.text
+              </button>
+            </div>
+          );
+        })}
+      </div>
+      <div id="input area">
+        <input type={"text"} placeholder={"here type a statement"}>
+        </input>
+        <button
+          onClick={(e) => {
+            const messageFromInput: Message = {
+              text: input,
+              sender: "ME",
+              readStatus: false,
+              id: `${messages[messages.length - 1].id}`,
+            };
+            const joined = messages.concat(messageFromInput);
+            setMessages(joined);
+            setInput("");
+          }}
+        >
+          send
+        </button>
+      </div>
+    </div>
   );
 }
