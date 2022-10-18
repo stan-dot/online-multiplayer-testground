@@ -1,10 +1,13 @@
 import axios, { AxiosResponse } from "axios";
-import React, { Dispatch, useEffect, useRef, useState } from "react";
+import { text } from "node:stream/consumers";
+import React, { Dispatch, useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { getRectangleFromStartingPoint, rectangleCorners } from "./constants";
-import { DEFAULT_TREE } from "./DEFAULT_TREE";
-import { Statement, TreeOfStatements } from "./TreeOfStatements";
+import { getRectangleFromStartingPoint, rectangleCorners } from "./data/constants";
+import { DEFAULT_TREE } from "./data/DEFAULT_TREE";
+import { DialogWindow } from "./components/DialogWindow";
+import { Statement, TreeOfStatements } from "./types/TreeOfStatements";
 import { Shape } from "./types/Shape";
+import { ChatPanel } from "./components/ChatPanel";
 const canvasId = "myCanvas";
 
 const red = "#FF000";
@@ -199,8 +202,10 @@ function getShapesFromStatementTree(
 
 export default function ArgumentTree(): JSX.Element {
   const [data, setData] = useState(DEFAULT_TREE);
-  const [dialogOpen, setdialogOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const canvasStyles: React.CSSProperties = {
+    left: "20%",
+    top: "50px",
     borderWidth: "1px",
     borderStyle: "solid",
     borderColor: "#c3c3c3",
@@ -214,6 +219,10 @@ export default function ArgumentTree(): JSX.Element {
       parseInt(current.id) > parseInt(previous.id) ? current : previous
     ).id,
   );
+
+  const closeDialog = () => {
+    setDialogOpen(false);
+  };
 
   const addNewStatement = (s: Statement): void => {
     const validSupportIds: boolean = true;
@@ -266,25 +275,32 @@ export default function ArgumentTree(): JSX.Element {
   return (
     <>
       <p>Argument Tree</p>
-      <div id={"optionsPanel"}>
+      <div id="optionsPanel">
         <button onClick={() => sendHandler()}>send data</button>
         <button onClick={() => console.log("shape accepted")}>
           Accept shape
         </button>
-        <button onClick={() => setdialogOpen(true)}>
+        <button onClick={() => setDialogOpen(true)}>
           open node creation dialogue
         </button>
-        <DialogWindow />
+        <DialogWindow
+          dialogOpen={dialogOpen}
+          closeCallback={closeDialog}
+          creationCallback={addNewStatement}
+          largestId={largestId}
+        />
       </div>
-      <div id="sidePanel">
+      <div id="sidePanel" style={{ left: "10px", top: "50px" }}>
         <ul>
           <li>option 1</li>
           <li>option 2</li>
         </ul>
       </div>
-      <canvas id={canvasId} width={1200} height={800} style={canvasStyles}>
-        Your browser does not support the HTML5 canvas tag.
-      </canvas>
+      <div id="canvasContainer" style={{ left: "20%" }}>
+        <canvas id={canvasId} width={1200} height={800} style={canvasStyles}>
+          Your browser does not support the HTML5 canvas tag.
+        </canvas>
+      </div>
       <ChatPanel
         inSupportOf={data.statements[0]}
         tree={data.statements}
@@ -294,125 +310,9 @@ export default function ArgumentTree(): JSX.Element {
   );
 }
 
-type Message = {
+export type Message = {
   text: string;
   sender: string;
   readStatus: boolean;
   id: string;
 };
-
-function DialogWindow(
-  props: {
-    dialogOpen: boolean;
-    closeCallback: Function;
-    creationCallback: (s: Statement) => void;
-    largestId: string;
-  },
-) {
-  const [newStatement, setNewStatement] = useState({} as Statement);
-  const dialogStyles: React.CSSProperties = {
-    position: "absolute",
-    left: "10px",
-    top: "10px",
-    height: "300px",
-    width: "300px",
-    zIndex: "auto",
-  };
-  const textRef = React.createRef();
-  const opposedIdRef = React.createRef();
-  const supportedIdRef = React.createRef();
-
-  const num: number = parseInt(props.largestId) ?? 0 + 1;
-  const newId: string = num.toString();
-  const handleSubmit = () => {
-    const n: Statement = {
-      title: textRef.current as string ?? 'empty',
-      id: newId,
-      supportingChildren: [],
-      opposingChildren: []
-    };
-
-    props.creationCallback(n);
-  }
-  return (
-    <dialog open={props.dialogOpen} style={dialogStyles} onSubmit={handleSubmit}>
-      <form>
-        <label htmlFor="title">
-          Text of the statement
-          <input type={"text"} id="title" ref={textRef}></input>
-        </label>
-        <label htmlFor="opposedId">
-          write 1 id of what this claim opposes
-          <input type={"text"} id="opposedId"></input>
-        </label>
-        <label htmlFor="supportedId">
-          write 1 id of what supports this claim
-          <input type={"text"} id="supportedId"></input>
-        </label>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            props.creationCallback(newStatement);
-          }}
-        >
-          ready
-        </button>
-      </form>
-
-      <button onClick={() => props.closeCallback()}>close</button>
-    </dialog>
-  );
-}
-
-function ChatPanel(
-  props: {
-    inSupportOf: Statement;
-    tree: Statement[];
-    callback: (s: Statement) => void;
-  },
-): JSX.Element {
-  const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([] as Message[]);
-
-  return (
-    <div id="chatPanel">
-      <div id="charDisplayArea">
-        <div>
-          <p>
-            position argued:
-            {props.inSupportOf.title}
-          </p>
-        </div>
-        {messages.map((m) => {
-          return (
-            <div id={`text-message-${m.id}`}>
-              <button onClick={() => console.log("clicked a message")}>
-                m.text
-              </button>
-            </div>
-          );
-        })}
-      </div>
-      <div id="input area">
-        <input type={"text"} placeholder={"here type a statement"}>
-        </input>
-        <button
-          onClick={(e) => {
-            const messageFromInput: Message = {
-              text: input,
-              sender: "ME",
-              readStatus: false,
-              id: `${messages[messages.length - 1].id}`,
-            };
-            const joined = messages.concat(messageFromInput);
-            setMessages(joined);
-            setInput("");
-          }}
-        >
-          send
-        </button>
-      </div>
-    </div>
-  );
-}

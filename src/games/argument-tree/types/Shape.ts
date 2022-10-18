@@ -1,5 +1,5 @@
 import { SegmentChecker } from './SegmentChecker';
-import { c1, c2, getStartingPointForRectangleText } from '../constants';
+import { c1, c2, getStartingPointForRectangleText } from '../data/constants';
 
 export class Shape {
   public color: string;

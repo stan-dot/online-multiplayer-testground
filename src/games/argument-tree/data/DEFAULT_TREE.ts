@@ -1,8 +1,7 @@
-import { Statement, TreeOfStatements } from "./TreeOfStatements";
+import { Statement, TreeOfStatements } from '../types/TreeOfStatements';
 
 export const DEFAULT_TREE: TreeOfStatements = {
   statements: [
-
     {
       title: 'The clock has been showing 1:30 for some time now.',
       id: '2',
@@ -27,6 +26,5 @@ export const DEFAULT_TREE: TreeOfStatements = {
       supportingChildren: [],
       opposingChildren: [],
     },
-
   ],
 };
