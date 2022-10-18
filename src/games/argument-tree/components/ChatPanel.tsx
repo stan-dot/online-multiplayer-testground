@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Message } from "../ArgumentTree";
+import { Message } from "../types/Message";
 import { Statement } from "../types/TreeOfStatements";
 
 export function ChatPanel(
@@ -19,7 +19,7 @@ export function ChatPanel(
     height: '60%',
     border: "5px solid",
     borderColor: "Highlight",
-    display: 'flex-row',
+    display: 'grid',
     justifyContent: 'space-between'
   };
 
@@ -32,17 +32,19 @@ export function ChatPanel(
             {props.inSupportOf.title}
           </p>
         </div>
-        {messages.map((m) => {
-          return (
-            <div id={`text-message-${m.id}`}>
-              <button onClick={() => console.log("clicked a message")}>
-                m.text
-              </button>
-            </div>
-          );
-        })}
+        <div id="messagesArea" style={{ border: '2px solid', borderColor: 'ButtonFace' }}>
+          {messages.map((m) => {
+            return (
+              <div id={`text-message-${m.id}`}>
+                <button onClick={() => console.log("clicked a message")}>
+                  m.text
+                </button>
+              </div>
+            );
+          })}
+        </div>
       </div>
-      <div id="input area" >
+      <div id="input area"  >
         <input type={"text"} placeholder={"here type a statement"}>
         </input>
         <button

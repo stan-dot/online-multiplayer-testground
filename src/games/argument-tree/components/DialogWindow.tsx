@@ -37,7 +37,7 @@ export function DialogWindow(
       <form>
         <label htmlFor="title">
           Text of the statement
-          <input type={"text"} id="title" value={textRef.current} onChange={e => textRef.current = e.target.value} />
+          <input type={"text"} id="title"  value={textRef.current} onChange={e => textRef.current = e.target.value} />
         </label>
         <label htmlFor="opposedId">
           write 1 id of what this claim opposes

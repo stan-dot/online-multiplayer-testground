@@ -84,7 +84,7 @@ function getArrowPoints(
       PERPENDICULAR_COSINE * linearCoefficient[1] * SPIKE_POINT_DISTANCE,
     ),
   ]; // 5 pixels outwards from the internal point
-  output.push(rightSpikePoint);
+  // output.push(rightSpikePoint);
 
   const rightInternalPoint: number[] = [
     cruxPoint[0] +
@@ -96,11 +96,11 @@ function getArrowPoints(
       PERPENDICULAR_COSINE * linearCoefficient[1] * INTERNAL_POINT_DISTANCE,
     ),
   ];
-  output.push(rightInternalPoint);
+  // output.push(rightInternalPoint);
 
   const angle3 = updateAngle(angle2);
   const point3 = [getNewX(angle3), getNewY(angle3)]; // leftmost
-  output.push(point3);
+  // output.push(point3);
   const leftInternalPoint: number[] = [
     cruxPoint[0] -
     Math.abs(
@@ -122,7 +122,7 @@ function getArrowPoints(
       PERPENDICULAR_COSINE * linearCoefficient[1] * SPIKE_POINT_DISTANCE,
     ),
   ]; // 5 pixels outwards from the internal point
-  output.push(leftSpikePoint);
+  // output.push(leftSpikePoint);
   console.log(output);
   return output;
 }
@@ -310,9 +310,4 @@ export default function ArgumentTree(): JSX.Element {
   );
 }
 
-export type Message = {
-  text: string;
-  sender: string;
-  readStatus: boolean;
-  id: string;
-};
+
