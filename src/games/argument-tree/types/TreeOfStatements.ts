@@ -5,6 +5,15 @@ export type Statement = {
   opposingChildren: Statement[];
 };
 
-export type TreeOfStatements = {
+export type TopicMetadata = {
+  creatorsIds: string[];
+  confirmationPercent: number;
+  tags: string[];
+  triggerWarnings: string[];
+  question: string;
+};
+
+export type Topic = {
   statements: Statement[];
+  metadata: TopicMetadata;
 };
