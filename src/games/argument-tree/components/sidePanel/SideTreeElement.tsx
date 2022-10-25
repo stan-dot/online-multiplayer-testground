@@ -117,11 +117,13 @@ export function SideTreeElement(
             nodes={props.thing.supportingChildren!}
             pathSetter={props.pathSetter}
             path={props.path}
+            color={'#FF0000'}
           />
           <SideSubTree
             nodes={props.thing.opposingChildren!}
             pathSetter={props.pathSetter}
             path={props.path}
+            color={'#00FF00'}
           />
         </div>
       )}

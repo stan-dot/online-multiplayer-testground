@@ -15,7 +15,7 @@ export function ChatPanel(
     position: "absolute",
     left: "80%",
     width: "20%",
-    top: "50px",
+    top: "100px",
     height: '60%',
     border: "5px solid",
     borderColor: "Highlight",
