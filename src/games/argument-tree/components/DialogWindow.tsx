@@ -14,7 +14,7 @@ export function DialogWindow(
     top: "10px",
     height: "300px",
     width: "300px",
-    zIndex: "auto",
+    zIndex: 10,
   };
   const textRef = useRef("");
   const opposedIdRef = useRef("");
@@ -37,7 +37,7 @@ export function DialogWindow(
       <form>
         <label htmlFor="title">
           Text of the statement
-          <input type={"text"} id="title"  value={textRef.current} onChange={e => textRef.current = e.target.value} />
+          <input type={"text"} id="title" value={textRef.current} onChange={e => textRef.current = e.target.value} />
         </label>
         <label htmlFor="opposedId">
           write 1 id of what this claim opposes

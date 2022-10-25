@@ -1,9 +1,8 @@
-
 export type Statement = {
   title: string;
   id: string;
-  supportingChildren: string[];
-  opposingChildren: string[];
+  supportingChildren: Statement[];
+  opposingChildren: Statement[];
 };
 
 export type TreeOfStatements = {
