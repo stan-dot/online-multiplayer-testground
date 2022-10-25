@@ -4,6 +4,15 @@ import { Shape } from "./types/Shape";
 import { getArrowPoints } from "./getArrowPoints";
 const grey = "#808080";
 
+const LAYER_HEIGHT = 200;
+
+type SubtreeLayer = {
+  yCoordinate: number;
+  xCoordinate: number;
+  shapes: Shape[];
+  width: number;
+};
+
 /**
  * todo
  * identify the lowermost edge, put it on the bottom, then go up
@@ -26,13 +35,9 @@ export function getShapesFromStatementTree(
   const directSupportingChildren: Statement[] = root.supportingChildren;
   const directOpposingChildren: Statement[] = root.opposingChildren;
   const STARTING_POINTS: number[] = [400, 600];
-  let shapes: Shape[] = [];
-  const rootPoints: number[][] = getRectangleFromStartingPoint(STARTING_POINTS);
-  const rootShape: Shape = new Shape(rootPoints, root.title, grey);
-  shapes.push(rootShape);
+  let shapes: Shape[] = getShapesFromArray([root], STARTING_POINTS);
+
   // todo add layer differences
-  // console.log(directSupportingChildren);
-  // console.log(directOpposingChildren);
   const layer1Height: number = 300;
   const supporterPoints: number[][] = getRectangleFromStartingPoint([
     200,
@@ -47,7 +52,7 @@ export function getShapesFromStatementTree(
   // const arrowPoints: number[][] = getArrowPoints([210, 300], [250, 260]);
   // todo function to get a middle point
   const arrowPoints: number[][] = getArrowPoints(
-    rootShape.points[0],
+    shapes[0].points[0],
     supporter.points[0],
   );
 
@@ -60,4 +65,12 @@ export function getShapesFromStatementTree(
   const greenEdges: Shape[] = [];
   // const nodes: Shape[] = tree.statements.map((v: Statement) => new Shape());
   // return [redEdges, greenEdges, nodes].flat();
+}
+
+
+
+function getShapesFromArray(nodes: Statement[], startingPoints: number[], data?: any): Shape[]{
+  const rootPoints: number[][] = getRectangleFromStartingPoint(startingPoints);
+  const rootShape: Shape = new Shape(rootPoints, nodes[0].title, grey);
+  return [rootShape];
 }

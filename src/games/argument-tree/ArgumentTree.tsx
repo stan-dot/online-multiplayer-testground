@@ -18,14 +18,6 @@ const canvasStyles: React.CSSProperties = {
   borderStyle: "solid",
   borderColor: "#c3c3c3",
 };
-
-type Layer = {
-  height: number;
-  width: number;
-  color: string;
-  shapes: Shape[];
-};
-
 function formatPath(nodes: Statement[]): string {
   return nodes.map(v => v.title).reduce((previous: string, current: string) => {
     return previous + "-" + current;
