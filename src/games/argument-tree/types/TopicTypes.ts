@@ -11,6 +11,7 @@ export type TopicMetadata = {
   tags: string[];
   triggerWarnings: string[];
   question: string;
+  imageUrl?: string;
 };
 
 export type Topic = {

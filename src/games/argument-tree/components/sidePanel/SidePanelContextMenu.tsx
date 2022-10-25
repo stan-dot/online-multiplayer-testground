@@ -1,4 +1,4 @@
-import { Statement } from "../../types/TreeOfStatements";
+import { Statement } from "../../types/TopicTypes";
 
 const basicNodes: string[] = [
   'root'

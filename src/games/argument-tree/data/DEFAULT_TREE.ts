@@ -1,4 +1,4 @@
-import { Statement, TreeOfStatements } from '../types/TreeOfStatements';
+import { Statement, TreeOfStatements } from '../types/TopicTypes';
 
 const loremData: Statement[] = [
   {
@@ -152,8 +152,5 @@ const testStatement1: Statement = {
 };
 
 export const DEFAULT_TREE: TreeOfStatements = {
-  statements: [
-    testStatement1,
-    testStatment2,
-  ],
+  statements: [testStatement1, testStatment2],
 };

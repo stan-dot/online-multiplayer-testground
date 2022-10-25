@@ -1,14 +1,16 @@
 import axios, { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { getShapesFromStatementTree } from "./components/canvas/getShapesFromStatementTree";
 import { ChatPanel } from "./components/ChatPanel";
 import { DialogWindow } from "./components/DialogWindow";
 import { SideTree } from "./components/sidePanel/SideTree";
 import { rectangleCorners } from "./data/constants";
 import { DEFAULT_TREE } from "./data/DEFAULT_TREE";
-import { getShapesFromStatementTree } from "./getShapesFromStatementTree";
+import { HamburgerDisplayToggle } from "./navbar/HamburgerDisplayToggle";
+import { TopicDropdown } from "./navbar/TopicDropdown";
 import { Shape } from "./types/Shape";
-import { Statement, TreeOfStatements } from "./types/TreeOfStatements";
+import { Statement, Topic } from "./types/TopicTypes";
 const canvasId = "myCanvas";
 
 const canvasStyles: React.CSSProperties = {
@@ -19,9 +21,12 @@ const canvasStyles: React.CSSProperties = {
   borderColor: "#c3c3c3",
 };
 function formatPath(nodes: Statement[]): string {
-  return nodes.map(v => v.title).reduce((previous: string, current: string) => {
-    return previous + "-" + current;
-  }, "");
+  return nodes.map((v) => v.title).reduce(
+    (previous: string, current: string) => {
+      return previous + "-" + current;
+    },
+    "",
+  );
 }
 
 export default function ArgumentTree(): JSX.Element {
@@ -31,13 +36,22 @@ export default function ArgumentTree(): JSX.Element {
   const [loaded, setLoaded] = useState(false);
   const [chatVisible, setChatVisible] = useState(true);
   const [sideTreeVisible, setSideTreeVisible] = useState(true);
+  const [topicListVisible, setTopicListVisible] = useState(true);
+  const [discussedStatement, setDiscussedStatement] = useState(
+    data.statement[0],
+  );
+
+  // const discussedStatementUpdateHandler = (newStatement: Statement, epistemicStatus: boolean): void => {
+  //   const oldStatement:Statement = data.statements.find(s=>s.)
+
+  // }
 
   const textBox = new Shape(rectangleCorners, "test");
   const rootId = "2";
   const newShapes: Shape[] = getShapesFromStatementTree(data, rootId);
 
   const [largestId, setLargestId] = useState(
-    DEFAULT_TREE.statements.reduce((previous, current) =>
+    DEFAULT_TREE.statements.reduce((previous: Statement, current: Statement) =>
       parseInt(current.id) > parseInt(previous.id) ? current : previous
     ).id,
   );
@@ -56,8 +70,15 @@ export default function ArgumentTree(): JSX.Element {
         confirmButtonText: "Cool",
       });
     }
-    const joined: TreeOfStatements = {
+    const joined: Topic = {
       statements: data.statements.concat(s),
+      metadata: {
+        creatorsIds: ["Me", "you"],
+        confirmationPercent: 0,
+        tags: ["test"],
+        triggerWarnings: [],
+        question: "",
+      },
     };
     setData(joined);
   };
@@ -86,6 +107,11 @@ export default function ArgumentTree(): JSX.Element {
     };
   }, []);
 
+  const topicChangeCallback = (t: Topic) => {
+    setTopicListVisible(false);
+    setData(t);
+  };
+
   const sendHandler = () => {
     const url = "http://localhost:3001/argument";
     axios.post(url, data).then((res: AxiosResponse) => {
@@ -99,8 +125,10 @@ export default function ArgumentTree(): JSX.Element {
     setPath(nodes);
   };
 
-  const canvasWidth: number = 1200 + (sideTreeVisible ? 0 : 200) + (chatVisible ? 0 : 300);
-  const canvasHeight: number = 800 + (sideTreeVisible ? 0 : 200) + (chatVisible ? 0 : 300);
+  const canvasWidth: number = 1200 + (sideTreeVisible ? 0 : 200) +
+    (chatVisible ? 0 : 300);
+  const canvasHeight: number = 800 + (sideTreeVisible ? 0 : 200) +
+    (chatVisible ? 0 : 300);
   return (
     <>
       <nav
@@ -112,10 +140,24 @@ export default function ArgumentTree(): JSX.Element {
           justifyContent: "space-between",
         }}
       >
-        <HamburgerDisplayToggle visibleState={sideTreeVisible} setVisibilityCallback={setSideTreeVisible} />
+        <HamburgerDisplayToggle
+          visibleState={sideTreeVisible}
+          setVisibilityCallback={setSideTreeVisible}
+        />
         <h3>Argument Tree</h3>
-        <a href="https://github.com/stan-dot/online-multiplayer-testground">See website</a>
-        <HamburgerDisplayToggle visibleState={chatVisible} setVisibilityCallback={setChatVisible} />
+        <a href="https://github.com/stan-dot/online-multiplayer-testground">
+          See website
+        </a>
+        <button onClick={() => setTopicListVisible(true)}>
+          Show topic selection
+        </button>
+        <HamburgerDisplayToggle
+          visibleState={chatVisible}
+          setVisibilityCallback={setChatVisible}
+        />
+        {topicListVisible && (
+          <TopicDropdown changeTopicCallback={topicChangeCallback} />
+        )}
       </nav>
       {sideTreeVisible &&
         (
@@ -136,7 +178,9 @@ export default function ArgumentTree(): JSX.Element {
         <button onClick={() => setDialogOpen(true)}>
           open node creation dialogue
         </button>
-        <p>current path:<span>{formatPath(path)}</span></p>
+        <p>
+          current path:<span>{formatPath(path)}</span>
+        </p>
         <DialogWindow
           dialogOpen={dialogOpen}
           closeCallback={closeDialog}
@@ -148,29 +192,24 @@ export default function ArgumentTree(): JSX.Element {
         id="canvasContainer"
         style={{ position: "fixed", left: "270px", top: "170px" }}
       >
-        <canvas id={canvasId} width={canvasWidth} height={canvasHeight} style={canvasStyles}>
+        <canvas
+          id={canvasId}
+          width={canvasWidth}
+          height={canvasHeight}
+          style={canvasStyles}
+        >
           Your browser does not support the HTML5 canvas tag.
         </canvas>
       </div>
       {chatVisible &&
         (
           <ChatPanel
-            inSupportOf={data.statements[0]}
+            inSupportOf={discussedStatement}
             tree={data.statements}
-            callback={addNewStatement}
+            addCallback={addNewStatement}
+            largestId={largestId}
           />
         )}
     </>
   );
 }
-
-function HamburgerDisplayToggle(props: { setVisibilityCallback: React.Dispatch<React.SetStateAction<boolean>>, visibleState: boolean }) {
-  return <button onClick={() => props.setVisibilityCallback(props.visibleState ? false : true)}>
-    <svg viewBox="0 0 100 80" width="40" height="40">
-      <rect width="100" height="20"></rect>
-      <rect y="30" width="100" height="20"></rect>
-      <rect y="60" width="100" height="20"></rect>
-    </svg>
-  </button>;
-}
-

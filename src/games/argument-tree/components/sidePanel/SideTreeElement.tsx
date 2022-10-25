@@ -1,5 +1,5 @@
 import { MouseEvent, useState } from "react";
-import { Statement } from "../../types/TreeOfStatements";
+import { Statement } from "../../types/TopicTypes";
 import { BottomArrow } from "../svgs/BottomArrow";
 import { RightArrow } from "../svgs/RightArrow";
 import { notLeaf } from "./notLeaf";

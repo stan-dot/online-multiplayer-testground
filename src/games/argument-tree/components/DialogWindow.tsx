@@ -1,5 +1,13 @@
 import React, { useRef, useState } from "react";
-import { Statement } from "../types/TreeOfStatements";
+import { Statement } from "../types/TopicTypes";
+const dialogStyles: React.CSSProperties = {
+  position: "absolute",
+  left: "10px",
+  top: "10px",
+  height: "300px",
+  width: "300px",
+  zIndex: 10,
+};
 
 export function DialogWindow(
   props: {
@@ -8,23 +16,14 @@ export function DialogWindow(
     creationCallback: (s: Statement) => void;
     largestId: string;
   }) {
-  const dialogStyles: React.CSSProperties = {
-    position: "absolute",
-    left: "10px",
-    top: "10px",
-    height: "300px",
-    width: "300px",
-    zIndex: 10,
-  };
   const textRef = useRef("");
   const opposedIdRef = useRef("");
   const supportedIdRef = useRef("");
-
   const num: number = parseInt(props.largestId) ?? 0 + 1;
   const newId: string = num.toString();
   const handleSubmit = () => {
     const n: Statement = {
-      title: textRef.current as string ?? 'empty',
+      title: textRef.current ?? 'empty',
       id: newId,
       supportingChildren: [],
       opposingChildren: []

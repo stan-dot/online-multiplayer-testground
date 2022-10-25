@@ -1,5 +1,5 @@
 import React from "react";
-import { Statement } from "../../types/TreeOfStatements";
+import { Statement } from "../../types/TopicTypes";
 import { SideSubTree } from "./SideSubTree";
 
 const rootSideTreeStyles: React.CSSProperties = {

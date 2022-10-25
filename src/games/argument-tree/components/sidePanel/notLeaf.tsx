@@ -1,4 +1,4 @@
-import { Statement } from "../../types/TreeOfStatements";
+import { Statement } from "../../types/TopicTypes";
 
 
 export function notLeaf(s: Statement): boolean {

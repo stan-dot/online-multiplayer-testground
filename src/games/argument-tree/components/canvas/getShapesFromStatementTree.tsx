@@ -1,5 +1,5 @@
 import { getRectangleFromStartingPoint } from "./data/constants";
-import { Statement, Topic } from "./types/TreeOfStatements";
+import { Statement, Topic } from "./types/TopicTypes";
 import { Shape } from "./types/Shape";
 import { getArrowPoints } from "./getArrowPoints";
 const grey = "#808080";
