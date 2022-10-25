@@ -17,8 +17,10 @@ export function SideSubTree(props: {
         left: "5%",
       }}
     >
-      {props.nodes.filter(notLeaf).map((n) => {
-        const unrolled: boolean = props.path.includes(n);
+      {/* {props.nodes.filter(notLeaf).map((n) => { */}
+      {props.nodes.map((n) => {
+        // const unrolled: boolean = props.path.includes(n);
+        const unrolled: boolean = true;
         return (
           <SideTreeElement
             thing={n}

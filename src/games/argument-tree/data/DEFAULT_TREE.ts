@@ -155,8 +155,5 @@ export const DEFAULT_TREE: TreeOfStatements = {
   statements: [
     testStatement1,
     testStatment2,
-    testStatement3,
-    testStatement4,
-    ...loremData,
   ],
 };

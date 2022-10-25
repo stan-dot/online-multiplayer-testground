@@ -60,7 +60,7 @@ export function SideTreeElement(
   const [position, setPosition] = useState([0, 0]);
   const [unrolled, setUnrolled] = useState(props.unrolled);
   const [contextMenuOpen, setContextMenuOpen] = useState(false);
-  const isALeafNode: boolean = !notLeaf(props.thing);
+  const isALeafNode: boolean = notLeaf(props.thing);
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     const path = getPath(props.thing);
