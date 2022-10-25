@@ -1,17 +1,10 @@
 import { getRectangleFromStartingPoint } from "./data/constants";
-import { Statement, TreeOfStatements } from "./types/TreeOfStatements";
+import { Statement, Topic } from "./types/TreeOfStatements";
 import { Shape } from "./types/Shape";
 import { getArrowPoints } from "./getArrowPoints";
 const grey = "#808080";
 
 const LAYER_HEIGHT = 200;
-
-type SubtreeLayer = {
-  yCoordinate: number;
-  xCoordinate: number;
-  shapes: Shape[];
-  width: number;
-};
 
 /**
  * todo
@@ -24,7 +17,7 @@ type SubtreeLayer = {
  * @returns
  */
 export function getShapesFromStatementTree(
-  tree: TreeOfStatements,
+  tree: Topic,
   rootId: string,
   distance?: number,
 ): Shape[] {
@@ -69,7 +62,7 @@ export function getShapesFromStatementTree(
 
 
 
-function getShapesFromArray(nodes: Statement[], startingPoints: number[], data?: any): Shape[]{
+function getShapesFromArray(nodes: Statement[], startingPoints: number[], data?: any): Shape[] {
   const rootPoints: number[][] = getRectangleFromStartingPoint(startingPoints);
   const rootShape: Shape = new Shape(rootPoints, nodes[0].title, grey);
   return [rootShape];

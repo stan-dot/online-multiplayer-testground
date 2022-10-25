@@ -9,3 +9,26 @@
 
  ## notes
  - application before Christmas - https://ethics.ris.shef.ac.uk/ethics_applications/new
+
+## appearance
+- [ ] different styles - darkmode, etc - with tailwind possibly
+- [ ] prettify the whole thing, make it nice colours and right sizes  
+- [ ] add shadow
+
+## navigation and interactvity
+- [ ] context menus for
+  - [ ] side panel
+  - [ ] path display
+    - [ ] highlight the argument up to that point
+    - [ ] copy the path
+    - [ ] print option
+  - [ ] main display
+  - [ ] chatbot message
+- [ ] keyboard usage and selection
+  - [ ] multiple selection with `ctrl` clicked and/or shift
+  - [ ] react to `ctrl`+a clicks
+
+## Development View
+- [ ] cypress tests 
+  - [ ] basic test suite to see if works at all
+  - [ ] test basic functionality with some mock data
