@@ -16,12 +16,21 @@ export function ChatPanel(
     left: "80%",
     width: "20%",
     top: "100px",
-    height: '60%',
+    height: "60%",
     border: "5px solid",
     borderColor: "Highlight",
-    display: 'grid',
-    justifyContent: 'space-between'
+    display: "grid",
+    justifyContent: "space-between",
   };
+
+  function addMessage(messageFromInput: Message) {
+    const joined = messages.concat(messageFromInput);
+    setMessages(joined);
+  }
+
+  function getNewId(): number {
+    return messages.length;
+  }
 
   return (
     <div id="chatPanel" style={chatStyles}>
@@ -32,20 +41,34 @@ export function ChatPanel(
             {props.inSupportOf.title}
           </p>
         </div>
-        <div id="messagesArea" style={{ border: '2px solid', borderColor: 'ButtonFace' }}>
+        <div
+          id="messagesArea"
+          style={{ border: "2px solid", borderColor: "ButtonFace" }}
+        >
           {messages.map((m) => {
             return (
-              <div id={`text-message-${m.id}`}>
+              <div
+                id={`text-message-${m.id}`}
+                style={{
+                  display: "flex",
+                  justifyContent: m.sender === "ME" ? "end" : "start",
+                }}
+              >
                 <button onClick={() => console.log("clicked a message")}>
-                  m.text
+                  {m.text}
                 </button>
               </div>
             );
           })}
         </div>
       </div>
-      <div id="input area"  >
-        <input type={"text"} placeholder={"here type a statement"}>
+      <div id="input area">
+        <input
+          type={"text"}
+          placeholder={"here type a statement"}
+          onChange={(v) => setInput(v.target.value)}
+          value={input}
+        >
         </input>
         <button
           onClick={(e) => {
@@ -53,10 +76,9 @@ export function ChatPanel(
               text: input,
               sender: "ME",
               readStatus: false,
-              id: `${messages[messages.length - 1].id}`,
+              id: `${getNewId}`,
             };
-            const joined = messages.concat(messageFromInput);
-            setMessages(joined);
+            addMessage(messageFromInput);
             setInput("");
           }}
         >
