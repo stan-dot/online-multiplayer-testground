@@ -1,6 +1,7 @@
-import { getRectangleFromStartingPoint } from "./data/constants";
-import { Statement, Topic } from "./types/TopicTypes";
-import { Shape } from "./types/Shape";
+import { getRectangleFromStartingPoint } from "../../data/constants";
+import { Shape } from "../../types/Shape";
+import { SubtreeLayer } from "../../types/SubtreeLayer";
+import { Statement, Topic } from "../../types/TopicTypes";
 import { getArrowPoints } from "./getArrowPoints";
 const grey = "#808080";
 
@@ -16,11 +17,12 @@ const LAYER_HEIGHT = 200;
  * @param tree
  * @returns
  */
-export function getShapesFromStatementTree(
+export function getLayersFromStatementTree(
   tree: Topic,
   rootId: string,
+  // canvasDimensions: number[],
   distance?: number,
-): Shape[] {
+): SubtreeLayer[] {
   const root: Statement = tree.statements.find((s) => s.id === rootId) ||
     tree.statements[0];
   // recursively build tree up to some distance
@@ -52,7 +54,18 @@ export function getShapesFromStatementTree(
   const arrowLayer: Shape[] = [new Shape(arrowPoints, "against")];
   shapes.push(arrowLayer[0]);
 
-  return shapes;
+  const layer1: SubtreeLayer = {
+    yCoordinate: 0,
+    xCoordinate: 0,
+    shapes: [],
+    width: 0
+  };
+
+  const layers: SubtreeLayer[] = [
+
+  ]
+
+  return layers;
 
   const redEdges: Shape[] = [];
   const greenEdges: Shape[] = [];

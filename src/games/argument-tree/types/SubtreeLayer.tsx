@@ -1,6 +1,6 @@
-import { Shape } from "./types/Shape";
+import { Shape } from "./Shape";
 
-type SubtreeLayer = {
+export type SubtreeLayer = {
   yCoordinate: number;
   xCoordinate: number;
   shapes: Shape[];

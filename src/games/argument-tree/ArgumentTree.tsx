@@ -1,15 +1,15 @@
 import axios, { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { getShapesFromStatementTree } from "./components/canvas/getShapesFromStatementTree";
+import { getLayersFromStatementTree } from "./components/canvas/getShapesFromStatementTree";
 import { ChatPanel } from "./components/ChatPanel";
 import { DialogWindow } from "./components/DialogWindow";
 import { SideTree } from "./components/sidePanel/SideTree";
-import { rectangleCorners } from "./data/constants";
 import { DEFAULT_TREE } from "./data/DEFAULT_TREE";
 import { HamburgerDisplayToggle } from "./navbar/HamburgerDisplayToggle";
 import { TopicDropdown } from "./navbar/TopicDropdown";
 import { Shape } from "./types/Shape";
+import { SubtreeLayer } from "./types/SubtreeLayer";
 import { Statement, Topic } from "./types/TopicTypes";
 const canvasId = "myCanvas";
 
@@ -20,6 +20,7 @@ const canvasStyles: React.CSSProperties = {
   borderStyle: "solid",
   borderColor: "#c3c3c3",
 };
+
 function formatPath(nodes: Statement[]): string {
   return nodes.map((v) => v.title).reduce(
     (previous: string, current: string) => {
@@ -27,6 +28,12 @@ function formatPath(nodes: Statement[]): string {
     },
     "",
   );
+}
+
+function getLargestId(list: Statement[]): string {
+  return list.reduce((previous: Statement, current: Statement) =>
+    parseInt(current.id) > parseInt(previous.id) ? current : previous
+  ).id;
 }
 
 export default function ArgumentTree(): JSX.Element {
@@ -40,21 +47,9 @@ export default function ArgumentTree(): JSX.Element {
   const [discussedStatement, setDiscussedStatement] = useState(
     data.statement[0],
   );
+  const [largestId, setLargestId] = useState(getLargestId(data.statements));
 
-  // const discussedStatementUpdateHandler = (newStatement: Statement, epistemicStatus: boolean): void => {
-  //   const oldStatement:Statement = data.statements.find(s=>s.)
-
-  // }
-
-  const textBox = new Shape(rectangleCorners, "test");
   const rootId = "2";
-  const newShapes: Shape[] = getShapesFromStatementTree(data, rootId);
-
-  const [largestId, setLargestId] = useState(
-    DEFAULT_TREE.statements.reduce((previous: Statement, current: Statement) =>
-      parseInt(current.id) > parseInt(previous.id) ? current : previous
-    ).id,
-  );
 
   const closeDialog = () => {
     setDialogOpen(false);
@@ -83,23 +78,13 @@ export default function ArgumentTree(): JSX.Element {
     setData(joined);
   };
 
-  // todo add error handling
+  const layers: SubtreeLayer[] = getLayersFromStatementTree(data, rootId);
+
   useEffect(() => {
     const c: HTMLCanvasElement = document.getElementById(
       canvasId,
     ) as HTMLCanvasElement;
-    const context: CanvasRenderingContext2D = c.getContext("2d")!;
-    newShapes.forEach((s) => s.draw(context));
-    const clickHandler = (e: MouseEvent): void => {
-      const x = e.pageX - c.offsetLeft;
-      const y = e.pageY - c.offsetTop;
-      newShapes.forEach((shape) => {
-        if (shape.interior(x, y)) {
-          // todo here react on clicks and change the internal data structure
-          shape.draw(context);
-        }
-      });
-    };
+    const clickHandler = createClickHandler(c, layers);
     c.addEventListener("click", clickHandler);
     setLoaded(true);
     return () => {
@@ -113,7 +98,7 @@ export default function ArgumentTree(): JSX.Element {
   };
 
   const sendHandler = () => {
-    const url = "http://localhost:3001/argument";
+    const url = "http://localhost:3001/sendargument";
     axios.post(url, data).then((res: AxiosResponse) => {
       console.log(res.data);
     });
@@ -212,4 +197,25 @@ export default function ArgumentTree(): JSX.Element {
         )}
     </>
   );
+}
+
+function createClickHandler(
+  c: HTMLCanvasElement,
+  layers: SubtreeLayer[],
+) {
+  const context: CanvasRenderingContext2D = c.getContext("2d")!;
+  layers.forEach((l) => l.shapes.forEach((s) => s.draw(context)));
+  const clickHandler = (e: MouseEvent): void => {
+    const x = e.pageX - c.offsetLeft;
+    const y = e.pageY - c.offsetTop;
+    layers.forEach((layer) => {
+      layer.shapes.forEach((shape) => {
+        if (shape.interior(x, y)) {
+          // todo here react on clicks and change the internal data structure
+          shape.draw(context);
+        }
+      });
+    });
+  };
+  return clickHandler;
 }
