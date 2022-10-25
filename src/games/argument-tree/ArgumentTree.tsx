@@ -26,6 +26,12 @@ type Layer = {
   shapes: Shape[];
 };
 
+function formatPath(nodes: Statement[]): string {
+  return nodes.map(v => v.title).reduce((previous: string, current: string) => {
+    return previous + "-" + current;
+  }, "");
+}
+
 export default function ArgumentTree(): JSX.Element {
   const [data, setData] = useState(DEFAULT_TREE);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -114,23 +120,10 @@ export default function ArgumentTree(): JSX.Element {
           justifyContent: "space-between",
         }}
       >
-        <button onClick={() => setSideTreeVisible(sideTreeVisible ? false : true)}>
-          <svg viewBox="0 0 100 80" width="40" height="40">
-            <rect width="100" height="20"></rect>
-            <rect y="30" width="100" height="20"></rect>
-            <rect y="60" width="100" height="20"></rect>
-          </svg>
-        </button>
+        <HamburgerDisplayToggle visibleState={sideTreeVisible} setVisibilityCallback={setSideTreeVisible} />
         <h3>Argument Tree</h3>
         <a href="https://github.com/stan-dot/online-multiplayer-testground">See website</a>
-        <p>another navigation option</p>
-        <button onClick={() => setChatVisible(chatVisible ? false : true)}>
-          <svg viewBox="0 0 100 80" width="40" height="40">
-            <rect width="100" height="20"></rect>
-            <rect y="30" width="100" height="20"></rect>
-            <rect y="60" width="100" height="20"></rect>
-          </svg>
-        </button>
+        <HamburgerDisplayToggle visibleState={chatVisible} setVisibilityCallback={setChatVisible} />
       </nav>
       {sideTreeVisible &&
         (
@@ -142,7 +135,7 @@ export default function ArgumentTree(): JSX.Element {
         )}
       <div
         id="optionsPanel"
-        style={{ position: "fixed", left: "220px", top: "100px" }}
+        style={{ position: "fixed", left: "270px", top: "100px" }}
       >
         <button onClick={() => sendHandler()}>send data</button>
         <button onClick={() => console.log("shape accepted")}>
@@ -151,6 +144,7 @@ export default function ArgumentTree(): JSX.Element {
         <button onClick={() => setDialogOpen(true)}>
           open node creation dialogue
         </button>
+        <p>current path:<span>{formatPath(path)}</span></p>
         <DialogWindow
           dialogOpen={dialogOpen}
           closeCallback={closeDialog}
@@ -160,7 +154,7 @@ export default function ArgumentTree(): JSX.Element {
       </div>
       <div
         id="canvasContainer"
-        style={{ position: "fixed", left: "220px", top: "170px" }}
+        style={{ position: "fixed", left: "270px", top: "170px" }}
       >
         <canvas id={canvasId} width={canvasWidth} height={canvasHeight} style={canvasStyles}>
           Your browser does not support the HTML5 canvas tag.
@@ -177,3 +171,14 @@ export default function ArgumentTree(): JSX.Element {
     </>
   );
 }
+
+function HamburgerDisplayToggle(props: { setVisibilityCallback: React.Dispatch<React.SetStateAction<boolean>>, visibleState: boolean }) {
+  return <button onClick={() => props.setVisibilityCallback(props.visibleState ? false : true)}>
+    <svg viewBox="0 0 100 80" width="40" height="40">
+      <rect width="100" height="20"></rect>
+      <rect y="30" width="100" height="20"></rect>
+      <rect y="60" width="100" height="20"></rect>
+    </svg>
+  </button>;
+}
+

@@ -26,6 +26,7 @@ export function SideTree(
     path: Statement[];
   },
 ): JSX.Element {
+  console.log('tree in the side tree', props.tree.map(v => v.title));
   return (
     <div
       id="vericalHoriontalScrollArea"

@@ -27,6 +27,7 @@ const sideTreeElementContainerStyles: React.CSSProperties = {
   justifyContent: "space-between",
   height: "fit-content",
   minHeight: "50px",
+  minWidth: '220px',
   flexDirection: "column",
 };
 

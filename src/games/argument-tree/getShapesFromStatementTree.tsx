@@ -2,6 +2,7 @@ import { getRectangleFromStartingPoint } from "./data/constants";
 import { Statement, TreeOfStatements } from "./types/TreeOfStatements";
 import { Shape } from "./types/Shape";
 import { getArrowPoints } from "./getArrowPoints";
+const grey = "#808080";
 
 /**
  * todo
@@ -16,7 +17,8 @@ import { getArrowPoints } from "./getArrowPoints";
 export function getShapesFromStatementTree(
   tree: TreeOfStatements,
   rootId: string,
-  distance?: number): Shape[] {
+  distance?: number,
+): Shape[] {
   const root: Statement = tree.statements.find((s) => s.id === rootId) ||
     tree.statements[0];
   // recursively build tree up to some distance
@@ -26,12 +28,11 @@ export function getShapesFromStatementTree(
   const STARTING_POINTS: number[] = [400, 600];
   let shapes: Shape[] = [];
   const rootPoints: number[][] = getRectangleFromStartingPoint(STARTING_POINTS);
-  const grey = "#808080";
   const rootShape: Shape = new Shape(rootPoints, root.title, grey);
   shapes.push(rootShape);
   // todo add layer differences
-  console.log(directSupportingChildren);
-  console.log(directOpposingChildren);
+  // console.log(directSupportingChildren);
+  // console.log(directOpposingChildren);
   const layer1Height: number = 300;
   const supporterPoints: number[][] = getRectangleFromStartingPoint([
     200,
@@ -39,7 +40,7 @@ export function getShapesFromStatementTree(
   ]);
   const supporter = new Shape(
     supporterPoints,
-    directSupportingChildren[0].title ?? "unknown"
+    directSupportingChildren[0].title ?? "unknown",
   );
   shapes.push(supporter);
 
@@ -47,7 +48,7 @@ export function getShapesFromStatementTree(
   // todo function to get a middle point
   const arrowPoints: number[][] = getArrowPoints(
     rootShape.points[0],
-    supporter.points[0]
+    supporter.points[0],
   );
 
   const arrowLayer: Shape[] = [new Shape(arrowPoints, "against")];
