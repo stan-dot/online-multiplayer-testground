@@ -27,7 +27,10 @@ export default function App() {
       {gameIsOn
         ?
         <>
-          <button onClick={() => setGameIsOn(false)}>Close current game</button>
+          <button onClick={() => {
+            console.clear();
+            setGameIsOn(false);
+          }}>Close current game</button>
           <GameField gameCard={currentGameCard} />
         </>
         :

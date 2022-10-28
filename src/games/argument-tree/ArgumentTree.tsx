@@ -45,7 +45,7 @@ export default function ArgumentTree(): JSX.Element {
   const [sideTreeVisible, setSideTreeVisible] = useState(true);
   const [topicListVisible, setTopicListVisible] = useState(true);
   const [discussedStatement, setDiscussedStatement] = useState(
-    data.statement[0],
+    data.statements[0],
   );
   const [largestId, setLargestId] = useState(getLargestId(data.statements));
 

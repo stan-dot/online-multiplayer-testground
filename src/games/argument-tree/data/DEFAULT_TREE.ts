@@ -1,4 +1,4 @@
-import { Statement, TreeOfStatements } from '../types/TopicTypes';
+import { Statement, Topic } from '../types/TopicTypes';
 
 const loremData: Statement[] = [
   {
@@ -151,6 +151,14 @@ const testStatement1: Statement = {
   opposingChildren: [testStatement4],
 };
 
-export const DEFAULT_TREE: TreeOfStatements = {
+export const DEFAULT_TREE: Topic = {
   statements: [testStatement1, testStatment2],
+  metadata: {
+    creatorsIds: [],
+    confirmationPercent: 0,
+    tags: [],
+    triggerWarnings: [],
+    question: '',
+    imageUrl: undefined,
+  },
 };

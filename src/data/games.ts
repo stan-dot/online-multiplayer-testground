@@ -6,6 +6,10 @@ export const availableGames: GameCard[] = [
     componentName: 'ArgumentTree',
   },
   {
+    folder: 'article-reader',
+    componentName: 'ArticleReader',
+  },
+  {
     folder: 'react-konva-playground',
     componentName: 'KonvaDisplay',
   },
