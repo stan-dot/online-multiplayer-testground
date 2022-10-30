@@ -1,8 +1,10 @@
 
+
+# UX
 - [ ] application before Christmas - https://ethics.ris.shef.ac.uk/ethics_applications/new
 - [ ] full CRUD wrt statements
 - [ ] a topic creation tool, behind enough XP https://adancewithbooks.wordpress.com/2019/09/22/a-small-list-of-trigger-warnings-you-can-use/
-- [ ] in support of functionality - need to add modigy callback, and the currently discussed item, callback to add new opposing or against nodes
+- [ ] modify callback, and the currently discussed item, callback to add new opposing or against nodes
 - [ ] add a context menu click handler to the chatbox with the option to add statements to the display
 - [ ] user menu - with account - possibly with LENS - keeping data on ipfs, not a database - or anonymous
 
@@ -24,6 +26,30 @@
   - [ ] multiple selection with `ctrl` clicked and/or shift
   - [ ] react to `ctrl`+a clicks
 
+
+## backend functionalities and data
+- [ ] prepare mongodb cluster
+- [ ] adding 3rd party auth https://auth0.com/docs/quickstart/spa/react/interactive
+
+
+## backend
+
+### entities
+- topics list (with)
+- statements list
+- users lists ( restricted)
+
+
+### endpoints
+- get topics
+- get statements
+
+
+## with LENS
+- [ ] running a LENS publication as objects, or just ipfs tbh is fine. but following mechanics are good. cant do for research though... ig
+
+
+
 ## Development View
 - [ ] cypress tests 
   - [ ] basic test suite to see if works at all
@@ -32,7 +58,6 @@
   - [ ] data wrapper - data, path, loaded
   - [ ] things visible wrapper
   - [ ] appearance wrapper - dark mode, etc
-
 
 ## done
 - [x] change the data structure so that every node points to children (supporters / attacks), not the other way around

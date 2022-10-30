@@ -122,6 +122,7 @@ export default function ArticleReader(): JSX.Element {
   );
 }
 
+
 function ArticleDisplay(props: { article: ArticleToRead }): JSX.Element {
   const [metadataVisible, setMetadataVisible] = useState(false);
   return (

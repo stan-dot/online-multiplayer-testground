@@ -43,7 +43,6 @@ export default function ArgumentTree(): JSX.Element {
   const [loaded, setLoaded] = useState(false);
   const [chatVisible, setChatVisible] = useState(true);
   const [sideTreeVisible, setSideTreeVisible] = useState(true);
-  const [topicListVisible, setTopicListVisible] = useState(true);
   const [discussedStatement, setDiscussedStatement] = useState(
     data.statements[0],
   );
@@ -93,7 +92,6 @@ export default function ArgumentTree(): JSX.Element {
   }, []);
 
   const topicChangeCallback = (t: Topic) => {
-    setTopicListVisible(false);
     setData(t);
   };
 
@@ -114,6 +112,8 @@ export default function ArgumentTree(): JSX.Element {
     (chatVisible ? 0 : 300);
   const canvasHeight: number = 800 + (sideTreeVisible ? 0 : 200) +
     (chatVisible ? 0 : 300);
+  const canvasStartLeft = 70 + (sideTreeVisible ? 100 : 0) + (chatVisible ? 100 : 0);
+  const canvasStartTop = 170;
   return (
     <>
       <nav
@@ -133,16 +133,13 @@ export default function ArgumentTree(): JSX.Element {
         <a href="https://github.com/stan-dot/online-multiplayer-testground">
           See website
         </a>
-        <button onClick={() => setTopicListVisible(true)}>
-          Show topic selection
-        </button>
+        <TopicDropdown
+          changeTopicCallback={topicChangeCallback}
+        />
         <HamburgerDisplayToggle
           visibleState={chatVisible}
           setVisibilityCallback={setChatVisible}
         />
-        {topicListVisible && (
-          <TopicDropdown changeTopicCallback={topicChangeCallback} />
-        )}
       </nav>
       {sideTreeVisible &&
         (
@@ -175,7 +172,7 @@ export default function ArgumentTree(): JSX.Element {
       </div>
       <div
         id="canvasContainer"
-        style={{ position: "fixed", left: "270px", top: "170px" }}
+        style={{ position: "fixed", left: `${canvasStartLeft}px`, top: `${canvasStartTop}px` }}
       >
         <canvas
           id={canvasId}
@@ -219,4 +216,3 @@ function createClickHandler(
   };
   return clickHandler;
 }
-
