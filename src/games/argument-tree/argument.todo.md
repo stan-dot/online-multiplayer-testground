@@ -1,38 +1,37 @@
 
-
-# UX
+# ASAP
 - [ ] application before Christmas - https://ethics.ris.shef.ac.uk/ethics_applications/new
-- [ ] full CRUD wrt statements
-- [ ] a topic creation tool, behind enough XP https://adancewithbooks.wordpress.com/2019/09/22/a-small-list-of-trigger-warnings-you-can-use/
+
+## navigation and interactvity
+- [ ] context menus for
+  - [ ] side panel
+  - [ ] path display - now there's no buttons, just strings
+    - [ ] highlight the argument up to that point
+    - [ ] copy the path
+    - [ ] print option
+  - [ ] main display
+  - [ ] chatbot message - add to display
+- [ ] keyboard usage and selection
+  - [ ] multiple selection with `ctrl` clicked and/or shift
+  - [ ] react to `ctrl`+a clicks
+
+# data change
 - [ ] modify callback, and the currently discussed item, callback to add new opposing or against nodes
-- [ ] add a context menu click handler to the chatbox with the option to add statements to the display
-- [ ] user menu - with account - possibly with LENS - keeping data on ipfs, not a database - or anonymous
+- [ ] full CRUD wrt statements
 
 ## appearance
 - [ ] different styles - darkmode, etc - with tailwind possibly
 - [ ] prettify the whole thing, make it nice colours and right sizes  
 - [ ] add shadow
-
-## navigation and interactvity
-- [ ] context menus for
-  - [ ] side panel
-  - [ ] path display
-    - [ ] highlight the argument up to that point
-    - [ ] copy the path
-    - [ ] print option
-  - [ ] main display
-  - [ ] chatbot message
-- [ ] keyboard usage and selection
-  - [ ] multiple selection with `ctrl` clicked and/or shift
-  - [ ] react to `ctrl`+a clicks
-
-
-## backend functionalities and data
-- [ ] prepare mongodb cluster
-- [ ] adding 3rd party auth https://auth0.com/docs/quickstart/spa/react/interactive
+- [ ] apply onblur consistently
 
 
 ## backend
+## tasks
+- [ ] prepare mongodb cluster
+- [ ] adding 3rd party auth https://auth0.com/docs/quickstart/spa/react/interactive
+- [ ] add triggers database https://adancewithbooks.wordpress.com/2019/09/22/a-small-list-of-trigger-warnings-you-can-use/
+- [ ] user menu - with account - possibly with LENS - keeping data on ipfs, not a database - or anonymous
 
 ### entities
 - topics list (with)
@@ -42,12 +41,10 @@
 
 ### endpoints
 - get topics
-- get statements
-
+- CRUD wrt statements
 
 ## with LENS
 - [ ] running a LENS publication as objects, or just ipfs tbh is fine. but following mechanics are good. cant do for research though... ig
-
 
 
 ## Development View
@@ -64,3 +61,4 @@
 - [x] make th canvas larger if other elements are hidden
 - [x] metadata for the each tree
 - [x] topics choosing button - some higher up menu - topic metadata, tags with trigger warnings
+- [x] a topic creation tool, behind enough XP 

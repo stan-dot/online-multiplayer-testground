@@ -1,35 +1,18 @@
 
-
-
 ## general todo
-- [ ] global achievements
+- [ ] global achievements - lens publications, using NFTs
+- [ ] LENS API login and nft profile display
 - [ ] achievements and chat tab in each game(?)
-- [ ] games catalogue
-- [ ] add 2 divs for games - done and Work In Progress
+- [ ] games panels scrolling down
+- [ ] rooms support
 
 
-## Startup
-- [x] follow the [tutorial](https://rapidapi.com/blog/create-react-app-express/) to setup cra with proxy of express - axios - 30 minutes
-- rejected - [canvas tutorial](https://medium.com/@pdx.lucasm/canvas-with-react-js-32e133c05258)
-- [x] [more on cavas](https://stackoverflow.com/questions/65796640/clear-way-to-use-canvas-html5-with-react-without-render-all-canvas-shapes-all-ti)
-
-### polishing
+### appearance
 - [ ] beautify with tailwind css
+
+
+### dev stuff
 - [ ] add id and test ids for everything for cypress
-
-## more games
-- [ ] add the snake socket io game  [tutorial](https://dev.to/nitdgplug/learn-the-basics-of-socket-io-by-making-a-multiplayer-game-394g) 
-- [ ] add room support
-- [ ] add a simple [phaser](https://www.npmjs.com/package/phaser) game
-
-### Lens bit
-- [ ] setup the blockchain locally, [instructions](https://docs.lens.xyz/docs/deploying-the-protocol) - 2 hours
-
-### nft
-- [ ] create a subproject with nfts - possibly also a global blockchain context
-- [ ] create a [smart contract](https://docs.alchemy.com/alchemy/tutorials/how-to-create-an-nft) - represent some type of game achievement
-- [ ] setup web3 for [minting](https://docs.alchemy.com/alchemy/tutorials/how-to-create-an-nft/how-to-mint-a-nft)
-- [ ] add avatar nft support
 
 
 ## potentially useful
@@ -40,7 +23,23 @@
 - [ ] need to follow some of the [routing tutorials](https://blog.logrocket.com/react-dynamic-imports-route-centric-code-splitting-guide/#loadable-components)
 
 
+
+# done
+## Startup
+- [x] follow the [tutorial](https://rapidapi.com/blog/create-react-app-express/) to setup cra with proxy of express - axios - 30 minutes
+- rejected - [canvas tutorial](https://medium.com/@pdx.lucasm/canvas-with-react-js-32e133c05258)
+- [x] [more on cavas](https://stackoverflow.com/questions/65796640/clear-way-to-use-canvas-html5-with-react-without-render-all-canvas-shapes-all-ti)
+
+
+## rejected
+
 # normalizing the architecture
 - [ ] creating a testing package to host each of the games in a simple canvas
 - [ ] publish a context package, add API URL as part of the object 
 - [ ] create a template for all of the packages for games
+
+### nft
+- [ ] create a subproject with nfts - possibly also a global blockchain context
+- [ ] create a [smart contract](https://docs.alchemy.com/alchemy/tutorials/how-to-create-an-nft) - represent some type of game achievement
+- [ ] setup web3 for [minting](https://docs.alchemy.com/alchemy/tutorials/how-to-create-an-nft/how-to-mint-a-nft)
+- [ ] add avatar nft support

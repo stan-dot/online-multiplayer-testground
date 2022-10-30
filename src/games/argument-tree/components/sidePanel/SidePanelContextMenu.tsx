@@ -1,8 +1,8 @@
 import { Statement } from "../../types/TopicTypes";
 
 const basicNodes: string[] = [
-  'root'
-]
+  "root",
+];
 
 function getStyles(position: number[]): React.CSSProperties {
   return {
@@ -30,18 +30,18 @@ export function SidePanelContextMenu(
 
   const styles = getStyles(props.position);
   return (
-    <div id="sidePanelContextMenu" className="contextMenu" style={styles}>
+    <div
+      id="sidePanelContextMenu"
+      className="contextMenu"
+      style={styles}
+      onBlur={() => props.closeCallback()}
+    >
       <div className="group1">
         <button disabled={!isProtected}>
           <p>rename button</p>
         </button>
         <button disabled={!isProtected}>
           <p>delete button</p>
-        </button>
-      </div>
-      <div className="group4">
-        <button onClick={() => props.closeCallback()}>
-          Close
         </button>
       </div>
     </div>

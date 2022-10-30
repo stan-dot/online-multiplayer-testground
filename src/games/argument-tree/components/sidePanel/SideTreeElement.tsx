@@ -84,6 +84,7 @@ export function SideTreeElement(
     <div
       style={sideTreeElementContainerStyles}
       id={`${props.thing.id}-side-tree-container`}
+      onBlur={() => setContextMenuOpen(false)}
     >
       <div
         style={sideTreeElementStyles}

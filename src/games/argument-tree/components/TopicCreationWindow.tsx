@@ -31,13 +31,14 @@ export function TopicCreationDialogue(
       confirmationPercent: 0, // todo this needs a ref and a input field
       tags: [], // todo this needs a ref and a input field
       triggerWarnings: [], // todo this needs a ref and a input field
-      question: "", // todo this needs a ref and a input field
+      question: textRef.current, // todo this needs a ref and a input field
       imageUrl: undefined, // todo this needs a ref and a input field
     },
   };
 
-  const handleSubmit = () => {
-    console.log("created new topic");
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    console.log("created new topic", topic);
   };
 
   return (
@@ -45,6 +46,7 @@ export function TopicCreationDialogue(
       open={props.dialogOpen}
       style={dialogStyles}
       onSubmit={handleSubmit}
+      onBlur={() => props.closeCallback()}
     >
       <form>
         <label htmlFor="question">
@@ -52,15 +54,15 @@ export function TopicCreationDialogue(
           <input
             type={"text"}
             id="supportedId"
-            value={supportedIdRef.current}
-            onChange={(e) => supportedIdRef.current = e.target.value}
+            // value={supportedIdRef.current}
+            onChange={(e) => textRef.current = e.target.value}
           />
         </label>
         <button type="submit">
           ready
         </button>
       </form>
-      <button onClick={() => props.closeCallback()}>close</button>
+      <button onClick={() => props.closeCallback()}>Cancel</button>
     </dialog>
   );
 }

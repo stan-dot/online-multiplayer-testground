@@ -5,6 +5,8 @@ import { getLayersFromStatementTree } from "./components/canvas/getShapesFromSta
 import { ChatPanel } from "./components/ChatPanel";
 import { DialogWindow } from "./components/DialogWindow";
 import { SideTree } from "./components/sidePanel/SideTree";
+import { UserIcon } from "./components/svgs/UserIcon";
+import { TopicCreationDialogue } from "./components/TopicCreationWindow";
 import { DEFAULT_TREE } from "./data/DEFAULT_TREE";
 import { HamburgerDisplayToggle } from "./navbar/HamburgerDisplayToggle";
 import { TopicDropdown } from "./navbar/TopicDropdown";
@@ -47,6 +49,7 @@ export default function ArgumentTree(): JSX.Element {
     data.statements[0],
   );
   const [largestId, setLargestId] = useState(getLargestId(data.statements));
+  const [topicCreationOpen, setTopicCreationOpen] = useState(false);
 
   const rootId = "2";
 
@@ -112,7 +115,8 @@ export default function ArgumentTree(): JSX.Element {
     (chatVisible ? 0 : 300);
   const canvasHeight: number = 800 + (sideTreeVisible ? 0 : 200) +
     (chatVisible ? 0 : 300);
-  const canvasStartLeft = 70 + (sideTreeVisible ? 100 : 0) + (chatVisible ? 100 : 0);
+  const canvasStartLeft = 70 + (sideTreeVisible ? 100 : 0) +
+    (chatVisible ? 100 : 0);
   const canvasStartTop = 170;
   return (
     <>
@@ -136,9 +140,16 @@ export default function ArgumentTree(): JSX.Element {
         <TopicDropdown
           changeTopicCallback={topicChangeCallback}
         />
+        <div id='iconWrapper' style={{ width: '50px', height: '50px', border: '1px solid #8000FF' }}>
+          <UserIcon />
+        </div>
         <HamburgerDisplayToggle
           visibleState={chatVisible}
           setVisibilityCallback={setChatVisible}
+        />
+        <TopicCreationDialogue
+          dialogOpen={topicCreationOpen}
+          closeCallback={() => setTopicCreationOpen(false)}
         />
       </nav>
       {sideTreeVisible &&
@@ -172,7 +183,11 @@ export default function ArgumentTree(): JSX.Element {
       </div>
       <div
         id="canvasContainer"
-        style={{ position: "fixed", left: `${canvasStartLeft}px`, top: `${canvasStartTop}px` }}
+        style={{
+          position: "fixed",
+          left: `${canvasStartLeft}px`,
+          top: `${canvasStartTop}px`,
+        }}
       >
         <canvas
           id={canvasId}
