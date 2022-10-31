@@ -39,11 +39,11 @@ export function SidePanelContextMenu(
       onBlur={() => props.closeCallback()}
     >
       <div className="group1">
-        <button disabled={!isProtected}>
-          <p>rename button</p>
+        <button disabled={isProtected}>
+          <p>Rename</p>
         </button>
-        <button disabled={!isProtected}>
-          <p>delete button</p>
+        <button disabled={isProtected}>
+          <p>Delete</p>
         </button>
         <button onClick={() => console.log('adding a new statement')}>
           <p>add a child statement button</p>

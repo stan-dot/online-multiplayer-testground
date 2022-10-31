@@ -5,10 +5,16 @@
 - [ ] full CRUD wrt statements
 - [ ] context menus for
   - [ ] side panel
-  - [ ] path display - now there's no buttons, just strings
-    - [ ] highlight visual elements that are in the path
+  - [x] path display - now there's no buttons, just strings
   - [x] chatbot message - add to display
   - [ ] main display - context on statement click
+
+
+## window popups with Sval
+- [ ] edit window
+- [ ] add window
+- [ ] delete window (make sure to delete)
+- [ ] confirm topic change
 
 # data change
 - [ ] modify callback, and the currently discussed item, callback to add new opposing or against nodes
@@ -58,6 +64,7 @@
   - [ ] data wrapper - data, path, loaded
   - [ ] things visible wrapper
   - [ ] appearance wrapper - dark mode, etc
+  - [ ] highlight visual elements that are in the path
 
 ## done
 - [x] change the data structure so that every node points to children (supporters / attacks), not the other way around

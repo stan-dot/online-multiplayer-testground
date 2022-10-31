@@ -1,7 +1,13 @@
+import { StatementModificationCallbacksObject } from "../types/StatementModificationCallbacksObject";
 import { Statement } from "../types/TopicTypes";
 
+
 export function PathDisplayContextMenu(
-  props: { thing: Statement; position: number[] },
+  props: {
+    node: Statement;
+    position: number[];
+    callbacks: StatementModificationCallbacksObject;
+  },
 ): JSX.Element {
   const handleCopyOption = () => {
   };
@@ -19,12 +25,20 @@ export function PathDisplayContextMenu(
       style={styles}
     >
       <div className="group1">
-        <p>rename button</p>
-        <p>delete button</p>
+        <button onClick={() => props.callbacks.update(props.node)}>
+          <p>Delete</p>
+        </button>
+        <button onClick={() => props.callbacks.update(props.node)}>
+          <p>Paste</p>
+        </button>
       </div>
       <div className="group2">
-        <p>copy path</p>
-        <p>paste buton</p>
+        <button onClick={() => props.callbacks.update(props.node)}>
+          <p>Copy path</p>
+        </button>
+        <button onClick={() => props.callbacks.update(props.node)}>
+          <p>Rename</p>
+        </button>
       </div>
     </div>
   );

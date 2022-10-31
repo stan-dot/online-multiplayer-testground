@@ -52,8 +52,7 @@ export function getCanvasDimensions(
   leftPanelOn: boolean,
   rightPanelOn: boolean): CanvasDisplayParameters {
   const r: CanvasDisplayParameters = {
-    startLeft: 45 + (leftPanelOn ? 100 : 0) +
-      (rightPanelOn ? 100 : 0),
+    startLeft: 45 + (leftPanelOn ? 200 : 0),
     startTop: 170,
     width: 1200 + (leftPanelOn ? 0 : 200) +
       (rightPanelOn ? 0 : 300),
