@@ -4,12 +4,12 @@ import Swal from "sweetalert2";
 import { getLayersFromStatementTree } from "./components/canvas/getShapesFromStatementTree";
 import { ChatPanel } from "./components/ChatPanel";
 import { DialogWindow } from "./components/DialogWindow";
+import { PathDisplay } from "./components/PathDisplay";
 import { SideTree } from "./components/sidePanel/SideTree";
 import { UserIcon } from "./components/svgs/UserIcon";
 import { TopicCreationDialogue } from "./components/TopicCreationWindow";
 import { createClickHandler } from "./data/createClickHandler";
 import { DEFAULT_TREE } from "./data/DEFAULT_TREE";
-import { DisplayPath } from "./components/DisplayPath";
 import { HamburgerDisplayToggle } from "./navbar/HamburgerDisplayToggle";
 import { TopicDropdown } from "./navbar/TopicDropdown";
 import { SubtreeLayer } from "./types/SubtreeLayer";
@@ -31,19 +31,39 @@ function getLargestId(list: Statement[]): string {
 }
 
 export default function ArgumentTree(): JSX.Element {
+  /**
+   * data handlers
+   * todo move those into a different wrapper
+   */
   const [data, setData] = useState(DEFAULT_TREE);
-  const [dialogOpen, setDialogOpen] = useState(false);
   const [path, setPath] = useState([data.statements[0], data.statements[1]]);
-  const [loaded, setLoaded] = useState(false);
-  const [chatVisible, setChatVisible] = useState(true);
-  const [sideTreeVisible, setSideTreeVisible] = useState(true);
   const [discussedStatement, setDiscussedStatement] = useState(
     data.statements[0],
   );
   const [largestId, setLargestId] = useState(getLargestId(data.statements));
+  const [loaded, setLoaded] = useState(false);
+
+  /**
+   * visibility togglers
+   * todo move these into a different wrapper
+   */
+  const [chatVisible, setChatVisible] = useState(true);
+  const [sideTreeVisible, setSideTreeVisible] = useState(true);
   const [topicCreationOpen, setTopicCreationOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  /**
+   * login details
+   * todo move to a separate wrapper
+   */
+  const [accessToken, setAccessToken] = useState({});
+  const [connectionType, setConnectionType] = useState("");
+  const [refreshToken, setrefreshToken] = useState(""); // https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/
+  const [loggedInProfile, setLoggedInProfile] = useState({});
+
 
   const rootId = "2";
+
 
   const closeDialog = () => {
     setDialogOpen(false);
@@ -72,6 +92,24 @@ export default function ArgumentTree(): JSX.Element {
     setData(joined);
   };
 
+
+  const deleteStatement = (id: string): void => {
+    const clearArray: Statement[] = data.statements.filter(s => s.id !== id);
+    setData({
+      statements: clearArray,
+      metadata: data.metadata
+    })
+  }
+
+  const updateStatement = (s: Statement): void => {
+    const changedArray: Statement[] = data.statements.map(v => v.id === s.id ? s : v);
+    setData({
+      statements: changedArray,
+      metadata: data.metadata
+    });
+  };
+
+
   const layers: SubtreeLayer[] = getLayersFromStatementTree(data, rootId);
 
   useEffect(() => {
@@ -90,6 +128,7 @@ export default function ArgumentTree(): JSX.Element {
     setData(t);
   };
 
+  // todo this can't be called on a button, but more often
   const sendHandler = () => {
     const url = "http://localhost:3001/sendargument";
     axios.post(url, data).then((res: AxiosResponse) => {
@@ -98,7 +137,7 @@ export default function ArgumentTree(): JSX.Element {
     console.log("clicked!");
   };
 
-  const pathSetter = (nodes: Statement[]) => {
+  const pathSetter = (nodes: Statement[]): void => {
     console.log("new path:", nodes);
     setPath(nodes);
   };
@@ -132,7 +171,10 @@ export default function ArgumentTree(): JSX.Element {
         <TopicDropdown
           changeTopicCallback={topicChangeCallback}
         />
-        <div id='iconWrapper' style={{ width: '50px', height: '50px', border: '1px solid #8000FF' }}>
+        <div
+          id="iconWrapper"
+          style={{ width: "50px", height: "40px", border: "1px solid #8000FF" }}
+        >
           <UserIcon />
         </div>
         <HamburgerDisplayToggle
@@ -156,14 +198,13 @@ export default function ArgumentTree(): JSX.Element {
         id="optionsPanel"
         style={{ position: "fixed", left: "270px", top: "100px" }}
       >
-        <button onClick={() => sendHandler()}>send data</button>
         <button onClick={() => console.log("shape accepted")}>
-          Accept shape
+          Reform shape
         </button>
         <button onClick={() => setDialogOpen(true)}>
-          open node creation dialogue
+          Create new node
         </button>
-        <DisplayPath path={path} />
+        <PathDisplay path={path} pathChangeHandler={pathSetter} />
         <DialogWindow
           dialogOpen={dialogOpen}
           closeCallback={closeDialog}

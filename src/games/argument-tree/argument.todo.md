@@ -3,15 +3,14 @@
 - [ ] application before Christmas - https://ethics.ris.shef.ac.uk/ethics_applications/new
 
 ## navigation and interactvity
+- [ ] use toggle, leave hamburger for menu - profile, see website and go to topics site https://uxwing.com/?s=toggle
+
 - [ ] full CRUD wrt statements
 - [ ] context menus for
   - [ ] side panel
   - [ ] path display - now there's no buttons, just strings
-    - [ ] highlight the argument up to that point
-    - [ ] copy the path
-    - [ ] print option
+    - [ ] highlight visual elements that are in the path
   - [x] chatbot message - add to display
-
   - [ ] main display - context on statement click
 
 # data change
@@ -27,6 +26,11 @@
 - [ ] keyboard usage and selection
   - [ ] multiple selection with `ctrl` clicked and/or shift
   - [ ] react to `ctrl`+a clicks
+- [ ] print option
+- [ ] a connected nextjs site for 
+  - [ ] social interactions
+  - [ ] topic exploration
+  - [ ] the going into the app is a separate experience
 
 ## backend
 ## tasks
