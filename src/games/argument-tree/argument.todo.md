@@ -1,23 +1,10 @@
 
-## navigation and interactvity
-- [ ] use toggle, leave hamburger for menu - profile, see website and go to topics site https://uxwing.com/?s=toggle
-
-- [ ] full CRUD wrt statements
-- [ ] context menus for
-  - [ ] side panel
-  - [x] path display - now there's no buttons, just strings
-  - [x] chatbot message - add to display
-  - [ ] main display - context on statement click
-
-
-## window popups with Sval
+## window popups with Sval and for full CRUD wrt statements
 - [ ] edit window
 - [ ] add window
 - [ ] delete window (make sure to delete)
 - [ ] confirm topic change
-
-# data change
-- [ ] modify callback, and the currently discussed item, callback to add new opposing or against nodes
+- [ ] main display - context on statement click
 
 ## appearance
 - [ ] different styles - darkmode, etc - with tailwind possibly
@@ -72,3 +59,12 @@
 - [x] metadata for the each tree
 - [x] topics choosing button - some higher up menu - topic metadata, tags with trigger warnings
 - [x] a topic creation tool, behind enough XP 
+- [x] use toggle, leave hamburger for menu - profile, see website and go to topics site https://uxwing.com/?s=toggle
+
+# data change
+- [x] modify callback, and the currently discussed item, callback to add new opposing or against nodes
+
+- [ ] context menus
+  - [x] path display - now there's no buttons, just strings
+  - [x] chatbot message - add to display
+  - [x] side panel

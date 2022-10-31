@@ -46,7 +46,7 @@ export function SidePanelContextMenu(
           <p>Delete</p>
         </button>
         <button onClick={() => console.log('adding a new statement')}>
-          <p>add a child statement button</p>
+          <p>add a child statement</p>
         </button>
       </div>
     </div>
