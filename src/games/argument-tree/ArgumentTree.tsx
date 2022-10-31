@@ -7,10 +7,11 @@ import { DialogWindow } from "./components/DialogWindow";
 import { SideTree } from "./components/sidePanel/SideTree";
 import { UserIcon } from "./components/svgs/UserIcon";
 import { TopicCreationDialogue } from "./components/TopicCreationWindow";
+import { createClickHandler } from "./data/createClickHandler";
 import { DEFAULT_TREE } from "./data/DEFAULT_TREE";
+import { DisplayPath } from "./components/DisplayPath";
 import { HamburgerDisplayToggle } from "./navbar/HamburgerDisplayToggle";
 import { TopicDropdown } from "./navbar/TopicDropdown";
-import { Shape } from "./types/Shape";
 import { SubtreeLayer } from "./types/SubtreeLayer";
 import { Statement, Topic } from "./types/TopicTypes";
 const canvasId = "myCanvas";
@@ -22,15 +23,6 @@ const canvasStyles: React.CSSProperties = {
   borderStyle: "solid",
   borderColor: "#c3c3c3",
 };
-
-function formatPath(nodes: Statement[]): string {
-  return nodes.map((v) => v.title).reduce(
-    (previous: string, current: string) => {
-      return previous + "-" + current;
-    },
-    "",
-  );
-}
 
 function getLargestId(list: Statement[]): string {
   return list.reduce((previous: Statement, current: Statement) =>
@@ -171,9 +163,7 @@ export default function ArgumentTree(): JSX.Element {
         <button onClick={() => setDialogOpen(true)}>
           open node creation dialogue
         </button>
-        <p>
-          current path:<span>{formatPath(path)}</span>
-        </p>
+        <DisplayPath path={path} />
         <DialogWindow
           dialogOpen={dialogOpen}
           closeCallback={closeDialog}
@@ -209,25 +199,4 @@ export default function ArgumentTree(): JSX.Element {
         )}
     </>
   );
-}
-
-function createClickHandler(
-  c: HTMLCanvasElement,
-  layers: SubtreeLayer[],
-) {
-  const context: CanvasRenderingContext2D = c.getContext("2d")!;
-  layers.forEach((l) => l.shapes.forEach((s) => s.draw(context)));
-  const clickHandler = (e: MouseEvent): void => {
-    const x = e.pageX - c.offsetLeft;
-    const y = e.pageY - c.offsetTop;
-    layers.forEach((layer) => {
-      layer.shapes.forEach((shape) => {
-        if (shape.interior(x, y)) {
-          // todo here react on clicks and change the internal data structure
-          shape.draw(context);
-        }
-      });
-    });
-  };
-  return clickHandler;
 }

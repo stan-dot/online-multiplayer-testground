@@ -12,6 +12,7 @@ export function ChatMessageContextMenu(
   }): JSX.Element {
   const clickaHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     const statement: Statement = statementFromMessage(props.message, props.largestId);
+    props.addCallback(statement);
   };
   return (
     <div

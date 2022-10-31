@@ -3,21 +3,19 @@
 - [ ] application before Christmas - https://ethics.ris.shef.ac.uk/ethics_applications/new
 
 ## navigation and interactvity
+- [ ] full CRUD wrt statements
 - [ ] context menus for
   - [ ] side panel
   - [ ] path display - now there's no buttons, just strings
     - [ ] highlight the argument up to that point
     - [ ] copy the path
     - [ ] print option
-  - [ ] main display
-  - [ ] chatbot message - add to display
-- [ ] keyboard usage and selection
-  - [ ] multiple selection with `ctrl` clicked and/or shift
-  - [ ] react to `ctrl`+a clicks
+  - [x] chatbot message - add to display
+
+  - [ ] main display - context on statement click
 
 # data change
 - [ ] modify callback, and the currently discussed item, callback to add new opposing or against nodes
-- [ ] full CRUD wrt statements
 
 ## appearance
 - [ ] different styles - darkmode, etc - with tailwind possibly
@@ -25,6 +23,10 @@
 - [ ] add shadow
 - [ ] apply onblur consistently
 
+## extended functionality
+- [ ] keyboard usage and selection
+  - [ ] multiple selection with `ctrl` clicked and/or shift
+  - [ ] react to `ctrl`+a clicks
 
 ## backend
 ## tasks
