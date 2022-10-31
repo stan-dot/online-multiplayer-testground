@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { CanvasContainer } from "./CanvasContainer";
 import { getLayersFromStatementTree } from "./components/canvas/getShapesFromStatementTree";
 import { ChatPanel } from "./components/ChatPanel";
 import { DialogWindow } from "./components/DialogWindow";
@@ -12,27 +13,12 @@ import { UserIcon } from "./components/svgs/UserIcon";
 import { TopicCreationDialogue } from "./components/TopicCreationWindow";
 import { createClickHandler } from "./data/createClickHandler";
 import { DEFAULT_TREE } from "./data/DEFAULT_TREE";
+import { getLargestId, deleteStatement, updateStatement, addNewStatement, getCanvasDimensions } from "./helpers";
 import { DisplayToggle } from "./navbar/HamburgerDisplayToggle";
 import { TopicDropdown } from "./navbar/TopicDropdown";
 import { StatementModificationCallbacksObject } from "./types/StatementModificationCallbacksObject";
 import { SubtreeLayer } from "./types/SubtreeLayer";
 import { Statement, Topic } from "./types/TopicTypes";
-
-const canvasId = "myCanvas";
-
-const canvasStyles: React.CSSProperties = {
-  left: "20%",
-  top: "50px",
-  borderWidth: "1px",
-  borderStyle: "solid",
-  borderColor: "#c3c3c3",
-};
-
-function getLargestId(list: Statement[]): string {
-  return list.reduce((previous: Statement, current: Statement) =>
-    parseInt(current.id) > parseInt(previous.id) ? current : previous
-  ).id;
-}
 
 // todo this can't be called on a button, but more often
 /**
@@ -94,56 +80,10 @@ export default function ArgumentTree(): JSX.Element {
 
   const rootId = "2";
 
-  /**
-   * INTERACTIVITY SECTION
-   */
-
-  const deleteStatement = (n: Statement): void => {
-    const id = n.id;
-    const clearArray: Statement[] = data.statements.filter((s) => s.id !== id);
-    setData({
-      statements: clearArray,
-      metadata: data.metadata,
-    });
-  };
-
-  const updateStatement = (s: Statement): void => {
-    const changedArray: Statement[] = data.statements.map((v) =>
-      v.id === s.id ? s : v
-    );
-    setData({
-      statements: changedArray,
-      metadata: data.metadata,
-    });
-  };
-
-  const addNewStatement = (s: Statement): void => {
-    const validSupportIds: boolean = true;
-    if (!validSupportIds) {
-      Swal.fire({
-        title: "Error!",
-        text: "Do you want to continue",
-        icon: "error",
-        confirmButtonText: "Cool",
-      });
-    }
-    const joined: Topic = {
-      statements: data.statements.concat(s),
-      metadata: {
-        creatorsIds: ["Me", "you"],
-        confirmationPercent: 0,
-        tags: ["test"],
-        triggerWarnings: [],
-        question: "",
-      },
-    };
-    setData(joined);
-  };
-
-  const callbackWrapper: StatementModificationCallbacksObject = {
-    delete: deleteStatement,
-    update: updateStatement,
-    add: addNewStatement,
+  const callbacks: StatementModificationCallbacksObject = {
+    delete: deleteStatement(setData, data),
+    update: updateStatement(setData, data),
+    add: addNewStatement(setData, data),
   };
 
   /**
@@ -151,6 +91,8 @@ export default function ArgumentTree(): JSX.Element {
    */
   const layers: SubtreeLayer[] = getLayersFromStatementTree(data, rootId);
 
+  const displayParameters = getCanvasDimensions(sideTreeVisible, chatVisible);
+  const canvasId = "myCanvas";
   useEffect(() => {
     const c: HTMLCanvasElement = document.getElementById(
       canvasId,
@@ -162,14 +104,6 @@ export default function ArgumentTree(): JSX.Element {
       c.removeEventListener("click", clickHandler);
     };
   }, []);
-
-  const canvasWidth: number = 1200 + (sideTreeVisible ? 0 : 200) +
-    (chatVisible ? 0 : 300);
-  const canvasHeight: number = 800 + (sideTreeVisible ? 0 : 200) +
-    (chatVisible ? 0 : 300);
-  const canvasStartLeft = 70 + (sideTreeVisible ? 100 : 0) +
-    (chatVisible ? 100 : 0);
-  const canvasStartTop = 170;
 
   return (
     <>
@@ -196,7 +130,7 @@ export default function ArgumentTree(): JSX.Element {
         />
         <div
           id="iconWrapper"
-          style={{ width: "50px", height: "40px", border: "1px solid #8000FF" }}
+          style={{ width: "50px", height: "20px", border: "1px solid #8000FF" }}
         >
           <UserIcon />
         </div>
@@ -216,54 +150,38 @@ export default function ArgumentTree(): JSX.Element {
             tree={data.statements}
             pathSetter={pathSetter}
             path={path}
-            callbacks={callbackWrapper}
+            callbacks={callbacks}
           />
         )}
       <div
         id="optionsPanel"
         style={{ position: "fixed", left: "270px", top: "100px" }}
       >
-        <button onClick={() => console.log("shape accepted")}>
-          Reform shape
-        </button>
         <button onClick={() => setDialogOpen(true)}>
           Create new node
         </button>
         <PathDisplay
           path={path}
           pathChangeHandler={pathSetter}
-          callbacks={callbackWrapper}
+          callbacks={callbacks}
         />
         <DialogWindow
           dialogOpen={dialogOpen}
           closeCallback={closeDialog}
-          creationCallback={addNewStatement}
+          callbacks={callbacks}
           largestId={largestId}
         />
       </div>
-      <div
-        id="canvasContainer"
-        style={{
-          position: "fixed",
-          left: `${canvasStartLeft}px`,
-          top: `${canvasStartTop}px`,
-        }}
-      >
-        <canvas
-          id={canvasId}
-          width={canvasWidth}
-          height={canvasHeight}
-          style={canvasStyles}
-        >
-          Your browser does not support the HTML5 canvas tag.
-        </canvas>
-      </div>
+      <CanvasContainer
+        displayParameters={displayParameters}
+        id={canvasId}
+      />
       {chatVisible &&
         (
           <ChatPanel
             inSupportOf={discussedStatement}
             tree={data.statements}
-            addCallback={addNewStatement}
+            callbacks={callbacks}
             largestId={largestId}
           />
         )}

@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { StatementModificationCallbacksObject } from "../types/StatementModificationCallbacksObject";
 import { Statement } from "../types/TopicTypes";
 const dialogStyles: React.CSSProperties = {
   position: "absolute",
@@ -13,7 +14,7 @@ export function DialogWindow(
   props: {
     dialogOpen: boolean;
     closeCallback: Function;
-    creationCallback: (s: Statement) => void;
+    callbacks: StatementModificationCallbacksObject;
     largestId: string;
   }) {
   const textRef = useRef("");
@@ -29,7 +30,7 @@ export function DialogWindow(
       opposingChildren: []
     };
 
-    props.creationCallback(n);
+    props.callbacks.add(n);
   };
   return (
     <dialog open={props.dialogOpen} style={dialogStyles} onSubmit={handleSubmit}>

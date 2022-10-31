@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Message } from "../types/Message";
+import { StatementModificationCallbacksObject } from "../types/StatementModificationCallbacksObject";
 import { Statement } from "../types/TopicTypes";
 import { ChatMessage } from "./ChatMessage";
 
@@ -19,7 +20,7 @@ export function ChatPanel(
   props: {
     inSupportOf: Statement;
     tree: Statement[];
-    addCallback: (s: Statement) => void;
+    callbacks: StatementModificationCallbacksObject;
     largestId: string;
   },
 ): JSX.Element {
@@ -51,7 +52,7 @@ export function ChatPanel(
           {messages.map((m) => (
             <ChatMessage
               message={m}
-              addCallback={props.addCallback}
+              addCallback={props.callbacks.add}
               largestId={props.largestId}
             />
           ))}
