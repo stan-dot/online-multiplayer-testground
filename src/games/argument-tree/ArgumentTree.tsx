@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import React, { useEffect, useState } from "react";
-import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
 import { CanvasContainer } from "./CanvasContainer";
 import { getLayersFromStatementTree } from "./components/canvas/getShapesFromStatementTree";
 import { ChatPanel } from "./components/ChatPanel";
@@ -13,7 +12,7 @@ import { UserIcon } from "./components/svgs/UserIcon";
 import { TopicCreationDialogue } from "./components/TopicCreationWindow";
 import { createClickHandler } from "./data/createClickHandler";
 import { DEFAULT_TREE } from "./data/DEFAULT_TREE";
-import { getLargestId, deleteStatement, updateStatement, addNewStatement, getCanvasDimensions } from "./helpers";
+import { addNewStatement, deleteStatement, getCanvasDimensions, getLargestId, updateStatement } from "./helpers";
 import { DisplayToggle } from "./navbar/HamburgerDisplayToggle";
 import { TopicDropdown } from "./navbar/TopicDropdown";
 import { StatementModificationCallbacksObject } from "./types/StatementModificationCallbacksObject";

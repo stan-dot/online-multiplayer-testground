@@ -18,6 +18,7 @@ export const addNewStatement = (callback: Function, data: Topic): (s: Statement)
   };
   return newF;
 };
+
 export const deleteStatement = (callback: Function, data: Topic): (s: Statement) => void => {
   const newF: (s: Statement) => void = (s: Statement) => {
     const id = s.id;
@@ -29,6 +30,7 @@ export const deleteStatement = (callback: Function, data: Topic): (s: Statement)
   };
   return newF;
 };
+
 export const updateStatement = (callback: Function, data: Topic): (s: Statement) => void => {
   const newF: (s: Statement) => void = (s: Statement) => {
     const changedArray: Statement[] = data.statements.map((v) => v.id === s.id ? s : v
@@ -40,15 +42,17 @@ export const updateStatement = (callback: Function, data: Topic): (s: Statement)
   };
   return newF;
 };
+
 export function getLargestId(list: Statement[]): string {
   return list.reduce((previous: Statement, current: Statement) => parseInt(current.id) > parseInt(previous.id) ? current : previous
   ).id;
 }
+
 export function getCanvasDimensions(
   leftPanelOn: boolean,
   rightPanelOn: boolean): CanvasDisplayParameters {
   const r: CanvasDisplayParameters = {
-    startLeft: 20 + (leftPanelOn ? 100 : 0) +
+    startLeft: 45 + (leftPanelOn ? 100 : 0) +
       (rightPanelOn ? 100 : 0),
     startTop: 170,
     width: 1200 + (leftPanelOn ? 0 : 200) +
