@@ -1,10 +1,16 @@
+import { useEffect, useState } from "react";
+import { StatementModificationCallbacksObject } from "../types/StatementModificationCallbacksObject";
 import { Statement } from "../types/TopicTypes";
 import { PathItem } from "./PathItem";
 
 export function PathDisplay(props: {
   path: Statement[];
   pathChangeHandler: (nodes: Statement[]) => void;
+  callbacks: StatementModificationCallbacksObject
 }): JSX.Element {
+  const [clickedNode, setClickedNode] = useState(props.path[0]);
+  const [contextMenuVisible, setContextMenuVisible] = useState(false);
+
   const handleClick = (index: number) => {
     if (index !== 0 && index !== props.path.length - 1) {
       const newPath: Statement[] = props.path.slice(
@@ -28,8 +34,15 @@ export function PathDisplay(props: {
   const handleContextMenuClick = (
     node: Statement,
   ): void => {
-    console.log("context menu click detected on the PathDisplay element");
+    setContextMenuVisible(true);
+    setClickedNode(node);
   };
+
+  useEffect(() => {
+    setContextMenuVisible(false);
+    return () => { }
+  }, [clickedNode])
+
 
   return (
     <div
@@ -66,7 +79,11 @@ export function PathDisplay(props: {
             handleClick={handleClick}
             index={i}
             node={n}
+            callbacks={props.callbacks}
             contextMenuHandler={handleContextMenuClick}
+            contextMenuVisible={n.id === clickedNode.id
+              ? contextMenuVisible
+              : false}
           />
         ))}
       </div>

@@ -1,3 +1,4 @@
+import { StatementModificationCallbacksObject } from "../../types/StatementModificationCallbacksObject";
 import { Statement } from "../../types/TopicTypes";
 
 const basicNodes: string[] = [
@@ -24,6 +25,7 @@ export function SidePanelContextMenu(
     thing: Statement;
     position: number[];
     closeCallback: () => void;
+    callbacks: StatementModificationCallbacksObject;
   },
 ): JSX.Element {
   const isProtected: boolean = basicNodes.includes(props.thing.title);
@@ -42,6 +44,9 @@ export function SidePanelContextMenu(
         </button>
         <button disabled={!isProtected}>
           <p>delete button</p>
+        </button>
+        <button onClick={() => console.log('adding a new statement')}>
+          <p>add a child statement button</p>
         </button>
       </div>
     </div>

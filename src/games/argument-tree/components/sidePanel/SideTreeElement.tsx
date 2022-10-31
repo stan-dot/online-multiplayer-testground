@@ -1,4 +1,5 @@
 import { MouseEvent, useState } from "react";
+import { StatementModificationCallbacksObject } from "../../types/StatementModificationCallbacksObject";
 import { Statement } from "../../types/TopicTypes";
 import { BottomArrow } from "../svgs/BottomArrow";
 import { RightArrow } from "../svgs/RightArrow";
@@ -11,7 +12,6 @@ function getPath(s: Statement): Statement[] {
   let lastNode: Statement = s;
   // while (lastNode.supportingChildren) {
   //   const parent = (lastNode.parentId);
-  //   // console.log("getting parent of the clicked element", parent);
   //   output.unshift(parent[0]);
   //   lastNode = parent[0];
   // }
@@ -27,7 +27,7 @@ const sideTreeElementContainerStyles: React.CSSProperties = {
   justifyContent: "space-between",
   height: "fit-content",
   minHeight: "50px",
-  minWidth: '220px',
+  minWidth: "220px",
   flexDirection: "column",
 };
 
@@ -55,6 +55,7 @@ export function SideTreeElement(
     pathSetter: (path: Statement[]) => void;
     unrolled: boolean;
     path: Statement[];
+    callbacks: StatementModificationCallbacksObject;
   },
 ): JSX.Element {
   const [position, setPosition] = useState([0, 0]);
@@ -64,14 +65,12 @@ export function SideTreeElement(
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     const path = getPath(props.thing);
-    console.log("path: ", path);
     props.pathSetter(path);
   };
 
   const handleContextMenu = (
     e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
   ) => {
-    console.log("summoned the context menu on", props.thing.title);
     e.preventDefault();
     e.stopPropagation();
     setPosition([e.pageX, e.pageY]);
@@ -108,6 +107,7 @@ export function SideTreeElement(
           (
             <SidePanelContextMenu
               thing={props.thing}
+              callbacks={props.callbacks}
               position={position}
               closeCallback={() => setContextMenuOpen(false)}
             />
@@ -119,13 +119,15 @@ export function SideTreeElement(
             nodes={props.thing.supportingChildren!}
             pathSetter={props.pathSetter}
             path={props.path}
-            color={'#FF0000'}
+            callbacks={props.callbacks}
+            color={"#FF0000"}
           />
           <SideSubTree
             nodes={props.thing.opposingChildren!}
             pathSetter={props.pathSetter}
             path={props.path}
-            color={'#00FF00'}
+            callbacks={props.callbacks}
+            color={"#00FF00"}
           />
         </div>
       )}

@@ -1,5 +1,5 @@
+import { StatementModificationCallbacksObject } from "../../types/StatementModificationCallbacksObject";
 import { Statement } from "../../types/TopicTypes";
-import { notLeaf } from "./notLeaf";
 import { SideTreeElement } from "./SideTreeElement";
 
 export function SideSubTree(props: {
@@ -7,6 +7,7 @@ export function SideSubTree(props: {
   pathSetter: (nodes: Statement[]) => void;
   path: Statement[];
   color?: string;
+  callbacks: StatementModificationCallbacksObject;
 }): JSX.Element {
   return (
     <div
@@ -26,6 +27,7 @@ export function SideSubTree(props: {
             thing={n}
             pathSetter={props.pathSetter}
             unrolled={unrolled}
+            callbacks={props.callbacks}
             path={props.path}
           />
         );

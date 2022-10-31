@@ -1,7 +1,4 @@
 
-# ASAP
-- [ ] application before Christmas - https://ethics.ris.shef.ac.uk/ethics_applications/new
-
 ## navigation and interactvity
 - [ ] use toggle, leave hamburger for menu - profile, see website and go to topics site https://uxwing.com/?s=toggle
 

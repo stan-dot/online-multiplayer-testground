@@ -1,4 +1,5 @@
 import React from "react";
+import { StatementModificationCallbacksObject } from "../../types/StatementModificationCallbacksObject";
 import { Statement } from "../../types/TopicTypes";
 import { SideSubTree } from "./SideSubTree";
 
@@ -6,10 +7,10 @@ const rootSideTreeStyles: React.CSSProperties = {
   position: "absolute",
   left: "20px",
   top: "100px",
-  overflow: 'scroll',
-  overflowX: 'scroll',
-  overflowY: 'scroll',
-  minWidth: '200px'
+  overflow: "scroll",
+  overflowX: "scroll",
+  overflowY: "scroll",
+  minWidth: "200px",
 };
 
 /**
@@ -24,9 +25,10 @@ export function SideTree(
     tree: Statement[];
     pathSetter: (nodes: Statement[]) => void;
     path: Statement[];
+    callbacks: StatementModificationCallbacksObject;
   },
 ): JSX.Element {
-  console.log('tree in the side tree', props.tree.map(v => v.title));
+  console.log("tree in the side tree", props.tree.map((v) => v.title));
   return (
     <div
       id="vericalHoriontalScrollArea"
@@ -35,6 +37,7 @@ export function SideTree(
     >
       <SideSubTree
         nodes={props.tree}
+        callbacks={props.callbacks}
         pathSetter={props.pathSetter}
         path={props.tree}
       />
