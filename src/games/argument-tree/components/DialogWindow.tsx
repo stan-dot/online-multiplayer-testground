@@ -7,7 +7,7 @@ const dialogStyles: React.CSSProperties = {
   top: "10px",
   height: "300px",
   width: "300px",
-  zIndex: 10,
+  zIndex: 5,
 };
 
 export function DialogWindow(

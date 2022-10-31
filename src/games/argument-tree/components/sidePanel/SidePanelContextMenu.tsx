@@ -10,7 +10,7 @@ function getStyles(position: number[]): React.CSSProperties {
     position: "absolute",
     left: `${position[0]}px`,
     right: `${position[1]}px`,
-    zIndex: 5,
+    zIndex: 3,
     fontSize: 10,
     border: "1px solid",
     borderColor: "#FF0000",

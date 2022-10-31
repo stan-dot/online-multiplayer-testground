@@ -6,14 +6,21 @@ import { ChatPanel } from "./components/ChatPanel";
 import { DialogWindow } from "./components/DialogWindow";
 import { PathDisplay } from "./components/PathDisplay";
 import { SideTree } from "./components/sidePanel/SideTree";
+import { HamburgerIcon } from "./components/svgs/HamburgerIcon";
 import { ToggleOffIcon } from "./components/svgs/ToggleOffIcon";
 import { ToggleOnIcon } from "./components/svgs/ToggleOnIcon";
 import { UserIcon } from "./components/svgs/UserIcon";
 import { TopicCreationDialogue } from "./components/TopicCreationWindow";
 import { createClickHandler } from "./data/createClickHandler";
 import { DEFAULT_TREE } from "./data/DEFAULT_TREE";
-import { addNewStatement, deleteStatement, getCanvasDimensions, getLargestId, updateStatement } from "./helpers";
-import { DisplayToggle } from "./navbar/HamburgerDisplayToggle";
+import {
+  addNewStatement,
+  deleteStatement,
+  getCanvasDimensions,
+  getLargestId,
+  updateStatement,
+} from "./helpers";
+import { DisplayToggle } from "./navbar/DisplayToggle";
 import { TopicDropdown } from "./navbar/TopicDropdown";
 import { StatementModificationCallbacksObject } from "./types/StatementModificationCallbacksObject";
 import { SubtreeLayer } from "./types/SubtreeLayer";
@@ -63,6 +70,7 @@ export default function ArgumentTree(): JSX.Element {
   const [sideTreeVisible, setSideTreeVisible] = useState(true);
   const [topicCreationOpen, setTopicCreationOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [menuVisible, setMenuVisible] = useState(false);
 
   const closeDialog = () => {
     setDialogOpen(false);
@@ -93,9 +101,7 @@ export default function ArgumentTree(): JSX.Element {
   const displayParameters = getCanvasDimensions(sideTreeVisible, chatVisible);
   const canvasId = "myCanvas";
   useEffect(() => {
-    const c: HTMLCanvasElement = document.getElementById(
-      canvasId,
-    ) as HTMLCanvasElement;
+    const c = document.getElementById(canvasId) as HTMLCanvasElement;
     const clickHandler = createClickHandler(c, layers);
     c.addEventListener("click", clickHandler);
     setLoaded(true);
@@ -121,18 +127,7 @@ export default function ArgumentTree(): JSX.Element {
           icon={sideTreeVisible ? ToggleOnIcon() : ToggleOffIcon()}
         />
         <h3>Argument Tree</h3>
-        <a href="https://github.com/stan-dot/online-multiplayer-testground">
-          See website
-        </a>
-        <TopicDropdown
-          changeTopicCallback={topicChangeCallback}
-        />
-        <div
-          id="iconWrapper"
-          style={{ width: "50px", height: "20px", border: "1px solid #8000FF" }}
-        >
-          <UserIcon />
-        </div>
+
         <DisplayToggle
           visibleState={chatVisible}
           setVisibilityCallback={setChatVisible}
@@ -142,8 +137,39 @@ export default function ArgumentTree(): JSX.Element {
           dialogOpen={topicCreationOpen}
           closeCallback={() => setTopicCreationOpen(false)}
         />
+        <DisplayToggle
+          visibleState={menuVisible}
+          setVisibilityCallback={setMenuVisible}
+          icon={HamburgerIcon()}
+          widthOverride={300}
+        >
+          {menuVisible ?
+            <div id="menu" onBlur={() => setMenuVisible(false)}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                zIndex: 4,
+                height: '200px',
+                backgroundColor: '#000000',
+                color: 'white'
+              }}
+            >
+              <a href="https://github.com/stan-dot/online-multiplayer-testground">
+                See website
+              </a>
+              <TopicDropdown
+                changeTopicCallback={topicChangeCallback}
+              />
+              <br />
+              <UserIcon />
+            </div>
+            :
+            <p style={{ visibility: 'hidden' }}></p>
+          }
+        </DisplayToggle>
       </nav>
-      {sideTreeVisible &&
+      {
+        sideTreeVisible &&
         (
           <SideTree
             tree={data.statements}
@@ -151,7 +177,8 @@ export default function ArgumentTree(): JSX.Element {
             path={path}
             callbacks={callbacks}
           />
-        )}
+        )
+      }
       <div
         id="optionsPanel"
         style={{ position: "fixed", left: "270px", top: "100px" }}
@@ -175,7 +202,8 @@ export default function ArgumentTree(): JSX.Element {
         displayParameters={displayParameters}
         id={canvasId}
       />
-      {chatVisible &&
+      {
+        chatVisible &&
         (
           <ChatPanel
             inSupportOf={discussedStatement}
@@ -183,7 +211,8 @@ export default function ArgumentTree(): JSX.Element {
             callbacks={callbacks}
             largestId={largestId}
           />
-        )}
+        )
+      }
     </>
   );
 }
