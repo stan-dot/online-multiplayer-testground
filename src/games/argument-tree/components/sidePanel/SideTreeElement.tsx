@@ -43,6 +43,8 @@ const sideTreeElementStyles: React.CSSProperties = {
   flexDirection: "row",
 };
 
+const X_AXIS_CLICK_DIFF: number = 30;
+
 /**
  * for side displaying FOLDERS ONLY
  * need to display with some offset to the fight
@@ -73,7 +75,7 @@ export function SideTreeElement(
   ) => {
     e.preventDefault();
     e.stopPropagation();
-    setPosition([e.pageX, e.pageY]);
+    setPosition([e.pageX - X_AXIS_CLICK_DIFF, e.pageY]);
     setContextMenuOpen(true);
   };
 
