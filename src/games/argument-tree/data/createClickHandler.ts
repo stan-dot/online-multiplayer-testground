@@ -1,11 +1,6 @@
 import { Shape } from '../types/Shape';
 import { SubtreeLayer } from '../types/SubtreeLayer';
 
-/**
- * @param c
- * @param layers
- * @returns
- */
 export function createClickHandler(
   c: HTMLCanvasElement,
   layers: SubtreeLayer[],

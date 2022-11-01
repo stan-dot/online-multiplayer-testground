@@ -6,8 +6,8 @@ import { Stage, Layer, Star, Text } from 'react-konva';
 function generateShapes() {
   return [...Array(10)].map((_, i) => ({
     id: i.toString(),
-    x: Math.random() * window.innerWidth,
-    y: Math.random() * window.innerHeight,
+    x: Math.random() * document.documentElement.clientWidth,
+    y: Math.random() * document.documentElement.clientHeight,
     rotation: Math.random() * 180,
     isDragging: false,
   }));

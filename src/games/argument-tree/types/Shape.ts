@@ -1,6 +1,7 @@
 import { SegmentChecker } from './SegmentChecker';
 import { c1, c2, getStartingPointForRectangleText } from '../data/constants';
 
+// todo to react to callbacks will need full Statement. this might be remade into an interface
 export class Shape {
   public color: string;
   public points: number[][];

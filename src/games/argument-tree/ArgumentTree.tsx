@@ -25,11 +25,7 @@ import { PrintImageButton } from "./PrintImageButton";
 import { StatementModificationCallbacksObject } from "./types/StatementModificationCallbacksObject";
 import { SubtreeLayer } from "./types/SubtreeLayer";
 import { Statement, Topic } from "./types/TopicTypes";
-
-type TopicCallbackObject = {
-  createNewCallback: (t: Topic) => void;
-}
-
+import { AuthorizationWrapper } from "./wrappers/Authorization.wrapper";
 
 // todo this can't be called on a button, but more often
 /**
@@ -74,7 +70,6 @@ export default function ArgumentTree(): JSX.Element {
    */
   const [chatVisible, setChatVisible] = useState(true);
   const [sideTreeVisible, setSideTreeVisible] = useState(true);
-  const [topicCreationOpen, setTopicCreationOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [menuVisible, setMenuVisible] = useState(false);
 
@@ -116,109 +111,113 @@ export default function ArgumentTree(): JSX.Element {
     return () => {
       c.removeEventListener("click", clickHandler);
     };
-  }, []);
+  }, [chatVisible, sideTreeVisible]);
 
   return (
-    <div id='app' style={{ overflow: 'clip', height: window.innerHeight }}>
-      <nav
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          height: "80px",
-          top: "0px",
-          justifyContent: "space-between",
-        }}
-      >
-        <DisplayToggle
-          visibleState={sideTreeVisible}
-          setVisibilityCallback={setSideTreeVisible}
-          icon={sideTreeVisible ? ToggleOnIcon() : ToggleOffIcon()}
-        />
-        <h3>Argument Tree</h3>
-        <PrintImageButton canvasId={canvasId} />
-        <TopicDropdown
-          changeTopicCallback={topicChangeCallback}
-        />
-        <DisplayToggle
-          visibleState={chatVisible}
-          setVisibilityCallback={setChatVisible}
-          icon={sideTreeVisible ? ToggleOnIcon() : ToggleOffIcon()}
-        />
-        <DisplayToggle
-          visibleState={menuVisible}
-          setVisibilityCallback={setMenuVisible}
-          icon={HamburgerIcon()}
-          widthOverride={300}
+    <div id='app' style={{ overflow: 'clip', height: document.documentElement.clientHeight }}>
+      <AuthorizationWrapper>
+
+        <nav
+          style={{
+            position: 'fixed',
+            display: "flex",
+            flexDirection: "row",
+            height: "50px",
+            top: "30px",
+            justifyContent: "space-between",
+          }}
         >
-          {menuVisible ?
-            <div id="menu" onBlur={(e) => {
-              if (!e.currentTarget.firstElementChild?.contains(e.relatedTarget)) {
-                setMenuVisible(false)
-              }
-            }}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                zIndex: 4,
-                height: '200px',
-                backgroundColor: 'beige',
+          <DisplayToggle
+            visibleState={sideTreeVisible}
+            setVisibilityCallback={setSideTreeVisible}
+            icon={sideTreeVisible ? ToggleOnIcon() : ToggleOffIcon()}
+          />
+          <h3>Argument Tree</h3>
+          <PrintImageButton canvasId={canvasId} />
+          <TopicDropdown
+            changeTopicCallback={topicChangeCallback}
+          />
+          <DisplayToggle
+            visibleState={chatVisible}
+            setVisibilityCallback={setChatVisible}
+            icon={chatVisible ? ToggleOnIcon() : ToggleOffIcon()}
+          />
+          <DisplayToggle
+            visibleState={menuVisible}
+            setVisibilityCallback={setMenuVisible}
+            icon={HamburgerIcon()}
+            widthOverride={300}
+          >
+            {menuVisible ?
+              <div id="menu" onBlur={(e) => {
+                if (!e.currentTarget.firstElementChild?.contains(e.relatedTarget)) {
+                  setMenuVisible(false)
+                }
               }}
-            >
-              <a href="https://github.com/stan-dot/online-multiplayer-testground">
-                See website
-              </a>
-              <br />
-              <p>
-                <UserIcon />
-                Your Account
-              </p>
-            </div>
-            :
-            <p style={{ visibility: 'hidden' }}></p>
-          }
-        </DisplayToggle>
-      </nav>
-      {
-        sideTreeVisible &&
-        (
-          <SideTree
-            tree={data.statements}
-            pathSetter={pathSetter}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  zIndex: 4,
+                  height: '200px',
+                  backgroundColor: 'beige',
+                }}
+              >
+                <a href="https://github.com/stan-dot/online-multiplayer-testground">
+                  See website
+                </a>
+                <br />
+                <p>
+                  <UserIcon />
+                  Your Account
+                </p>
+              </div>
+              :
+              <p style={{ visibility: 'hidden' }}></p>
+            }
+          </DisplayToggle>
+        </nav>
+        {
+          sideTreeVisible &&
+          (
+            <SideTree
+              tree={data.statements}
+              pathSetter={pathSetter}
+              path={path}
+              callbacks={callbacks}
+            />
+          )
+        }
+        <div
+          id="optionsPanel"
+          style={{ position: "fixed", left: "270px", top: "100px" }}
+        >
+          <PathDisplay
             path={path}
+            pathChangeHandler={pathSetter}
             callbacks={callbacks}
           />
-        )
-      }
-      <div
-        id="optionsPanel"
-        style={{ position: "fixed", left: "270px", top: "100px" }}
-      >
-        <PathDisplay
-          path={path}
-          pathChangeHandler={pathSetter}
-          callbacks={callbacks}
-        />
-        <DialogWindow
-          dialogOpen={dialogOpen}
-          closeCallback={closeDialog}
-          callbacks={callbacks}
-        />
-      </div>
-      <CanvasContainer
-        displayParameters={displayParameters}
-        id={canvasId}
-      />
-      {
-        chatVisible &&
-        (
-          <ChatPanel
-            inSupportOf={discussedStatement}
-            tree={data.statements}
+          <DialogWindow
+            dialogOpen={dialogOpen}
+            closeCallback={closeDialog}
             callbacks={callbacks}
-            largestId={largestId}
           />
-        )
-      }
+        </div>
+        <CanvasContainer
+          displayParameters={displayParameters}
+          id={canvasId}
+        />
+        {
+          chatVisible &&
+          (
+            <ChatPanel
+              inSupportOf={discussedStatement}
+              tree={data.statements}
+              callbacks={callbacks}
+              largestId={largestId}
+            />
+          )
+        }
+      </AuthorizationWrapper >
     </div >
   );
 }

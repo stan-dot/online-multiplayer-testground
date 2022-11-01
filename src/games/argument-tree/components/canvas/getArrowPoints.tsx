@@ -15,8 +15,7 @@ function getPartPointBetweentPoints(
   ];
 }
 /**
- * todo the points need to be 7, not 3
- * need to add 4 more points
+ * todo the points need to be 7, not 3 = need to add 4 more points
  * @param fromPoint
  * @param targetPoint
  * @returns
@@ -42,7 +41,7 @@ export function getArrowPoints(
 
   const ARROW_PROPORTION = 8;
 
-  // 1/8th of the distance from the end , just on the way
+  // 1/8th of the distance from the end, just on the way
   const cruxPoint = getPartPointBetweentPoints(
     fromPoint,
     targetPoint,

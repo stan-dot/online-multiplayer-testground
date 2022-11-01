@@ -8,6 +8,7 @@ export function CanvasContainer(props: { displayParameters: CanvasDisplayParamet
       position: "fixed",
       left: `${props.displayParameters.startLeft}px`,
       top: `${props.displayParameters.startTop}px`,
+      overflow: 'scroll'
     }}
   >
     <canvas

@@ -8,7 +8,7 @@ export function ToggleOffIcon() {
       height={30}
       fillRule="evenodd"
       clipRule="evenodd"
-      viewBox="0 0 122.882 73.393"
+      viewBox="0 20 100 30"
       enableBackground="new 0 0 122.882 73.393"
       style={{
         width: "1em",
