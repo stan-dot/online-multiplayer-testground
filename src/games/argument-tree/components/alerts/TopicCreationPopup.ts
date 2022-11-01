@@ -24,7 +24,7 @@ const getTextInputOptions: () => SweetAlertOptions<any, any> = () => {
 // todo add tags addition fire window. the object should be passed along the pipeline, along with the callback.
 // make all of that here, then only refactor
 export function fireNewTopicPopup(
-  callback: (question: string) => Topic,
+  getTopicCallback: (question: string) => Topic,
   addFunction: (t: Topic) => void,
 ): void {
   swalWithBootstrapButtons
@@ -34,7 +34,8 @@ export function fireNewTopicPopup(
         swalWithBootstrapButtons
           .fire('Changed!', 'Statement has been changed.', 'success')
           .then(() => {
-            callback(result.value!);
+            const t = getTopicCallback(result.value!);
+            addFunction(t);
           });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         swalWithBootstrapButtons.fire(

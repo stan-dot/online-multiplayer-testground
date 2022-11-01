@@ -31,14 +31,14 @@ export function TopicDropdown(
 ): JSX.Element {
   // const [topics, setTopics] = useState([] as Topic[]);
   const [topics, setTopics] = useState(SAMPLE_TOPICS);
-  const [topicListVisible, setTopicListVisible] = useState(false);
+  const [topicListVisible, setTopicListVisible] = useState(true);
 
   // const topicsUrl: string = "http://localhost:3001/topics";
   // axios.get(topicsUrl).then((r: AxiosResponse) => {
   //   setTopics(r.data);
   // });
   return (
-    <div id="alwaysOn" style={{ width: "150px", height: "80px", zIndex: 10 }}>
+    <div id="alwaysOn" style={{ width: "150px", height: "80px", zIndex: 10, }}>
       <button
         onClick={() =>
           topicListVisible
@@ -49,7 +49,7 @@ export function TopicDropdown(
       </button>
       {topicListVisible &&
         (
-          <div id="topicDropdown">
+          <div id="topicDropdown" style={{ border: '2px solid #80ffff' }}>
             {topics.length > 0
               ? topics.map((t, i) => (
                 <TopicCard
