@@ -11,8 +11,7 @@ const dialogStyles: React.CSSProperties = {
   zIndex: 5,
 };
 
-// todo make sure the close is handled safely
-// todo possibly provide a step by step experience, as the are many things to be added here
+// this will be replaced by a different dialogue
 export function TopicCreationDialogue(
   props: {
     dialogOpen: boolean;
@@ -27,12 +26,12 @@ export function TopicCreationDialogue(
   const topic: Topic = {
     statements: [],
     metadata: {
-      creatorsIds: [], // todo this needs a ref and a input field
-      confirmationPercent: 0, // todo this needs a ref and a input field
-      tags: [], // todo this needs a ref and a input field
-      triggerWarnings: [], // todo this needs a ref and a input field
-      question: textRef.current, // todo this needs a ref and a input field
-      imageUrl: undefined, // todo this needs a ref and a input field
+      creatorsIds: [],
+      confirmationPercent: 0,
+      tags: [],
+      triggerWarnings: [],
+      question: textRef.current,
+      imageUrl: undefined,
     },
   };
 

@@ -77,13 +77,11 @@ export function SideTreeElement(
     setContextMenuOpen(true);
   };
 
-  // https://www.svgrepo.com/svg/175769/down-arrow
-  // todo add this
   return (
     <div
       style={sideTreeElementContainerStyles}
       id={`${props.thing.id}-side-tree-container`}
-      onBlur={() => setContextMenuOpen(false)}
+      // onBlur={() => setContextMenuOpen(false)}
     >
       <div
         style={sideTreeElementStyles}

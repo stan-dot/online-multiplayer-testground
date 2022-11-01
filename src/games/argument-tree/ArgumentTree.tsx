@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { CanvasContainer } from "./CanvasContainer";
+import { sendTestSvalAlert } from "./components/alerts/TestAlert";
 import { getLayersFromStatementTree } from "./components/canvas/getShapesFromStatementTree";
 import { ChatPanel } from "./components/ChatPanel";
 import { DialogWindow } from "./components/DialogWindow";
@@ -11,7 +12,7 @@ import { ToggleOffIcon } from "./components/svgs/ToggleOffIcon";
 import { ToggleOnIcon } from "./components/svgs/ToggleOnIcon";
 import { UserIcon } from "./components/svgs/UserIcon";
 import { TopicCreationDialogue } from "./components/TopicCreationWindow";
-import { createClickHandler } from "./data/createClickHandler";
+import { createClickHandler, createContextClickHandler } from "./data/createClickHandler";
 import { DEFAULT_TREE } from "./data/DEFAULT_TREE";
 import {
   addNewStatement,
@@ -104,6 +105,8 @@ export default function ArgumentTree(): JSX.Element {
     const c = document.getElementById(canvasId) as HTMLCanvasElement;
     const clickHandler = createClickHandler(c, layers);
     c.addEventListener("click", clickHandler);
+    const contextHandler = createContextClickHandler(c, layers);
+    c.addEventListener('contextmenu', contextHandler)
     setLoaded(true);
     return () => {
       c.removeEventListener("click", clickHandler);
