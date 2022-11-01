@@ -27,6 +27,16 @@ export function getLayersFromStatementTree(
     tree.statements[0];
   // recursively build tree up to some distance
   const MAX_DISTANCE = 2;
+
+  const errorLayer: SubtreeLayer = {
+    yCoordinate: 0,
+    xCoordinate: 0,
+    shapes: [new Shape([[50, 50], [200, 200]], 'No statements here')],
+    width: 0
+  };
+  if (!root) {
+    return [errorLayer]
+  }
   const directSupportingChildren: Statement[] = root.supportingChildren;
   const directOpposingChildren: Statement[] = root.opposingChildren;
   const STARTING_POINTS: number[] = [400, 600];

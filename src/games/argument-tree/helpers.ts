@@ -66,6 +66,7 @@ export const updateStatement = (
 };
 
 export function getLargestId(list: Statement[]): string {
+  if (list.length === 0) return '0';
   return list.reduce((previous: Statement, current: Statement) =>
     parseInt(current.id) > parseInt(previous.id) ? current : previous,
   ).id;

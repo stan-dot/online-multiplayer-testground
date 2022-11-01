@@ -77,6 +77,7 @@ export function ChatPanel(
             addMessage(messageFromInput);
             setInput("");
           }}
+          disabled={input === ''}
         >
           send
         </button>
