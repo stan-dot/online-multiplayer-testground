@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { CanvasContainer } from "./CanvasContainer";
-import { sendTestSvalAlert } from "./components/alerts/TestAlert";
 import { getLayersFromStatementTree } from "./components/canvas/getShapesFromStatementTree";
 import { ChatPanel } from "./components/ChatPanel";
 import { DialogWindow } from "./components/DialogWindow";
@@ -19,7 +18,7 @@ import {
   deleteStatement,
   getCanvasDimensions,
   getLargestId,
-  updateStatement,
+  updateStatement
 } from "./helpers";
 import { DisplayToggle } from "./navbar/DisplayToggle";
 import { TopicDropdown } from "./navbar/TopicDropdown";
@@ -47,7 +46,7 @@ export default function ArgumentTree(): JSX.Element {
    * todo move those into a different wrapper
    */
   const [data, setData] = useState(DEFAULT_TREE);
-  const [path, setPath] = useState([data.statements[0], data.statements[1]]);
+  const [path, setPath] = useState([data.statements[0]]);
   const [discussedStatement, setDiscussedStatement] = useState(
     data.statements[0],
   );
@@ -119,7 +118,7 @@ export default function ArgumentTree(): JSX.Element {
         style={{
           display: "flex",
           flexDirection: "row",
-          maxHeight: "100px",
+          height: "80px",
           top: "0px",
           justifyContent: "space-between",
         }}
@@ -130,7 +129,6 @@ export default function ArgumentTree(): JSX.Element {
           icon={sideTreeVisible ? ToggleOnIcon() : ToggleOffIcon()}
         />
         <h3>Argument Tree</h3>
-
         <DisplayToggle
           visibleState={chatVisible}
           setVisibilityCallback={setChatVisible}
@@ -147,7 +145,11 @@ export default function ArgumentTree(): JSX.Element {
           widthOverride={300}
         >
           {menuVisible ?
-            <div id="menu" onBlur={() => setMenuVisible(false)}
+            <div id="menu" onBlur={(e) => {
+              if (!e.currentTarget.firstElementChild?.contains(e.relatedTarget)) {
+                setMenuVisible(false)
+              }
+            }}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -186,9 +188,6 @@ export default function ArgumentTree(): JSX.Element {
         id="optionsPanel"
         style={{ position: "fixed", left: "270px", top: "100px" }}
       >
-        <button onClick={() => setDialogOpen(true)}>
-          Create new node
-        </button>
         <PathDisplay
           path={path}
           pathChangeHandler={pathSetter}

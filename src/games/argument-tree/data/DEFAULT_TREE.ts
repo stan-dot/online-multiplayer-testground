@@ -152,7 +152,7 @@ const testStatement1: Statement = {
 };
 
 export const DEFAULT_TREE: Topic = {
-  statements: [testStatement1, testStatment2],
+  statements: [testStatement1],
   metadata: {
     creatorsIds: [],
     confirmationPercent: 0,

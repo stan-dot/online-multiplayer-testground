@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { StatementModificationCallbacksObject } from "../../types/StatementModificationCallbacksObject";
 import { Statement } from "../../types/TopicTypes";
+import { fireDeletePopup } from "../alerts/DeletePopup";
+import { fireEditPopup } from "../alerts/EditPopup";
 import { sendTestSvalAlert } from "../alerts/TestAlert";
 import { getContextMenuStyles } from "./getContextMenuStyles";
 
@@ -28,13 +30,11 @@ export function SidePanelContextMenu(
       onBlur={() => props.closeCallback()}
     >
       <div className="group1">
-
         <button
           disabled={isProtected}
           onClick={(e) => {
             e.preventDefault();
-            console.log("clicked button");
-            sendTestSvalAlert();
+            fireEditPopup(props.thing, props.callbacks);
             props.closeCallback();
           }}
           style={{ width: "100%", textAlign: "left" }}
@@ -45,8 +45,7 @@ export function SidePanelContextMenu(
           disabled={isProtected}
           onClick={(e) => {
             e.preventDefault();
-            console.log("clicked button");
-            sendTestSvalAlert();
+            fireDeletePopup(props.thing, props.callbacks);
             props.closeCallback();
           }}
           style={{ width: "100%", textAlign: "left" }}
