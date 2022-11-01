@@ -81,8 +81,22 @@ export function SideTreeElement(
     <div
       style={sideTreeElementContainerStyles}
       id={`${props.thing.id}-side-tree-container`}
-      // onBlur={() => setContextMenuOpen(false)}
+      onBlur={(e) => {
+        if (!e.currentTarget.firstElementChild?.contains(e.relatedTarget)) {
+          setContextMenuOpen(false)
+        }
+      }}
     >
+      {contextMenuOpen &&
+        (
+          <SidePanelContextMenu
+            id={`${props.thing.id}-context-menu`}
+            thing={props.thing}
+            callbacks={props.callbacks}
+            position={position}
+            closeCallback={() => setContextMenuOpen(false)}
+          />
+        )}
       <div
         style={sideTreeElementStyles}
         id={`${props.thing.id}-side-tree-row`}
@@ -101,18 +115,10 @@ export function SideTreeElement(
         >
           <p>{props.thing.title}</p>
         </button>
-        {contextMenuOpen &&
-          (
-            <SidePanelContextMenu
-              thing={props.thing}
-              callbacks={props.callbacks}
-              position={position}
-              closeCallback={() => setContextMenuOpen(false)}
-            />
-          )}
+
       </div>
       {unrolled && (
-        <div id={`${props.thing.id}-children`}>
+        <div id={`${props.thing.id}- children`}>
           <SideSubTree
             nodes={props.thing.supportingChildren!}
             pathSetter={props.pathSetter}

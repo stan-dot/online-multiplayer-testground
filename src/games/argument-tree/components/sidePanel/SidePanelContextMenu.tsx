@@ -2,25 +2,11 @@ import { useState } from "react";
 import { StatementModificationCallbacksObject } from "../../types/StatementModificationCallbacksObject";
 import { Statement } from "../../types/TopicTypes";
 import { sendTestSvalAlert } from "../alerts/TestAlert";
+import { getContextMenuStyles } from "./getContextMenuStyles";
 
 const basicNodes: string[] = [
-  "root", "Other bookmarks", "Mobile bookmarks", "Bookmarks bar"
+  "root"
 ];
-
-function getStyles(position: number[]): React.CSSProperties {
-  return {
-    position: "absolute",
-    left: `${position[0]}px`,
-    right: `${position[1]}px`,
-    zIndex: 9,
-    fontSize: 10,
-    border: "1px solid",
-    borderColor: "#808080",
-    background: "solid",
-    backgroundColor: "coral",
-    width: "fit-content",
-  };
-}
 
 export function SidePanelContextMenu(
   props: {
@@ -28,14 +14,12 @@ export function SidePanelContextMenu(
     position: number[];
     closeCallback: () => void;
     callbacks: StatementModificationCallbacksObject;
+    id: string;
   },
 ): JSX.Element {
   const isProtected: boolean = basicNodes.includes(props.thing.title);
 
-  // const darkGrey = "#808080";
-  // const pinkish = "#db7070";
-  // const [testButtonColor, setTestButtonColor] = useState(darkGrey);
-  const styles = getStyles(props.position);
+  const styles = getContextMenuStyles(props.position);
   return (
     <div
       id="sidePanelContextMenu"
@@ -44,15 +28,7 @@ export function SidePanelContextMenu(
       onBlur={() => props.closeCallback()}
     >
       <div className="group1">
-        {/* <button
-          onClick={() =>
-            setTestButtonColor(
-              testButtonColor === darkGrey ? pinkish : darkGrey,
-            )}
-          style={{ backgroundColor: `${testButtonColor}` }}
-        >
-          test
-        </button> */}
+
         <button
           disabled={isProtected}
           onClick={(e) => {
