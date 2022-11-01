@@ -90,7 +90,7 @@ export default function ArgumentTree(): JSX.Element {
   const callbacks: StatementModificationCallbacksObject = {
     delete: deleteStatement(setData, data),
     update: updateStatement(setData, data),
-    add: addNewStatement(setData, data),
+    add: addNewStatement(setData, data, largestId, setLargestId),
   };
 
   /**
@@ -197,7 +197,6 @@ export default function ArgumentTree(): JSX.Element {
           dialogOpen={dialogOpen}
           closeCallback={closeDialog}
           callbacks={callbacks}
-          largestId={largestId}
         />
       </div>
       <CanvasContainer

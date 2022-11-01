@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { StatementModificationCallbacksObject } from "../../types/StatementModificationCallbacksObject";
 import { Statement } from "../../types/TopicTypes";
+import { fireAddChildPopup } from "../alerts/AddChildPopup";
 import { fireDeletePopup } from "../alerts/DeletePopup";
 import { fireEditPopup } from "../alerts/EditPopup";
 import { sendTestSvalAlert } from "../alerts/TestAlert";
@@ -53,12 +54,12 @@ export function SidePanelContextMenu(
           <p>Delete</p>
         </button>
         <button
-          onClick={() => sendTestSvalAlert()}
+          onClick={() => fireAddChildPopup(props.thing, props.callbacks)}
           style={{ textAlign: "left", width: "fit-content" }}
         >
           <p>Add a child statement</p>
         </button>
       </div>
-    </div>
+    </div >
   );
 }

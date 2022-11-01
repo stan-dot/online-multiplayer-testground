@@ -9,15 +9,14 @@ const swalWithBootstrapButtons = Swal.mixin({
   },
   buttonsStyling: false,
 });
-const getTextInputOptions: (s: Statement) => SweetAlertOptions<any, any> = (
-  s: Statement,
-) => {
+
+const getTextInputOptions: () => SweetAlertOptions<any, any> = () => {
   return {
-    title: 'Statement change',
+    title: 'Statement contents',
     input: 'text',
     icon: 'warning',
     inputLabel: 'Type new text',
-    inputValue: s.title,
+    inputValue: '',
     confirmButtonText: 'Yes, change it!',
     showCancelButton: true,
     cancelButtonText: 'No, cancel!',
@@ -30,25 +29,17 @@ const getTextInputOptions: (s: Statement) => SweetAlertOptions<any, any> = (
   };
 };
 
-export function fireEditPopup(
-  statement: Statement,
+export function fireAddPopup(
   callbacks: StatementModificationCallbacksObject,
 ): void {
-  const options: SweetAlertOptions = getTextInputOptions(statement);
   swalWithBootstrapButtons
-    .fire(options)
+    .fire(getTextInputOptions())
     .then((result: SweetAlertResult<string>) => {
       if (result.isConfirmed) {
         swalWithBootstrapButtons
           .fire('Changed!', 'Statement has been changed.', 'success')
           .then(() => {
-            const newStatement: Statement = {
-              title: result.value ?? '',
-              id: statement.id,
-              supportingChildren: statement.supportingChildren,
-              opposingChildren: statement.opposingChildren,
-            };
-            callbacks.update(newStatement);
+            callbacks.add(result.value!);
           });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         swalWithBootstrapButtons.fire(

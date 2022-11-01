@@ -1,8 +1,8 @@
 
 ## window popups with Sval and for full CRUD wrt statements
-- [ ] edit window
-- [ ] add window
-- [ ] delete window (make sure to delete)
+- [x] edit window
+- [x] add window
+- [x] delete window (make sure to delete)
 - [ ] confirm topic change
 - [ ] main display - context on statement click
 
@@ -17,6 +17,8 @@
   - [ ] multiple selection with `ctrl` clicked and/or shift
   - [ ] react to `ctrl`+a clicks
 - [ ] print option
+  - [ ] var img = new Image(); img.src = canvas.toDataURL();
+  - [ ] should save to IPFS image AND json data
 - [ ] a connected nextjs site for 
   - [ ] social interactions
   - [ ] topic exploration
