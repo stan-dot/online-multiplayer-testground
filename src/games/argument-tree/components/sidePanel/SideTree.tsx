@@ -1,7 +1,6 @@
 import React from "react";
 import { StatementModificationCallbacksObject } from "../../types/StatementModificationCallbacksObject";
 import { Statement } from "../../types/TopicTypes";
-import { sendTestSvalAlert } from "../alerts/TestAlert";
 import { SideSubTree } from "./SideSubTree";
 
 const rootSideTreeStyles: React.CSSProperties = {

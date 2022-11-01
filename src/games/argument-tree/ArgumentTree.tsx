@@ -12,7 +12,7 @@ import { ToggleOnIcon } from "./components/svgs/ToggleOnIcon";
 import { UserIcon } from "./components/svgs/UserIcon";
 import { TopicCreationDialogue } from "./components/TopicCreationWindow";
 import { createClickHandler, createContextClickHandler } from "./data/createClickHandler";
-import { DEFAULT_TREE } from "./data/DEFAULT_TREE";
+import { DEFAULT_TREE as DEFAULT_TOPIC } from "./data/DEFAULT_TREE";
 import {
   addNewStatement,
   deleteStatement,
@@ -25,6 +25,11 @@ import { TopicDropdown } from "./navbar/TopicDropdown";
 import { StatementModificationCallbacksObject } from "./types/StatementModificationCallbacksObject";
 import { SubtreeLayer } from "./types/SubtreeLayer";
 import { Statement, Topic } from "./types/TopicTypes";
+
+type TopicCallbackObject = {
+  createNewCallback: (t: Topic) => void;
+}
+
 
 // todo this can't be called on a button, but more often
 /**
@@ -44,8 +49,9 @@ export default function ArgumentTree(): JSX.Element {
   /**
    * data handlers
    * todo move those into a different wrapper
+   * todo consider moving metadata to a separate variable, 2 diff kinds of updates
    */
-  const [data, setData] = useState(DEFAULT_TREE);
+  const [data, setData] = useState(DEFAULT_TOPIC);
   const [path, setPath] = useState([data.statements[0]]);
   const [discussedStatement, setDiscussedStatement] = useState(
     data.statements[0],
@@ -113,7 +119,7 @@ export default function ArgumentTree(): JSX.Element {
   }, []);
 
   return (
-    <>
+    <div id='app' style={{ overflow: 'clip', height: window.innerHeight }}>
       <nav
         style={{
           display: "flex",
@@ -137,6 +143,9 @@ export default function ArgumentTree(): JSX.Element {
         <TopicCreationDialogue
           dialogOpen={topicCreationOpen}
           closeCallback={() => setTopicCreationOpen(false)}
+        />
+        <TopicDropdown
+          changeTopicCallback={topicChangeCallback}
         />
         <DisplayToggle
           visibleState={menuVisible}
@@ -162,9 +171,6 @@ export default function ArgumentTree(): JSX.Element {
               <a href="https://github.com/stan-dot/online-multiplayer-testground">
                 See website
               </a>
-              <TopicDropdown
-                changeTopicCallback={topicChangeCallback}
-              />
               <br />
               <UserIcon />
             </div>
@@ -214,6 +220,6 @@ export default function ArgumentTree(): JSX.Element {
           />
         )
       }
-    </>
+    </div>
   );
 }

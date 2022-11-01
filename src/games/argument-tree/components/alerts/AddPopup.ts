@@ -1,15 +1,7 @@
 import Swal, { SweetAlertOptions, SweetAlertResult } from 'sweetalert2';
 import { StatementModificationCallbacksObject } from '../../types/StatementModificationCallbacksObject';
 import { Statement } from '../../types/TopicTypes';
-
-const swalWithBootstrapButtons = Swal.mixin({
-  customClass: {
-    confirmButton: 'btn btn-success',
-    cancelButton: 'btn btn-danger',
-  },
-  buttonsStyling: false,
-});
-
+import { swalWithBootstrapButtons } from './swalWithBootstrapButtons';
 const getTextInputOptions: () => SweetAlertOptions<any, any> = () => {
   return {
     title: 'Statement contents',
