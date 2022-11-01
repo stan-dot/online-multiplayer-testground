@@ -10,7 +10,6 @@ import { HamburgerIcon } from "./components/svgs/HamburgerIcon";
 import { ToggleOffIcon } from "./components/svgs/ToggleOffIcon";
 import { ToggleOnIcon } from "./components/svgs/ToggleOnIcon";
 import { UserIcon } from "./components/svgs/UserIcon";
-import { TopicCreationDialogue } from "./components/TopicCreationWindow";
 import { createClickHandler, createContextClickHandler } from "./data/createClickHandler";
 import { DEFAULT_TREE as DEFAULT_TOPIC } from "./data/DEFAULT_TREE";
 import {
@@ -22,6 +21,7 @@ import {
 } from "./helpers";
 import { DisplayToggle } from "./navbar/DisplayToggle";
 import { TopicDropdown } from "./navbar/TopicDropdown";
+import { PrintImageButton } from "./PrintImageButton";
 import { StatementModificationCallbacksObject } from "./types/StatementModificationCallbacksObject";
 import { SubtreeLayer } from "./types/SubtreeLayer";
 import { Statement, Topic } from "./types/TopicTypes";
@@ -135,37 +135,14 @@ export default function ArgumentTree(): JSX.Element {
           icon={sideTreeVisible ? ToggleOnIcon() : ToggleOffIcon()}
         />
         <h3>Argument Tree</h3>
+        <PrintImageButton canvasId={canvasId} />
+        <TopicDropdown
+          changeTopicCallback={topicChangeCallback}
+        />
         <DisplayToggle
           visibleState={chatVisible}
           setVisibilityCallback={setChatVisible}
           icon={sideTreeVisible ? ToggleOnIcon() : ToggleOffIcon()}
-        />
-        <TopicCreationDialogue
-          dialogOpen={topicCreationOpen}
-          closeCallback={() => setTopicCreationOpen(false)}
-        />
-        <button onClick={() => {
-
-          const c = document.getElementById(canvasId) as HTMLCanvasElement;
-          const img = new Image();
-          img.src = c.toDataURL();
-          // -[] should save to IPFS image AND json data
-          // todo a swal window to make sure to download
-          // function downloadCanvas(link, canvasId, filename) {
-          //   link.href = document.getElementById(canvasId).toDataURL();
-          //   link.download = filename;
-          // }
-
-
-          // const d = () => {
-          //   downloadCanvas(this, 'canvas', 'test.png');
-          // }
-
-        }}>
-          Print image contents
-        </button>
-        <TopicDropdown
-          changeTopicCallback={topicChangeCallback}
         />
         <DisplayToggle
           visibleState={menuVisible}
@@ -184,15 +161,17 @@ export default function ArgumentTree(): JSX.Element {
                 flexDirection: 'column',
                 zIndex: 4,
                 height: '200px',
-                backgroundColor: '#000000',
-                color: 'white'
+                backgroundColor: 'beige',
               }}
             >
               <a href="https://github.com/stan-dot/online-multiplayer-testground">
                 See website
               </a>
               <br />
-              <UserIcon />
+              <p>
+                <UserIcon />
+                Your Account
+              </p>
             </div>
             :
             <p style={{ visibility: 'hidden' }}></p>
@@ -243,3 +222,4 @@ export default function ArgumentTree(): JSX.Element {
     </div >
   );
 }
+

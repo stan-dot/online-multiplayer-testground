@@ -31,7 +31,7 @@ export function TopicDropdown(
 ): JSX.Element {
   // const [topics, setTopics] = useState([] as Topic[]);
   const [topics, setTopics] = useState(SAMPLE_TOPICS);
-  const [topicListVisible, setTopicListVisible] = useState(true);
+  const [topicListVisible, setTopicListVisible] = useState(false);
 
   // const topicsUrl: string = "http://localhost:3001/topics";
   // axios.get(topicsUrl).then((r: AxiosResponse) => {
