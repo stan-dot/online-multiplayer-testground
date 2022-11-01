@@ -3,6 +3,9 @@
 ## addressing technical debt
 - [ ] main display
   - [x] fix the layers - should not assume there's always at least 1 supporter
+  - [ ] diagnosis: not everything renders. 
+    - [ ] need to design the render of the arrows
+    - [ ] need to design new types implementing the Intersectionable interface
   - [ ] context on statement click
 - [ ] split the argument tree into different wrappers 
   - [ ] data wrapper - data, path, loaded
