@@ -144,6 +144,26 @@ export default function ArgumentTree(): JSX.Element {
           dialogOpen={topicCreationOpen}
           closeCallback={() => setTopicCreationOpen(false)}
         />
+        <button onClick={() => {
+
+          const c = document.getElementById(canvasId) as HTMLCanvasElement;
+          const img = new Image();
+          img.src = c.toDataURL();
+          // -[] should save to IPFS image AND json data
+          // todo a swal window to make sure to download
+          // function downloadCanvas(link, canvasId, filename) {
+          //   link.href = document.getElementById(canvasId).toDataURL();
+          //   link.download = filename;
+          // }
+
+
+          // const d = () => {
+          //   downloadCanvas(this, 'canvas', 'test.png');
+          // }
+
+        }}>
+          Print image contents
+        </button>
         <TopicDropdown
           changeTopicCallback={topicChangeCallback}
         />
@@ -220,6 +240,6 @@ export default function ArgumentTree(): JSX.Element {
           />
         )
       }
-    </div>
+    </div >
   );
 }
