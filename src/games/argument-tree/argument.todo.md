@@ -17,9 +17,7 @@
 - [ ] add shadows
 
 ## extended functionality
-- [ ] print option
-  - [ ] var img = new Image(); img.src = canvas.toDataURL();
-  - [ ] should save to IPFS image AND json data
+- [ ] should save to IPFS image AND json data, mint NFT functionality
 - [ ] a connected nextjs site for 
   - [ ] social interactions
   - [ ] topic exploration
@@ -72,3 +70,4 @@
 - [x] add window
 - [x] delete window (make sure to delete)
 - [x] confirm topic change
+- [x] print option

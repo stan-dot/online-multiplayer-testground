@@ -41,9 +41,11 @@ export function ChatPanel(
     <div id="chatPanel" style={chatStyles}>
       <div id="charDisplayArea">
         <div>
-          <h3>
-            position argued:
-            {props.inSupportOf.title}
+          <h3 style={{ border: '1px solid', borderColor: 'hotpink' }}>
+            Position argued:
+            <span style={{ color: 'Highlight' }}>
+              {props.inSupportOf.title}
+            </span>
           </h3>
         </div>
         <div
