@@ -19,11 +19,12 @@ export function SideSubTree(props: {
       }}
     >
       {/* {props.nodes.filter(notLeaf).map((n) => { */}
-      {props.nodes.map((n) => {
+      {props.nodes.map((n, i) => {
         // const unrolled: boolean = props.path.includes(n);
         const unrolled: boolean = true;
         return (
           <SideTreeElement
+            key={i}
             thing={n}
             pathSetter={props.pathSetter}
             unrolled={unrolled}

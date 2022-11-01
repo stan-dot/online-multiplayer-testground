@@ -1,5 +1,6 @@
 import { StatementModificationCallbacksObject } from "../../types/StatementModificationCallbacksObject";
 import { Statement } from "../../types/TopicTypes";
+import { sendTestSvalAlert } from "../alerts/TestAlert";
 
 const basicNodes: string[] = [
   "root",
@@ -39,14 +40,14 @@ export function SidePanelContextMenu(
       onBlur={() => props.closeCallback()}
     >
       <div className="group1">
-        <button disabled={isProtected}>
+        <button disabled={isProtected} onClick={() => sendTestSvalAlert()}>
           <p>Rename</p>
         </button>
-        <button disabled={isProtected}>
+        <button disabled={isProtected} onClick={() => sendTestSvalAlert()}>
           <p>Delete</p>
         </button>
-        <button onClick={() => console.log('adding a new statement')}>
-          <p>add a child statement</p>
+        <button onClick={() => sendTestSvalAlert()}>
+          <p>Add a child statement</p>
         </button>
       </div>
     </div>

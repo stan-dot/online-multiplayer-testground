@@ -76,6 +76,7 @@ export function PathDisplay(props: {
       >
         {props.path.map((n, i) => (
           <PathItem
+            key={i}
             handleClick={handleClick}
             index={i}
             node={n}
