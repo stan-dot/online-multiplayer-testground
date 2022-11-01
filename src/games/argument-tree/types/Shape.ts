@@ -61,7 +61,7 @@ export class Shape {
       }
     });
     ctx.fill();
-    const fontSize = 20;
+    const fontSize = 12;
     ctx.font = `${fontSize}px Arial`;
 
     if (this.text) {

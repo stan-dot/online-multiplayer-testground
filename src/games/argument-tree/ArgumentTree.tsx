@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { CanvasContainer } from "./CanvasContainer";
+import { CanvasDisplayParameters } from "./CanvasDisplayParameters";
 import { getLayersFromStatementTree } from "./components/canvas/getShapesFromStatementTree";
 import { ChatPanel } from "./components/ChatPanel";
 import { DialogWindow } from "./components/DialogWindow";
@@ -97,9 +98,9 @@ export default function ArgumentTree(): JSX.Element {
   /**
    * DISPLAY CONCERNS
    */
-  const layers: SubtreeLayer[] = getLayersFromStatementTree(data, rootId);
+  const displayParameters:CanvasDisplayParameters = getCanvasDimensions(sideTreeVisible, chatVisible);
+  const layers: SubtreeLayer[] = getLayersFromStatementTree(data, rootId, displayParameters);
 
-  const displayParameters = getCanvasDimensions(sideTreeVisible, chatVisible);
   const canvasId = "myCanvas";
   useEffect(() => {
     const c = document.getElementById(canvasId) as HTMLCanvasElement;

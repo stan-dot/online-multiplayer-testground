@@ -1,8 +1,8 @@
 import { Shape } from "./Shape";
 
 export type SubtreeLayer = {
-  yCoordinate: number;
   xCoordinate: number;
+  yCoordinate: number;
   shapes: Shape[];
   width: number;
 };

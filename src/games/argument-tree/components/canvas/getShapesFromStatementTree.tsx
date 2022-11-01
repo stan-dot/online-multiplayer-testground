@@ -1,3 +1,4 @@
+import { CanvasDisplayParameters } from "../../CanvasDisplayParameters";
 import { getRectangleFromStartingPoint } from "../../data/constants";
 import { Shape } from "../../types/Shape";
 import { SubtreeLayer } from "../../types/SubtreeLayer";
@@ -5,17 +6,17 @@ import { Statement, Topic } from "../../types/TopicTypes";
 import { getArrowPoints } from "./getArrowPoints";
 const grey = "#808080";
 
-const MAX_DISTANCE = 2;
-const LAYER_HEIGHT = 200;
-const STANDARD_WIDTH = 200;
+const MAX_DISTANCE = 3;
+const LAYER_HEIGHT = 100;
+const STANDARD_WIDTH = 261;
 
 function getClosestLayer(
   parentLayer: SubtreeLayer,
   thisDataLayer: Statement[],
 ): SubtreeLayer {
-
   console.log('number of items to distribute:', thisDataLayer.length);
-  const THIS_LAYER_STARTING_POINT: number[] = [parentLayer.xCoordinate + parentLayer.width, parentLayer.yCoordinate + LAYER_HEIGHT];
+  // todo differentiate between broader and narrower (wrt parents) layers
+  const THIS_LAYER_STARTING_POINT: number[] = [parentLayer.xCoordinate - thisDataLayer.length * STANDARD_WIDTH, parentLayer.yCoordinate + LAYER_HEIGHT];
   const shapes: Shape[] = thisDataLayer.map((node: Statement, index: number) => {
     const startingPoint: number[] = [THIS_LAYER_STARTING_POINT[0] + index * STANDARD_WIDTH, THIS_LAYER_STARTING_POINT[1]];
     const rectanglePoints: number[][] = getRectangleFromStartingPoint(startingPoint);
@@ -25,6 +26,8 @@ function getClosestLayer(
 
   /**
    * arrow concerns
+   * todo 1 use a separate arrow and box class,sharring intersectable interface
+   * todo 2 add arrows to each connection, idk how yet
    */
   // const arrowPoints: number[][] = getArrowPoints(
   //   shapes[0].points[0],
@@ -66,6 +69,7 @@ function getAllStatementChildrenOfDataLayer(s: Statement[]): Statement[] {
 export function getLayersFromStatementTree(
   tree: Topic,
   rootId: string,
+  parameters: CanvasDisplayParameters
 ): SubtreeLayer[] {
 
   const root: Statement = tree.statements.find((s) => s.id === rootId) ||
@@ -79,11 +83,12 @@ export function getLayersFromStatementTree(
   };
   if (!root) return [errorLayer];
 
-  const ROOT_DISPLAY_POINTS: number[][] = [[400, 600]];
-  const rootShape: Shape = new Shape(ROOT_DISPLAY_POINTS, root.title);
+
+  const rootPoints: number[][] = getStartingPointsFromCanvasDimensions(parameters);
+  const rootShape: Shape = new Shape(rootPoints, root.title);
   const rootLayer: SubtreeLayer = {
-    yCoordinate: 400,
-    xCoordinate: 600,
+    xCoordinate: rootPoints[0][0],
+    yCoordinate: rootPoints[0][1],
     shapes: [rootShape],
     width: STANDARD_WIDTH
   };
@@ -93,6 +98,7 @@ export function getLayersFromStatementTree(
   for (
     let actualDistance = 0; actualDistance < MAX_DISTANCE; actualDistance++
   ) {
+    console.log('all data layers', allDataLayers);
     const lastParents: Statement[] = allDataLayers[actualDistance];
     const nextDataLayer: Statement[] = getAllStatementChildrenOfDataLayer(lastParents);
     const nextDisplayLayer: SubtreeLayer = getClosestLayer(
@@ -103,4 +109,10 @@ export function getLayersFromStatementTree(
   }
 
   return allDisplayLayers;
+}
+
+
+function getStartingPointsFromCanvasDimensions(params: CanvasDisplayParameters): number[][] {
+  return [[Math.floor(params.width / 2), 20]]
+
 }

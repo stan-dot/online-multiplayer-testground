@@ -2,7 +2,7 @@
 
 ## addressing technical debt
 - [ ] main display
-  - [ ] fix the layers - should not assume there's always at least 1 supporter
+  - [x] fix the layers - should not assume there's always at least 1 supporter
   - [ ] context on statement click
 - [ ] split the argument tree into different wrappers 
   - [ ] data wrapper - data, path, loaded
