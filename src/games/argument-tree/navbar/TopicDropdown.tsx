@@ -37,6 +37,11 @@ export function TopicDropdown(
   // axios.get(topicsUrl).then((r: AxiosResponse) => {
   //   setTopics(r.data);
   // });
+
+  const closeCallback = () => {
+    setTopicListVisible(false);
+  }
+
   return (
     <div id="alwaysOn" style={{ width: "150px", height: "80px", zIndex: 10, }}>
       <button
@@ -56,6 +61,7 @@ export function TopicDropdown(
                   key={i}
                   topic={t}
                   chooseCallback={props.changeTopicCallback}
+                  closeCallback={closeCallback}
                 />
               ))
               : <p>Sorry, there's no other topics available!</p>}

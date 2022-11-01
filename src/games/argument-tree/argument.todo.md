@@ -1,21 +1,22 @@
 
-## window popups with Sval and for full CRUD wrt statements
-- [x] edit window
-- [x] add window
-- [x] delete window (make sure to delete)
-- [ ] confirm topic change
-- [ ] main display - context on statement click
+
+## addressing technical debt
+- [ ] main display
+  - [ ] fix the layers - should not assume there's always at least 1 supporter
+  - [ ] context on statement click
+- [ ] split the argument tree into different wrappers 
+  - [ ] data wrapper - data, path, loaded
+  - [ ] things visible wrapper
+  - [ ] appearance wrapper - dark mode, etc
+  - [ ] highlight visual elements that are in the path
 
 ## appearance
-- [ ] different styles - darkmode, etc - with tailwind possibly
+- [ ] choosing color palette http://colormind.io/
+- [ ] different styles - darkmode, etc - with tailwind possibly 
 - [ ] prettify the whole thing, make it nice colours and right sizes  
-- [ ] add shadow
-- [ ] apply onblur consistently
+- [ ] add shadows
 
 ## extended functionality
-- [ ] keyboard usage and selection
-  - [ ] multiple selection with `ctrl` clicked and/or shift
-  - [ ] react to `ctrl`+a clicks
 - [ ] print option
   - [ ] var img = new Image(); img.src = canvas.toDataURL();
   - [ ] should save to IPFS image AND json data
@@ -49,11 +50,6 @@
 - [ ] cypress tests 
   - [ ] basic test suite to see if works at all
   - [ ] test basic functionality with some mock data
-- [ ] split the argument tree into different wrappers 
-  - [ ] data wrapper - data, path, loaded
-  - [ ] things visible wrapper
-  - [ ] appearance wrapper - dark mode, etc
-  - [ ] highlight visual elements that are in the path
 
 ## done
 - [x] change the data structure so that every node points to children (supporters / attacks), not the other way around
@@ -62,11 +58,17 @@
 - [x] topics choosing button - some higher up menu - topic metadata, tags with trigger warnings
 - [x] a topic creation tool, behind enough XP 
 - [x] use toggle, leave hamburger for menu - profile, see website and go to topics site https://uxwing.com/?s=toggle
+- [x] apply onblur consistently
 
 # data change
 - [x] modify callback, and the currently discussed item, callback to add new opposing or against nodes
-
 - [ ] context menus
   - [x] path display - now there's no buttons, just strings
   - [x] chatbot message - add to display
   - [x] side panel
+
+## window popups with Sval and for full CRUD wrt statements
+- [x] edit window
+- [x] add window
+- [x] delete window (make sure to delete)
+- [x] confirm topic change

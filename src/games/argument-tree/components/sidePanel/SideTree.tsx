@@ -35,13 +35,17 @@ export function SideTree(
       style={rootSideTreeStyles}
       className="dev-test-outline"
     >
-  
       <SideSubTree
         nodes={props.tree}
         callbacks={props.callbacks}
         pathSetter={props.pathSetter}
         path={props.tree}
       />
+      {
+        props.tree.length === 0
+        &&
+        <p>Sorry, there's no statements here</p>
+      }
     </div>
   );
 }

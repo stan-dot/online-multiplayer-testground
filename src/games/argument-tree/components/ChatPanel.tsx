@@ -8,12 +8,13 @@ const chatStyles: React.CSSProperties = {
   position: "absolute",
   left: "80%",
   width: "20%",
-  top: "100px",
+  top: "110px",
   height: "60%",
   border: "5px solid",
   borderColor: "Highlight",
   display: "grid",
-  justifyContent: "space-between",
+  backgroundColor: 'Background'
+  // justifyContent: "space-between",
 };
 
 export function ChatPanel(
@@ -40,17 +41,18 @@ export function ChatPanel(
     <div id="chatPanel" style={chatStyles}>
       <div id="charDisplayArea">
         <div>
-          <p>
+          <h3>
             position argued:
             {props.inSupportOf.title}
-          </p>
+          </h3>
         </div>
         <div
           id="messagesArea"
-          style={{ border: "2px solid", borderColor: "ButtonFace" }}
+          style={{ border: "2px solid", borderColor: "ButtonFace", height: '90%' }}
         >
-          {messages.map((m) => (
+          {messages.map((m, i) => (
             <ChatMessage
+              key={i}
               message={m}
               addCallback={props.callbacks.add}
               largestId={props.largestId}
@@ -58,7 +60,7 @@ export function ChatPanel(
           ))}
         </div>
       </div>
-      <div id="input area">
+      <div id="input area" style={{ position: 'relative', bottom: 0, height: '50px' }}>
         <input
           type={"text"}
           placeholder={"here type a statement"}

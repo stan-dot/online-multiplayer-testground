@@ -3,12 +3,17 @@ import Swal, { SweetAlertResult } from "sweetalert2";
 import { Topic, TopicMetadata } from "../types/TopicTypes";
 
 export function TopicCard(
-  props: { topic: Topic; chooseCallback: (t: Topic) => void; }): JSX.Element {
+  props: {
+    topic: Topic; chooseCallback: (t: Topic) => void;
+    closeCallback: () => void
+  }): JSX.Element {
   const metadata: TopicMetadata = props.topic.metadata;
   const clickHandler = (e: React.MouseEvent) => {
     Swal.fire('Do you want to change the topic?', 'Are you sure?', 'question').then((v: SweetAlertResult<boolean>) => {
       if (v.isConfirmed) {
         props.chooseCallback(props.topic)
+        props.closeCallback();
+
       }
     }
     )
