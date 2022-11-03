@@ -30,7 +30,7 @@
 
 ## backend
 ## tasks
-- [ ] prepare mongodb cluster
+- [ ] prepare mongodb cluster / supabase / pocketbase
 - [ ] adding 3rd party auth https://auth0.com/docs/quickstart/spa/react/interactive
 - [ ] add triggers database https://adancewithbooks.wordpress.com/2019/09/22/a-small-list-of-trigger-warnings-you-can-use/
 - [ ] user menu - with account - possibly with LENS - keeping data on ipfs, not a database - or anonymous
