@@ -23,6 +23,8 @@
 - [ ] need to follow some of the [routing tutorials](https://blog.logrocket.com/react-dynamic-imports-route-centric-code-splitting-guide/#loadable-components)
 
 
+- [ ] some graphql api query and backend
+- [ ] some postgresql api query and backend
 
 # done
 ## Startup

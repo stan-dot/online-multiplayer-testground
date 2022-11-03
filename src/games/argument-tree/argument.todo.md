@@ -3,6 +3,7 @@
 ## addressing technical debt
 - [ ] main display
   - [x] fix the layers - should not assume there's always at least 1 supporter
+  - [ ] explore konva variant on a separate branch, might be much easier https://github.com/konvajs/react-konva
   - [ ] diagnosis: not everything renders. 
     - [ ] need to design the render of the arrows
     - [ ] need to design new types implementing the Intersectionable interface
@@ -12,10 +13,11 @@
   - [ ] things visible wrapper
   - [ ] appearance wrapper - dark mode, etc
   - [ ] highlight visual elements that are in the path
+- [ ] main page using nextjs, only later redirect to app https://nextjs.org/docs/migrating/incremental-adoption
 
 ## appearance
 - [ ] choosing color palette http://colormind.io/
-- [ ] different styles - darkmode, etc - with tailwind possibly 
+- [ ] different styles - darkmode, etc - with tailwind https://tailwindcss.com/docs/reusing-styles
 - [ ] prettify the whole thing, make it nice colours and right sizes  
 - [ ] add shadows
 
@@ -32,6 +34,7 @@
 - [ ] adding 3rd party auth https://auth0.com/docs/quickstart/spa/react/interactive
 - [ ] add triggers database https://adancewithbooks.wordpress.com/2019/09/22/a-small-list-of-trigger-warnings-you-can-use/
 - [ ] user menu - with account - possibly with LENS - keeping data on ipfs, not a database - or anonymous
+- [ ] design the api with openapi spec https://oai.github.io/Documentation/specification-parameters.html
 
 ### entities
 - topics list (with)
