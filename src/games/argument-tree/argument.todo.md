@@ -2,12 +2,7 @@
 
 ## addressing technical debt
 - [ ] main display
-  - [x] fix the layers - should not assume there's always at least 1 supporter
-  - [ ] explore konva variant on a separate branch, might be much easier https://github.com/konvajs/react-konva
-  - [ ] diagnosis: not everything renders. 
-    - [ ] need to design the render of the arrows
-    - [ ] need to design new types implementing the Intersectionable interface
-  - [ ] context on statement click
+  - [ ] move everything to konva, arrows much easier. no intersection on my own. canvas on phone would need to be done from scratch anyway. https://konvajs.org/docs/sandbox/Editable_Text.html
 - [ ] split the argument tree into different wrappers 
   - [ ] data wrapper - data, path, loaded
   - [ ] things visible wrapper
@@ -77,3 +72,12 @@
 - [x] delete window (make sure to delete)
 - [x] confirm topic change
 - [x] print option
+
+
+## canvas attempt (no library)
+  - [x] fix the layers - should not assume there's always at least 1 supporter
+  - [x] explore konva variant on a separate branch, might be much easier https://github.com/konvajs/react-konva
+- [ ] diagnosis: not everything renders. 
+  - [ ] need to design the render of the arrows
+  - [ ] need to design new types implementing the Intersectionable interface
+- [ ] context on statement click

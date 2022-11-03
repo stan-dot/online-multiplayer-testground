@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { CanvasContainer } from "./CanvasContainer";
 import { CanvasDisplayParameters } from "./CanvasDisplayParameters";
 import { getLayersFromStatementTree } from "./components/canvas/getShapesFromStatementTree";
+import { StageWrapper } from "./components/canvas/StageWrapper";
 import { ChatPanel } from "./components/ChatPanel";
 import { DialogWindow } from "./components/DialogWindow";
 import { PathDisplay } from "./components/PathDisplay";
@@ -98,7 +99,7 @@ export default function ArgumentTree(): JSX.Element {
   /**
    * DISPLAY CONCERNS
    */
-  const displayParameters:CanvasDisplayParameters = getCanvasDimensions(sideTreeVisible, chatVisible);
+  const displayParameters: CanvasDisplayParameters = getCanvasDimensions(sideTreeVisible, chatVisible);
   const layers: SubtreeLayer[] = getLayersFromStatementTree(data, rootId, displayParameters);
 
   const canvasId = "myCanvas";
@@ -207,6 +208,7 @@ export default function ArgumentTree(): JSX.Element {
           displayParameters={displayParameters}
           id={canvasId}
         />
+        <StageWrapper width={200} height={200} objects={data} />
         {
           chatVisible &&
           (
