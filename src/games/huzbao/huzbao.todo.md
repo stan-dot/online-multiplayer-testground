@@ -24,3 +24,8 @@
 - [ ] exposed numbers heuristic
 - [ ] different AIs against each other 
 - [ ] CNN based training - maybe Rust WASM
+
+
+# doing the backend
+- [ ] fast.ai - fast.ai—Making neural nets uncool again
+- [ ] https://docs.python-eve.org/en/stable/quickstart.html
