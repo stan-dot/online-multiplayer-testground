@@ -1,3 +1,4 @@
+'use client';
 import Phaser from "phaser";
 
 function collectStar(
@@ -111,6 +112,7 @@ function create(this: Phaser.Scene) {
   this.physics.add.collider(player, platforms);
   cursors = this.input.keyboard.createCursorKeys();
   if (cursors.left.isDown) {
+    console.log('button down');
     player.setVelocityX(-160);
 
     player.anims.play("left", true);
@@ -149,19 +151,4 @@ function create(this: Phaser.Scene) {
 
     gameOver = true;
   }, undefined, this);
-  // const particles = this.add.particles('red');
-
-  // const emitter = particles.createEmitter({
-  //   speed: 100,
-  //   scale: { start: 1, end: 0 },
-  //   blendMode: 'ADD'
-  // });
-
-  // const logo = this.physics.add.image(400, 100, 'logo');
-
-  // logo.setVelocity(100, 200);
-  // logo.setBounce(1, 1);
-  // logo.setCollideWorldBounds(true);
-
-  // emitter.startFollow(logo);
 }
