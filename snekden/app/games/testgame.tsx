@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-export const config: Phaser.Types.Core.GameConfig = {
+export const demoConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
   width: 800,
   height: 600,
@@ -45,4 +45,4 @@ function create(this: Phaser.Scene) {
   emitter.startFollow(logo);
 }
 
-export const game = new Phaser.Game(config);
+export const game = new Phaser.Game(demoConfig);

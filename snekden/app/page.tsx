@@ -1,19 +1,24 @@
 'use client';
 import { useEffect } from "react";
-import { config } from "./games/testgame";
+import { demoConfig } from "./games/testgame";
+import { starConfig } from "./games/anotherGame";
+import { useGameField } from "./games/elementRef";
 
 export default function HomePage() {
 
-  const game = useGame();
+  // const game = useGame(demoConfig);
+  const game = useGame(starConfig);
 
+  // const gameRef = useGameField();
   return <div>
     <h1> Home Page</h1>
     <p>Some content</p>
-    <div id="game-content"></div>
+    <div id="game-content" ></div>
   </div>
 }
 
-function useGame() {
+
+function useGame(config: Phaser.Types.Core.GameConfig) {
   useEffect(() => {
     const game = new Phaser.Game({ ...config, parent: 'game-content' });
     return () => { game; };
