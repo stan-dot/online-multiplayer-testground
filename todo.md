@@ -1,10 +1,9 @@
 
-need to lazy import phaser
-new Phaser.Game
-400 width to 300 height best
 
-Scenes, loading assets
-custom use effect hook
+- [ ] Do navigation
+- [ ] do landing page
+- [ ] do 1 game 
+
 
 scenes in top level, not component
 
