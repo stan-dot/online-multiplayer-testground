@@ -15,11 +15,11 @@ function collectStar(
     });
   }
 
-  const x = player.x < 400 ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
-  const bomb = bombs.create(x, 16, 'bomb');
-  bomb.setBounce(1);
-  bomb.setCollideWorldBounds(true);
-  bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+  // const x = player.x < 400 ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+  // const bomb = bombs.create(x, 16, 'bomb');
+  // bomb.setBounce(1);
+  // bomb.setCollideWorldBounds(true);
+  // bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
 
 }
 
@@ -45,9 +45,31 @@ export const starConfig: Phaser.Types.Core.GameConfig = {
   scene: {
     preload: preload,
     create: create,
-    // update: update,
+    update: update,
   },
 };
+
+function update(this: Phaser.Scene) {
+  cursors = this.input.keyboard.createCursorKeys();
+  if (cursors.left.isDown) {
+    console.log('button down');
+    player.setVelocityX(-160);
+
+    player.anims.play("left", true);
+  } else if (cursors.right.isDown) {
+    player.setVelocityX(160);
+
+    player.anims.play("right", true);
+  } else {
+    player.setVelocityX(0);
+
+    player.anims.play("turn");
+  }
+
+  if (cursors.up.isDown && player.body.touching.down) {
+    player.setVelocityY(-330);
+  }
+}
 
 function preload(this: Phaser.Scene) {
   this.load.image("sky", "assets/sky.png");
@@ -70,6 +92,7 @@ let bombs: Phaser.Physics.Arcade.Group;
 
 let score = 0;
 let scoreText: Phaser.GameObjects.Text;
+let gameOver: boolean = false;
 
 function create(this: Phaser.Scene) {
   this.add.image(400, 300, "sky");
@@ -110,26 +133,6 @@ function create(this: Phaser.Scene) {
   });
 
   this.physics.add.collider(player, platforms);
-  cursors = this.input.keyboard.createCursorKeys();
-  if (cursors.left.isDown) {
-    console.log('button down');
-    player.setVelocityX(-160);
-
-    player.anims.play("left", true);
-  } else if (cursors.right.isDown) {
-    player.setVelocityX(160);
-
-    player.anims.play("right", true);
-  } else {
-    player.setVelocityX(0);
-
-    player.anims.play("turn");
-  }
-
-  if (cursors.up.isDown && player.body.touching.down) {
-    player.setVelocityY(-330);
-  }
-
   stars = this.physics.add.group({
     key: "star",
     repeat: 11,

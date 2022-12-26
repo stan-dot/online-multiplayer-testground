@@ -1,8 +1,6 @@
-'use client';
+"use client";
 import { useEffect } from "react";
-import { demoConfig } from "./games/testgame";
 import { starConfig } from "./games/anotherGame";
-import { useGameField } from "./games/elementRef";
 
 export default function HomePage() {
 
