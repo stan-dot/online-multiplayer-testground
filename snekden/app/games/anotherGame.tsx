@@ -50,6 +50,9 @@ export const starConfig: Phaser.Types.Core.GameConfig = {
 };
 
 function update(this: Phaser.Scene) {
+  if (gameOver) {
+    return;
+  }
   cursors = this.input.keyboard.createCursorKeys();
   if (cursors.left.isDown) {
     console.log('button down');
