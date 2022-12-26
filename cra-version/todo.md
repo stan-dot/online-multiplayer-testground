@@ -1,4 +1,14 @@
 
+need to lazy import phaser
+new Phaser.Game
+400 width to 300 height best
+
+Scenes, loading assets
+custom use effect hook
+
+scenes in top level, not component
+
+
 games that get a pass
 - Eliza
 - Argument Tree
