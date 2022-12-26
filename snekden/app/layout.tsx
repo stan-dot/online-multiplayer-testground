@@ -1,7 +1,6 @@
-// todo global layout
-// globals.css
 
-//notes page.tsx
+import { Navbar } from "./navbar"
+
 
 export default function RootLayout({
   children,
@@ -11,7 +10,10 @@ export default function RootLayout({
   return (
     <html>
       <head />
-      <body>{children}</body>
+      <body>
+        <Navbar />
+        {children}
+      </body>
     </html>
   )
 }

@@ -16,7 +16,6 @@ import PocketBase from 'pocketbase';
 
 const pb = new PocketBase('http://127.0.0.1:8090');
 
-
 // list and search for 'example' collection records
 const list = await pb.collection('example').getList(1, 100, {
     filter: 'title != "" && created > "2022-08-01"',
