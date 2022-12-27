@@ -1,5 +1,6 @@
 
 import { Navbar } from "./navbar"
+import Sidebar from "./sidebar"
 
 
 export default function RootLayout({
@@ -12,6 +13,7 @@ export default function RootLayout({
       <head />
       <body>
         <Navbar />
+        <Sidebar />
         {children}
       </body>
     </html>

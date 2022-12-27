@@ -5,7 +5,6 @@ import { starConfig } from "./games/anotherGame";
 export default function HomePage() {
   const game = useGame(starConfig);
   return <div>
-    <h1> Home Page</h1>
     <p>Some content</p>
     <div id="game-content" ></div>
   </div>
