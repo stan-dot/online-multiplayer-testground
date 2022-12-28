@@ -1,7 +1,7 @@
 
 
-- [ ] do Links elements
-- [ ] Do navigation
+- [x] do Links elements
+- [x] Do navigation
 - [ ] do landing page
 - [ ] do 1 game 
 

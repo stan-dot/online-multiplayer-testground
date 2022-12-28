@@ -117,7 +117,8 @@ a {
 }
 
 body{
-  height: 100vh;
+  /* height: 100vh; */
+  height: auto;
   background-image: url('');
   background-repeat: no-repeat;
   background-size: cover  ;
