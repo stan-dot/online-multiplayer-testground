@@ -16,7 +16,7 @@ export default function Sidebar(): JSX.Element {
 
   return <div className={`sidebar ${open ? 'open' : ""}`} >
     <div className='toggle'>
-      <button onClick={() => setOpen(!open)} >
+      <button style={{height: '20px', width: '20px'}} onClick={() => setOpen(!open)} >
         <i className='bx bx-chevron-right'></i>
       </button>
     </div>

@@ -1,10 +1,13 @@
 import Link from "next/link";
 import { HamburgerMenu } from "./menu";
 
+const linkClassName = "lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white "
+
 export const Navbar = () => {
   return (
     <>
       <nav className="flex items-center flex-wrap bg-green-400 p-3 ">
+        <i className='bx bxs-dashboard'></i>
         <Link href="/" className="inline-flex items-center p-2 mr-4 ">
           <svg
             viewBox="0 0 1024 24"
@@ -25,28 +28,28 @@ export const Navbar = () => {
         <div
           className={` w-full lg:inline-flex lg:flex-grow lg:w-auto`}
         >
-          <div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-stretch items-start  flex flex-col lg:h-auto">
+          <div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-start items-start  flex flex-col lg:h-auto">
             <Link
               href="/games/testgame"
-              className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white "
+              className={linkClassName}
             >
               Test game
             </Link>
-            <Link
+            {/* <Link
               href="/achievements"
-              className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white"
+              className={linkClassName}
             >
               Achievements
-            </Link>
+            </Link> */}
             <Link
               href="/about"
-              className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white"
+              className={linkClassName}
             >
               About me
             </Link>
             <Link
               href="/contact"
-              className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white"
+              className={linkClassName}
             >
               Contact me
             </Link>

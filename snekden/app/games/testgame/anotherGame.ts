@@ -1,16 +1,17 @@
-'use client';
 import Phaser from "phaser";
 
 function collectStar(
   player: Phaser.Types.Physics.Arcade.GameObjectWithBody,
   star: Phaser.Types.Physics.Arcade.GameObjectWithBody,
 ): void {
-  star.destroy();
+  star.disableInteractive();
+  // star.destroy();
   score += 10;
   scoreText.setText("Score: " + score);
   if (stars.countActive(true) === 0) {
     stars.children.iterate((child) => {
-      child.emit(true, child.getIndexList, 0, true, true);
+      child.setInteractive();
+      // child.emit(true, child.getIndexList, 0, true, true);
       // child.enableBody(true, child.getIndexList, 0, true, true);
     });
   }
@@ -20,7 +21,6 @@ function collectStar(
   // bomb.setBounce(1);
   // bomb.setCollideWorldBounds(true);
   // bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
-
 }
 
 // function hitBomb(
@@ -55,18 +55,18 @@ function update(this: Phaser.Scene) {
   }
   cursors = this.input.keyboard.createCursorKeys();
   if (cursors.left.isDown) {
-    console.log('button down');
+    console.log("button down");
     player.setVelocityX(-160);
 
-    player.anims.play("left", true);
+    player.play("left", true);
   } else if (cursors.right.isDown) {
     player.setVelocityX(160);
 
-    player.anims.play("right", true);
+    player.play("right", true);
   } else {
     player.setVelocityX(0);
 
-    player.anims.play("turn");
+    player.play("turn", true);
   }
 
   if (cursors.up.isDown && player.body.touching.down) {
@@ -128,6 +128,7 @@ function create(this: Phaser.Scene) {
     frames: [{ key: "dude", frame: 4 }],
     frameRate: 20,
   });
+
   this.anims.create({
     key: "right",
     frames: this.anims.generateFrameNumbers("dude", { start: 5, end: 8 }),
@@ -151,10 +152,15 @@ function create(this: Phaser.Scene) {
 
   bombs = this.physics.add.group();
   this.physics.add.collider(bombs, platforms);
-  this.physics.add.collider(player, bombs, (player, bomb) => {
-    this.physics.pause();
-    player.anims.play('turn');
-
-    gameOver = true;
-  }, undefined, this);
+  this.physics.add.collider(
+    player,
+    bombs,
+    (player2: Phaser.Types.Physics.Arcade.GameObjectWithBody, bomb) => {
+      this.physics.pause();
+      player.play("turn", true);
+      gameOver = true;
+    },
+    undefined,
+    this,
+  );
 }
