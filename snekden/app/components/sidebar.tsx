@@ -13,7 +13,7 @@ export default function Sidebar(): JSX.Element {
       </i>
     </div>
     <div className="logo">
-      <Image src={"/images/logo.png"} alt="..." width={100} height={100} />
+      <Image src={"../next.svg"} alt="..." width={100} height={100} />
       <h3>Name</h3>
     </div>
     <nav>

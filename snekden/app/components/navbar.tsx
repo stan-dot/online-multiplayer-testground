@@ -2,7 +2,6 @@ import Link from "next/link";
 import { HamburgerMenu } from "./menu";
 
 export const Navbar = () => {
-
   return (
     <>
       <nav className="flex items-center flex-wrap bg-green-400 p-3 ">
@@ -27,23 +26,33 @@ export const Navbar = () => {
           className={` w-full lg:inline-flex lg:flex-grow lg:w-auto`}
         >
           <div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-stretch items-start  flex flex-col lg:h-auto">
-            <Link href="/" className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white ">
-              Home
+            <Link
+              href="/games/testgame"
+              className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white "
+            >
+              Test game
             </Link>
-            <Link href="/" className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white">
-              Services
+            <Link
+              href="/achievements"
+              className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white"
+            >
+              Achievements
             </Link>
-            <Link href="/" className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white">
-              About us
+            <Link
+              href="/about"
+              className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white"
+            >
+              About me
             </Link>
-            <Link href="/" className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white">
-              Contact us
+            <Link
+              href="/contact"
+              className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white"
+            >
+              Contact me
             </Link>
           </div>
         </div>
-      </nav >
+      </nav>
     </>
   );
 };
-
-

@@ -1,5 +1,6 @@
 
 
+- [ ] do Links elements
 - [ ] Do navigation
 - [ ] do landing page
 - [ ] do 1 game 
@@ -27,3 +28,18 @@ move all to nextjs
 add reasonable styles
 
 add server in some cases
+
+
+html input type=color
+
+blockquote 
+
+details for accordion
+summary
+
+input type=date
+
+
+datalist for dropdown
+
+tooltip
