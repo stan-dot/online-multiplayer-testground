@@ -35,6 +35,12 @@ export const Navbar = () => {
             >
               Test game
             </Link>
+            <Link
+              href="/games/rainblur"
+              className={linkClassName}
+            >
+              Raindrop sample site
+            </Link>
             {/* <Link
               href="/achievements"
               className={linkClassName}
