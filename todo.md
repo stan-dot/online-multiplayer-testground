@@ -3,6 +3,15 @@
 - [x] do Links elements
 - [x] Do navigation
 - [ ] do landing page
+  - [ ] tagline section
+  - [ ] logo - make with pixel graphics
+  - [ ] request testimonials - quote the evaluation reports from uni? not sure if internal 
+  - [ ] call to action  - follow my twitter
+  - [ ] high quality image
+  - [ ] blog link
+  - [ ] socials link - twitter and linkedin
+  - [ ] plans for later
+
 - [ ] do 1 game 
 
 
