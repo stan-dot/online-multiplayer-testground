@@ -17,11 +17,10 @@ export default function Sidebar(): JSX.Element {
   return <div className={`sidebar ${open ? 'open' : ""}`} >
     <div className='toggle'>
       <button style={{height: '20px', width: '20px'}} onClick={() => setOpen(!open)} >
-        <i className='bx bx-chevron-right'></i>
+        <i className='bx bx-chevron-right'>red button</i>
       </button>
     </div>
     <div className="logo">
-      <Image src={"../next.svg"} alt="..." width={100} height={100} />
       <h3>Standot{"\'"}s portfolio</h3>
     </div>
     <nav>

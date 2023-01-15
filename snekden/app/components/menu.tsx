@@ -9,7 +9,7 @@ export function HamburgerMenu(props: {}): JSX.Element {
     setActive(!active);
   };
   return <button
-    className=" inline-flex p-3 hover:bg-green-600 rounded lg:hidden text-white ml-auto hover:text-white outline-none"
+    className="inline-flex p-3 hover:bg-green-600 rounded lg:hidden text-white ml-auto hover:text-white outline-none"
     onClick={handleClick}
   >
     <svg
