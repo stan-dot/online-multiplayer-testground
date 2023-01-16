@@ -2,6 +2,7 @@ import Head from "next/head"
 import "../styles/globals.css";
 import { Navbar } from "./components/navbar"
 import Sidebar from "./components/sidebar"
+import { Footer } from "./Footer";
 
 export default function RootLayout({
   children,
@@ -16,10 +17,11 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <body>
+      <body className="min-h-screen bg-slate-50 dark:bg-black dark:text-white ">
         <Navbar />
-        <Sidebar />
+        {/* <Sidebar /> */}
         {children}
+        <Footer />
       </body>
     </html>
   )

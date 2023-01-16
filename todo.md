@@ -1,5 +1,15 @@
 
 
+- [ ] a search space
+
+datalist for autocomplete
+meter element
+loading=lazy
+base element to open all liks in new 
+details for accordion
+
+optgroup
+
 - [x] do Links elements
 - [x] Do navigation
 - [ ] do landing page
