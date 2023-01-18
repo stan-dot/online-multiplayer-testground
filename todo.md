@@ -1,32 +1,38 @@
 
 
+- [x] do Links elements
+- [x] Do navigation
+- [ ] do landing page
+
+# easy wins - for mornings
+  - [ ] plans for later
+  - [ ] blog link
+  - [ ] socials link - twitter and linkedin
+  - [ ] call to action  - follow my twitter
+
+# deployment
+
+# first step
+- [ ] do 1 game 
+- [ ] scenes in top level, not component
+
+- skippable
+- [ ] request testimonials - quote the evaluation reports from uni? not sure if internal 
+- [ ] tagline section
+- [ ] logo - make with pixel graphics
+- [ ] high quality image
 - [ ] a search space
 
+### html elemnts to use
 datalist for autocomplete
 meter element
 loading=lazy
 base element to open all liks in new 
 details for accordion
-
 optgroup
 
-- [x] do Links elements
-- [x] Do navigation
-- [ ] do landing page
-  - [ ] tagline section
-  - [ ] logo - make with pixel graphics
-  - [ ] request testimonials - quote the evaluation reports from uni? not sure if internal 
-  - [ ] call to action  - follow my twitter
-  - [ ] high quality image
-  - [ ] blog link
-  - [ ] socials link - twitter and linkedin
-  - [ ] plans for later
 
-- [ ] do 1 game 
-
-
-scenes in top level, not component
-
+## specific games
 
 games that get a pass
 - Eliza

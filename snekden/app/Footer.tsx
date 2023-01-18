@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer id="footer" className="bg-teal-700 text-white text-xl">
+    <footer id="footer" className="bg-green-400 text-white text-xl">
       <section className="max-w-4xl mx-auto p-4 flex flex-col sm:flex-row sm:justify-between">
         <address>
           <h2>Stanislaw Malinowski</h2>
