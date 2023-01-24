@@ -36,11 +36,17 @@ export const Navbar = () => {
               Test game
             </Link>
             <Link
+              href="/games/raw-canvas"
+              className={linkClassName}
+            >
+              test canvas
+            </Link>
+            {/* <Link
               href="/games/face"
               className={linkClassName}
             >
               Face detection example
-            </Link>
+            </Link> */}
             {/* <Link
               href="/achievements"
               className={linkClassName}
