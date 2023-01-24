@@ -1,5 +1,6 @@
 
 
+
 - [x] do Links elements
 - [x] Do navigation
 - [ ] do landing page
@@ -22,6 +23,7 @@
 - [ ] logo - make with pixel graphics
 - [ ] high quality image
 - [ ] a search space
+- [ ] make docs thing peer to peer
 
 ### html elemnts to use
 datalist for autocomplete
