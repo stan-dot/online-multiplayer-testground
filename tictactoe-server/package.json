@@ -39,7 +39,10 @@
     "jsonfile": "^6.1.0",
     "jsonwebtoken": "^9.0.0",
     "module-alias": "^2.2.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "reflect-metadata": "^0.1.13",
+    "socket-controllers": "^0.1.0",
+    "typedi": "^0.10.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

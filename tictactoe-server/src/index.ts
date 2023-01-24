@@ -1,4 +1,5 @@
 import './pre-start'; // Must be the first import
+import "reflect-metadata";
 import logger from 'jet-logger';
 
 import EnvVars from '@src/declarations/major/EnvVars';
