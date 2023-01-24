@@ -1,9 +1,17 @@
 "use client";
 import {
   createCanvasFromMedia,
-  detectAllFaces, draw, matchDimensions, nets, resizeResults, TinyFaceDetectorOptions
+  detectAllFaces,
+  draw,
+  matchDimensions,
+  nets,
+  resizeResults,
+  TinyFaceDetectorOptions,
 } from "face-api.js";
-import { drawFaceExpressions, drawFaceLandmarks } from "face-api.js/build/commonjs/draw";
+import {
+  drawFaceExpressions,
+  drawFaceLandmarks,
+} from "face-api.js/build/commonjs/draw";
 import { useEffect, useRef, useState } from "react";
 
 function useWebcam(
@@ -31,18 +39,16 @@ function useWebcam(
   return ref.current;
 }
 
-export const useCanvas = (
-) => {
+export const useCanvas = () => {
   const canvasRef = useRef({} as HTMLCanvasElement);
   useEffect(() => {
     const canvas: HTMLCanvasElement = canvasRef.current;
-    const ctx: CanvasRenderingContext2D = canvas!.getContext('2d')!;
-    ctx.strokeStyle = '#e1e1e1';
-    ctx.fillStyle = 'cadetblue';
+    const ctx: CanvasRenderingContext2D = canvas!.getContext("2d")!;
+    ctx.strokeStyle = "#e1e1e1";
+    ctx.fillStyle = "cadetblue";
   }, []);
   return canvasRef;
 };
-
 
 export default function Testgame() {
   const videoRef = useRef(null as unknown as HTMLVideoElement);
@@ -54,7 +60,10 @@ export default function Testgame() {
     videohookValue.onplay = () => {
       const canvas = createCanvasFromMedia(videohookValue);
       document.body.append(canvas);
-      const displaySize = { width: videohookValue.width, height: videohookValue.height };
+      const displaySize = {
+        width: videohookValue.width,
+        height: videohookValue.height,
+      };
       matchDimensions(canvas, displaySize);
 
       setInterval(async () => {
@@ -63,7 +72,7 @@ export default function Testgame() {
           new TinyFaceDetectorOptions(),
         ).withFaceLandmarks().withFaceExpressions();
         const resizedDetections = resizeResults(detections, displaySize);
-        canvas.getContext('2d')?.clearRect(0, 0, canvas.width, canvas.height);
+        canvas.getContext("2d")?.clearRect(0, 0, canvas.width, canvas.height);
         draw.drawDetections(canvas, resizedDetections);
         drawFaceLandmarks(canvas, resizedDetections);
         drawFaceExpressions(canvas, resizedDetections);
