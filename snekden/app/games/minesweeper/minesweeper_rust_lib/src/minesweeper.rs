@@ -13,7 +13,7 @@ pub enum OpenResult {
 }
 
 #[derive(Debug)]
-struct Minesweeper {
+pub struct Minesweeper {
     width: usize,
     height: usize,
     open_fields: HashSet<Position>,

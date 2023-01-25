@@ -1,12 +1,16 @@
 "use client";
-import { useEffect } from 'react';
-import init, { greet } from './minesweeper_rust_lib/pkg/minesweeper';
+import { useEffect, useState } from 'react';
+import init, { greet, getState } from './minesweeper_rust_lib/pkg/minesweeper';
 
 export default function Minesweper(): JSX.Element {
+  const [state, setState] = useState("");
   useEffect(() => {
     async function t() {
       await init().then(() => {
         greet("Stan");
+        const newState = getState();
+        console.log(newState);
+        setState(newState);
       })
     }
     t();
@@ -14,11 +18,12 @@ export default function Minesweper(): JSX.Element {
     return () => { }
   }, [])
 
+  // todo maybe this better with konva
 
   return <div>
     <p>minesweeper</p>
-    <div id="minesweeper-container">
-
+    <div className='h-[30rem] w-[24rem] m-5' id="minesweeper-container">
+      {state}
     </div>
   </div>
 }
