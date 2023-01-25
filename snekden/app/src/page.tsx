@@ -7,7 +7,7 @@ import { GameCard } from './types/GameCard';
 
 // font and background
 const colors = ['#80F', '#0AA']
-export default function App() {
+export default function OldAp() {
   const [gameIsOn, setGameIsOn] = React.useState(true);
   const gameName: string = 'ArgumentTree';
   const game: GameCard = availableGames.find(g => g.componentName === gameName) || availableGames[0];

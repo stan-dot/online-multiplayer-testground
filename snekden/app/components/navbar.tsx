@@ -54,6 +54,12 @@ export const Navbar = () => {
               Face detection example
             </Link>
             <Link
+              href="/src"
+              className={linkClassName}
+            >
+            Old app
+            </Link>
+            <Link
               href="/games/minesweeper"
               className={linkClassName}
             >
