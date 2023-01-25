@@ -29,9 +29,10 @@ impl Display for Minesweeper {
                 if !self.open_fields.contains(&pos) {
                     f.write_str("🟪 ")?;
                 } else if self.mines.contains(&pos) {
-                    f.write_str("💣")?;
+                    f.write_str("💣 ")?;
                 } else {
-                    write!(f, "{}", self.neighboring_mines(pos))?;
+                    let num = self.clone().neighboring_mines(pos);
+                    write!(f, " {} ", num)?;
                 }
             }
 
@@ -60,7 +61,7 @@ impl Minesweeper {
         }
     }
 
-    fn iter_neighbors(&mut self, (x, y): Position) -> impl Iterator<Item = Position> {
+    fn iter_neighbors(&self, (x, y): Position) -> impl Iterator<Item = Position> {
         let width = self.width;
         let height = self.height;
         (x.min(1) - 1..=(x + 1).min(width - 1))
@@ -68,13 +69,13 @@ impl Minesweeper {
             .filter(move |&pos| pos != (x, y))
     }
 
-    fn neighboring_mines(&mut self, pos: Position) -> u8 {
-        let num: usize = self
+    fn neighboring_mines(&self, pos: Position) -> u8 {
+         self
             .iter_neighbors(pos)
             .filter(|pos| self.mines.contains(pos))
-            .count();
+            .count() as u8
         // u8::from(num)
-        num as u8
+        // num as u8
         // as u8;
     }
 
@@ -99,6 +100,7 @@ mod tests {
         let mut ms = Minesweeper::new(10, 10, 5);
 
         ms.open((5, 5));
-        println!("{:?}", ms);
+        // println!("{:?}", ms); // this prints value
+        println!("{}", ms); // this calls the Display impl
     }
 }
