@@ -43,7 +43,7 @@ function sendData() {
   };
 }
 
-export default function ArgumentTree(): JSX.Element {
+export default function ArgumentTree() {
   /**
    * data handlers
    * todo move those into a different wrapper

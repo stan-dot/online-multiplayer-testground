@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Shape } from "./types/Shape";
 import { starCorners, offsets } from "./starCorners";
 
-export default function CanvasInteractive(): JSX.Element {
+export default function CanvasInteractive() {
   const canvasStyles: React.CSSProperties = { borderWidth: '1px', borderStyle: "solid", borderColor: "#c3c3c3" };
   const star = new Shape(starCorners);
   const shapes: Shape[] = offsets.map(o => star.clone(o));

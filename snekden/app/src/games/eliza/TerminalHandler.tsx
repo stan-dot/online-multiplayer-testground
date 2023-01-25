@@ -24,7 +24,7 @@ const TerminalContainerStyle: React.CSSProperties = {
 // const RESET_MAGIC_SPELL: string = '\\33[2K\r\u001b[32mscm> \u001b[37m';
 const RESET_MAGIC_SPELL: string = '';
 
-export default function TerminalHandler(props: { bot: Bot }): JSX.Element {
+export default function TerminalHandler(props: { bot: Bot }) {
   const [entries, setEntries] = useState([] as string[]);
   const fitAddon = new FitAddon();
   const term: Terminal = new Terminal(DEFAULT_TERMINAL_SETTINGS);

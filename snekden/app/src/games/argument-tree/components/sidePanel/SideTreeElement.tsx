@@ -59,7 +59,7 @@ export function SideTreeElement(
     path: Statement[];
     callbacks: StatementModificationCallbacksObject;
   },
-): JSX.Element {
+) {
   const [position, setPosition] = useState([0, 0]);
   const [unrolled, setUnrolled] = useState(props.unrolled);
   const [contextMenuOpen, setContextMenuOpen] = useState(false);

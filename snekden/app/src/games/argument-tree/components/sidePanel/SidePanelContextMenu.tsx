@@ -17,7 +17,7 @@ export function SidePanelContextMenu(
     callbacks: StatementModificationCallbacksObject;
     id: string;
   },
-): JSX.Element {
+) {
   const isProtected: boolean = basicNodes.includes(props.thing.title);
 
   const styles = getContextMenuStyles(props.position);

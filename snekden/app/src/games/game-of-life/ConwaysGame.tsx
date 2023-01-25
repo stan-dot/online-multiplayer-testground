@@ -5,7 +5,7 @@ import { draw } from "./strokes";
 import { fillCellsWithStarts } from "./utils/fillCellsWithStarts";
 import { getInitialArray } from "./utils/getInitialArray";
 
-export default function ConwaysGame(): JSX.Element {
+export default function ConwaysGame() {
   const EMPTY_CONTAINER: number[][] = getInitialArray(SQUARE_SIDE_LENGTH, SQUARE_SIDE_LENGTH)
   const data: CellsCanvasData = {
     cells: fillCellsWithStarts(EMPTY_CONTAINER, STARTING_CELLS),

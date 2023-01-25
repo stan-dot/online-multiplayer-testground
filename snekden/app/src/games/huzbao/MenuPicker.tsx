@@ -6,7 +6,7 @@ export function MenuPicker(props: {
   name: string;
   items: BotCaller[] | BoardGeneratorVariant[];
   callback: Function;
-}): JSX.Element {
+}) {
   const isBoard: boolean = Object.hasOwn(props.items[0], 'fullBack');
   return (
     <div>

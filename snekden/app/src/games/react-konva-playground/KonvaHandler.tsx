@@ -42,7 +42,7 @@ const BIG_OBJ_ARR: BigObject[] = DEFAULT_TREE.statements.map((v, i) => {
   return thing;
 });
 
-export function KonvaHandler(props: { dimensions: number[]; }): JSX.Element {
+export function KonvaHandler(props: { dimensions: number[]; }) {
 
   const [objects, setObjects] = React.useState(BIG_OBJ_ARR);
 

@@ -8,7 +8,7 @@ import "./styles.css";
 
 // todo make it play against AI
 
-export default function SnakeGame(): JSX.Element {
+export default function SnakeGame() {
   // todo might change this context to be moved into a simple prop, and that prop as ComponentType<Game>
   const { socket, renderingContext, canvas } = readContext();
   const [inputUsername, setInputUsername] = useState("anonymous");

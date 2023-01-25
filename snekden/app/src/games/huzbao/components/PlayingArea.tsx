@@ -39,7 +39,7 @@ export function PlayingArea(props: { game: HuzbaoGameState, opponent: PlayerSign
 }
 
 // todo on click you need to indicate direction? drag and drop?
-function LineReady(props: { line: number[], callback: Function }): JSX.Element {
+function LineReady(props: { line: number[], callback: Function }) {
   return <div>
     {props.line.map((v, i) => {
       return < button onClick={props.callback(i)} >

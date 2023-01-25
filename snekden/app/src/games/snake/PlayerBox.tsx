@@ -1,6 +1,6 @@
 import { Player } from "./Player"
 
-export function PlayersBox(props: { players: Player[] }): JSX.Element {
+export function PlayersBox(props: { players: Player[] }) {
   const ps: Player[] = props.players;
   const fullTable = <table id="players-table">
     <thead>

@@ -3,7 +3,7 @@ import "../../styles/globals.css";
 
 import { useState } from "react";
 
-export function HamburgerMenu(props: {}): JSX.Element {
+export function HamburgerMenu(props: {}) {
   const [active, setActive] = useState(false);
 
   const handleClick = () => {

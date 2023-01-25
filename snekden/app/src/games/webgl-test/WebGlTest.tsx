@@ -11,7 +11,7 @@ import { loadTexture } from "./loadTextures";
 import { setupVideo, updateTextureWithVideo } from "./loadVideo";
 
 const textureUrl = 'images/cubetexture.png';
-export default function WebGlTest(props: {}): JSX.Element {
+export default function WebGlTest(props: {}) {
   // will set to true when video can be copied to texture
   const [copyVideoReady, setCopyVideoReady] = useState(false);
   const draw = (gl: WebGL2RenderingContext): void => {

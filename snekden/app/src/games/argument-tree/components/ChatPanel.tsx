@@ -24,7 +24,7 @@ export function ChatPanel(
     callbacks: StatementModificationCallbacksObject;
     largestId: string;
   },
-): JSX.Element {
+) {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([] as Message[]);
 

@@ -5,8 +5,6 @@ export type GameCard = {
   folder: string;
   img?: HTMLImageElement;
   options?: {
-    usesCanvas?: boolean
-    usesSockets?: boolean
     canvasWidth?: number
     canvasHeight?: number
   }

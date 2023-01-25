@@ -27,7 +27,7 @@ export function SideTree(
     path: Statement[];
     callbacks: StatementModificationCallbacksObject;
   },
-): JSX.Element {
+) {
   console.log("tree in the side tree", props.tree.map((v) => v.title));
   return (
     <div

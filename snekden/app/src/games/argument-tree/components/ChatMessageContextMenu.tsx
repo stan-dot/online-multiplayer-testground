@@ -7,7 +7,7 @@ export function ChatMessageContextMenu(
     message: Message;
     closeCallback: () => void;
     addCallback: (s: string) => void;
-  }): JSX.Element {
+  }) {
   const clickaHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     // todo add diff creator handling
     props.addCallback(props.message.text);

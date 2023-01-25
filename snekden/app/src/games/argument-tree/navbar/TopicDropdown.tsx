@@ -28,7 +28,7 @@ function throwAwayAddTopicMetaFunction(
 
 export function TopicDropdown(
   props: { changeTopicCallback: (t: Topic) => void },
-): JSX.Element {
+) {
   // const [topics, setTopics] = useState([] as Topic[]);
   const [topics, setTopics] = useState(SAMPLE_TOPICS);
   const [topicListVisible, setTopicListVisible] = useState(false);

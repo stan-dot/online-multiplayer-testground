@@ -8,7 +8,7 @@ export function PathDisplayContextMenu(
     position: number[];
     callbacks: StatementModificationCallbacksObject;
   },
-): JSX.Element {
+) {
   const handleCopyOption = () => {
   };
 

@@ -1,7 +1,7 @@
-import { availableGames } from '../data/games';
+import { availableGames } from '../games';
 import { GameCard } from '../types/GameCard';
 
-export function MainNavigation(props: { gameCardCallback: Function }): JSX.Element {
+export function MainNavigation(props: { gameCardCallback: Function }) {
   return <nav>
     <ul>
       {availableGames.map((card: GameCard, index: number) => {

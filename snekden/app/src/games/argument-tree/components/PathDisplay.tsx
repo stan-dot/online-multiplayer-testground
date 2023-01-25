@@ -7,7 +7,7 @@ export function PathDisplay(props: {
   path: Statement[];
   pathChangeHandler: (nodes: Statement[]) => void;
   callbacks: StatementModificationCallbacksObject
-}): JSX.Element {
+}) {
   const [clickedNode, setClickedNode] = useState(props.path[0]);
   const [contextMenuVisible, setContextMenuVisible] = useState(false);
 

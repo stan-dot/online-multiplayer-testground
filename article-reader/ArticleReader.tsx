@@ -74,7 +74,7 @@ function getArticleText(data: any): ArticleText {
  * on the right social share, lens profile share
  * todo move the mode to a style wrapper
  */
-export default function ArticleReader(): JSX.Element {
+export default function ArticleReader() {
   const [mode, setMode] = useState("light");
   const [articleVisible, setArticleVisible] = useState(false);
 
@@ -123,7 +123,7 @@ export default function ArticleReader(): JSX.Element {
 }
 
 
-function ArticleDisplay(props: { article: ArticleToRead }): JSX.Element {
+function ArticleDisplay(props: { article: ArticleToRead }) {
   const [metadataVisible, setMetadataVisible] = useState(false);
   return (
     <div id="articleDisplay">
@@ -149,7 +149,7 @@ function ArticleDisplay(props: { article: ArticleToRead }): JSX.Element {
  * @param props
  * @returns
  */
-function DisplayText(props: { text: ArticleText }): JSX.Element {
+function DisplayText(props: { text: ArticleText }) {
   const images: ImageObject[] = props.text.images;
   const paragraphs: string[] = props.text.paragraphs;
 
@@ -167,7 +167,7 @@ function DisplayText(props: { text: ArticleText }): JSX.Element {
  * @param props
  * @returns
  */
-function MetadataDisplay(props: { data: ArticleMetadata }): JSX.Element {
+function MetadataDisplay(props: { data: ArticleMetadata }) {
   return (
     <div id="metadata">
       <label htmlFor="notes">Notes</label>

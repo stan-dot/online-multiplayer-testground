@@ -11,7 +11,7 @@ function capitalize(publication: string): string {
 
 const gameNames: string[] = [];
 
-export default function Sidebar(): JSX.Element {
+export default function Sidebar() {
   const [open, setOpen] = useState(false);
   // nav items for each, add event listener - on click remove active on all others
 

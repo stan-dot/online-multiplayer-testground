@@ -12,7 +12,7 @@ export function PathItem(
     contextMenuVisible: boolean;
     callbacks: StatementModificationCallbacksObject;
   },
-): JSX.Element {
+) {
   // const [position, setPosition] = useState([0, 0]);
   // const [contextMenuVisibility, setContextMenuVisibility] = useState(false);
   return (

@@ -11,7 +11,7 @@ export function ActiveHuzbaoGame(props: {
   variant: BoardGeneratorVariant;
   opponent: PlayerSignature;
   self: PlayerSignature;
-}): JSX.Element {
+}) {
   const newGame: HuzbaoGameState = {
     ownBoard: generateBoard(props.variant),
     opponentBoard: generateBoard(props.variant),

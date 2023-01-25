@@ -4,7 +4,7 @@ import { defaultText } from './defaults';
 
 const url: string = 'https://catfact.ninja/fact';
 
-export default function CatFacts(): JSX.Element {
+export default function CatFacts() {
   const [mainText, setMainText] = React.useState(defaultText.fact);
   const getFacts = () => fetch(url).then(handleIncoming);
 

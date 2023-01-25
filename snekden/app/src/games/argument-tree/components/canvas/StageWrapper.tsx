@@ -6,7 +6,7 @@ import { Layer, Stage, Text } from "react-konva";
 // https://konvajs.org/api/Konva.Arrow.html
 export function StageWrapper(
   props: { width: number; height: number; objects: any },
-): JSX.Element {
+) {
   const [textAreaMode, setTextAreaMode] = useState(false);
 
   const interactionHandler = () => {

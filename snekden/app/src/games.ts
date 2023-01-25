@@ -1,4 +1,4 @@
-import { GameCard } from '../types/GameCard';
+import { GameCard } from './types/GameCard';
 
 export const availableGames: GameCard[] = [
   {
@@ -49,10 +49,6 @@ export const availableGames: GameCard[] = [
   {
     folder: 'snake',
     componentName: 'SnakeGame',
-    options: {
-      usesCanvas: true,
-      usesSockets: true
-    }
   },
   // {
   //   folder: 'tictactoe',

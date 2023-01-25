@@ -9,7 +9,7 @@ export function ChatMessage(
     addCallback: (s: string) => void;
     largestId: string;
   },
-): JSX.Element {
+) {
   const [position, setPosition] = useState([] as number[]);
   const [contextMenuVisibility, setContextMenuVisibility] = useState(false);
 

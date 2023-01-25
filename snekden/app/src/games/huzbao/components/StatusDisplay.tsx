@@ -1,6 +1,6 @@
 import { HuzbaoGameState } from "../engine/types/boardTypes";
 
-export function StatusDisplay(props: { game: HuzbaoGameState }): JSX.Element {
+export function StatusDisplay(props: { game: HuzbaoGameState }) {
   const time: Date = new Date(props.game.stats.startingTime - Date.now());
   return <div id='data bar'>
     <ul>

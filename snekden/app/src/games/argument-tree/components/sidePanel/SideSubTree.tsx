@@ -8,7 +8,7 @@ export function SideSubTree(props: {
   path: Statement[];
   color?: string;
   callbacks: StatementModificationCallbacksObject;
-}): JSX.Element {
+}) {
   return (
     <div
       id="sidesubtree"

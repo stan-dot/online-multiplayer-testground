@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import init, { greet, getState } from './minesweeper_rust_lib/pkg/minesweeper';
 
-export default function Minesweper(): JSX.Element {
+export default function Minesweper() {
   const [state, setState] = useState("");
   useEffect(() => {
     async function t() {

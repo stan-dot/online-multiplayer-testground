@@ -9,7 +9,7 @@
 // Dynamically switching between scenes.
 // Handling json tilemaps.
 // Custom collision callbacks.
-export default function PhaserTest(): JSX.Element {
+export default function PhaserTest() {
   return <div id="phaserTest">
     <p>Testing PhaserJS</p>
   </div>

@@ -10,7 +10,7 @@ import {
 import { PlayerSignature, PlayerType } from './engine/types/PlayerSignature';
 import { MenuPicker } from './MenuPicker';
 
-export default function Huzbao(): JSX.Element {
+export default function Huzbao() {
   const [gameSettings, setGameSettings] = useState(INITIAL_SETTINGS);
   const [boardVariant, setBoardVariant] = useState(DEFAULT_BOARD_GENERATION);
   // todo make this opponent use the true object

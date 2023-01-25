@@ -4,7 +4,7 @@ import { BotsList } from './BotsList';
 import TerminalHandler from './TerminalHandler';
 import { Bot } from './types/Bot';
 
-export default function Eliza(): JSX.Element {
+export default function Eliza() {
   const defaultBot: Bot = new EchoBot('EchoBot1', 'some description');
   const [currentBot, setCurrentBot] = useState(defaultBot)
   return <>
@@ -17,7 +17,7 @@ export default function Eliza(): JSX.Element {
   </>
 }
 
-function Footer(props: { currentBot: Bot }): JSX.Element {
+function Footer(props: { currentBot: Bot }) {
   const additionalText: string = '';
   // const additionalText: string = props.currentBot.getDescription() ?? '';
   return <>
