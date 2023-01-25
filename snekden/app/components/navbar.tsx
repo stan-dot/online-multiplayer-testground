@@ -53,6 +53,12 @@ export const Navbar = () => {
             >
               Face detection example
             </Link>
+            <Link
+              href="/games/minesweeper"
+              className={linkClassName}
+            >
+            Minesweeper
+            </Link>
             {/* <Link
               href="/achievements"
               className={linkClassName}
