@@ -4,8 +4,4 @@ export type GameCard = {
   componentName: string;
   folder: string;
   img?: HTMLImageElement;
-  options?: {
-    canvasWidth?: number
-    canvasHeight?: number
-  }
 }

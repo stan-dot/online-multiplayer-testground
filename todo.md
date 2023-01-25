@@ -5,11 +5,15 @@
 - [x] Do navigation
 - [ ] do landing page
 
-# easy wins - for mornings
+- [ ] make a dropdown menu for games 
+
+# adding content to landing page - for mornings
   - [ ] plans for later
   - [ ] blog link
   - [ ] socials link - twitter and linkedin
   - [ ] call to action  - follow my twitter
+
+  - [ ] accordtion for each of the proejcts
 
 # deployment
 

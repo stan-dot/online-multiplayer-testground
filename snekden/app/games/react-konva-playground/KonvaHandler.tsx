@@ -1,10 +1,10 @@
-import { KonvaEventObject } from "konva/lib/Node";
+"use client";
 import React from "react";
 import { Layer, Stage, Star, Text } from "react-konva";
 import Swal from "sweetalert2";
 import { DEFAULT_TREE } from "./DEFAULT_TREE";
 import { generateShapes, getThing, KonvaShape } from "./KonvaShape";
-import { Statement, Topic } from "./TopicTypes";
+import { Statement } from "./TopicTypes";
 
 
 type BigObject = {
@@ -46,7 +46,7 @@ export function KonvaHandler(props: { dimensions: number[]; }) {
 
   const [objects, setObjects] = React.useState(BIG_OBJ_ARR);
 
-  const handleDragStart = (e: KonvaEventObject<DragEvent>) => {
+  const handleDragStart = (e: any) => {
     const id = e.target.id();
     setObjects(
       objects.map((obj: BigObject) => {
@@ -63,7 +63,7 @@ export function KonvaHandler(props: { dimensions: number[]; }) {
     );
   };
 
-  const handleDragEnd = (e: KonvaEventObject<DragEvent>) => {
+  const handleDragEnd = (e: any) => {
     setObjects(
       objects.map((obj: BigObject) => {
         const d: KonvaShape = {

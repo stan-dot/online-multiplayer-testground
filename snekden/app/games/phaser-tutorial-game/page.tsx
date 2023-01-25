@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { starConfig } from "./anotherGame";
 
-export default function Testgame() {
+export default function PhaserTutorialGame() {
   // const game = useGame(starConfig);
   return <div>
     <p>Some content</p>

@@ -1,3 +1,4 @@
+'use client';
 import { Rect } from "konva/lib/shapes/Rect";
 import React from "react";
 import { KonvaNodeComponent } from "react-konva";
