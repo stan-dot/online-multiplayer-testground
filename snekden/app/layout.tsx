@@ -17,7 +17,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <body className="min-h-screen  ">
+      <body className="min-h-screen ">
         {/* <body className="min-h-screen bg-slate-50 dark:bg-black dark:text-white "> */}
         <Navbar />
         {/* <Sidebar /> */}

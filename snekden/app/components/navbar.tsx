@@ -53,6 +53,12 @@ export const Navbar = () => {
               >
                 Face detection example
               </Link>
+              <Link
+                href="/games/minesweeper"
+                className={linkClassName}
+              >
+                Minesweeper
+              </Link>
             </details>
             <Link
               href="/old_stuff"
@@ -60,18 +66,18 @@ export const Navbar = () => {
             >
               Old app
             </Link>
+            <Link
+              href="/games/userform"
+              className={linkClassName}
+            >
+              form
+            </Link>
             {/* <Link
               href="/games/react-konva-playground"
               className={linkClassName}
             >
               Konva example
             </Link> */}
-            <Link
-              href="/games/minesweeper"
-              className={linkClassName}
-            >
-              Minesweeper
-            </Link>
             <Link
               href="/achievements"
               className={linkClassName}

@@ -3,9 +3,12 @@
 
 - [x] do Links elements
 - [x] Do navigation
+- [x] make a dropdown menu for games 
 - [ ] do landing page
 
-- [ ] make a dropdown menu for games 
+- [ ] sortout the WASM thing
+- [ ] sortout the konva installation thing
+
 
 # adding content to landing page - for mornings
   - [ ] plans for later

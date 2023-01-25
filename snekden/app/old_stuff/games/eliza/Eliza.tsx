@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { EchoBot } from './bots/echo-bot/EchoBot';
 import { BotsList } from './BotsList';
-import TerminalHandler from './TerminalHandler';
+// import TerminalHandler from './TerminalHandler';
 import { Bot } from './types/Bot';
 
 export default function Eliza() {
@@ -12,7 +12,7 @@ export default function Eliza() {
       current bot:{currentBot.name}
     </div>
     <BotsList callback={setCurrentBot} startingBot={currentBot} />
-    <TerminalHandler bot={currentBot} />
+    {/* <TerminalHandler bot={currentBot} /> */}
     <Footer currentBot={currentBot} />
   </>
 }
