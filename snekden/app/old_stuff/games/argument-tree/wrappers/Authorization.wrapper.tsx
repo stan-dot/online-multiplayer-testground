@@ -1,3 +1,4 @@
+"use client";
 import React, { ReactElement, useEffect } from 'react';
 import { AuthorizationHandling, DEFAULT_AUTHORIZATION_HANDLING } from './AuthorizationHandling';
 
@@ -18,7 +19,7 @@ export function AuthorizationWrapper(props: {
   /* istanbul ignore next*/
   const handleLoginSubmission = (data: any): void => {
     console.log('sending credentials to server:', data);
-    socket.emit('login', data);
+    // socket.emit('login', data);
   };
   const AUTHORIZATION_HANDLER: AuthorizationHandling = {
     status: authorized,
