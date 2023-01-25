@@ -1,16 +1,10 @@
+"use client";
 import { ComponentType, lazy, LazyExoticComponent, Suspense } from 'react';
 import { Game } from "../types/Game";
 import { GameCard } from "../types/GameCard";
-import { GameContext, GameContextType } from "../types/GameContextType";
 
 export const GameField = (props: { gameCard: GameCard }) => {
   const card: GameCard = props.gameCard;
-
-
-
-
-  const context: GameContextType = {
-  };
 
   // LOADING THE GAME
   console.log('loading the game', card.componentName);
@@ -24,9 +18,7 @@ export const GameField = (props: { gameCard: GameCard }) => {
           <p>{card.componentName} is loading...</p>
         </div>
       }>
-        <GameContext.Provider value={context}>
-          <Game />
-        </GameContext.Provider>
+        <Game />
       </Suspense>
     </div>
   );

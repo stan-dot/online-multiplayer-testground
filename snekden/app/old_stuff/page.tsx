@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { GameField } from "./components/GameField";
 import { MainNavigation } from "./components/MainNavigation";

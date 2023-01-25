@@ -1,4 +1,3 @@
-import c from 'ansi-colors';
 import { ITerminalOptions } from 'xterm';
 
 export const PROMPT_SIGN = '$ ';
