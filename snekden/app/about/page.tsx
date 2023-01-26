@@ -8,7 +8,7 @@ export default function About() {
   return <div className="align-center flex-col m-10 justify-center w-full">
     <h2>Full stack developer</h2>
     <div>
-      <a className="underline-offset-4 italic" href="https://linktr.ee/standot3">My linktree profile</a>
+      <a className="underline italic" href="https://linktr.ee/standot3">My linktree profile</a>
     </div>
     <div>
       <h3 className={titleClass}>
