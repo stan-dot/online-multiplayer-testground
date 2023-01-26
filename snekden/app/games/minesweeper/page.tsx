@@ -1,20 +1,16 @@
 "use client";
 import { useEffect, useState } from 'react';
 // import init, { getState } from './minesweeper_rust_lib/pkg/minesweeper';
-// import init, { greet } from './hello-wasm/pkg/minesweeper';
-// import init, { greet } from './hello-wasm/pkg/minesweeper';
-import init, { greet } from './hello-wasm/pkg/hello_wasm';
 
 export default function Minesweper() {
   const [state, setState] = useState("");
   useEffect(() => {
     async function t() {
-      await init().then(() => {
-        greet();
+      // await init().then(() => {
         // const newState = getState();
         // console.log(newState);
         // setState(newState);
-      })
+      // })
     }
     t();
 

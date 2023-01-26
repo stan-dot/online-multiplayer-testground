@@ -1,6 +1,5 @@
 
 
-
 - [x] do Links elements
 - [x] Do navigation
 - [x] make a dropdown menu for games 

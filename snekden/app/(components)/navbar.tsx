@@ -24,25 +24,25 @@ export const Navbar = () => {
 
             <details className={linkClassName}>
               <summary>
-                <h3>Work In Progress</h3>
+                <h3>Works In Progress</h3>
               </summary>
               <Link
                 href="/games/phaser-tutorial-game"
                 className={linkClassName}
               >
-                Test game
+                Phaser game
               </Link>
               <Link
                 href="/games/raw-canvas"
                 className={linkClassName}
               >
-                test canvas
+                Test canvas
               </Link>
               <Link
                 href="/games/docs"
                 className={linkClassName}
               >
-                text editor
+                Text editor
               </Link>
               <Link
                 href="/games/face"
@@ -56,34 +56,28 @@ export const Navbar = () => {
               >
                 Minesweeper
               </Link>
+              <Link
+                href="/old_stuff"
+                className={linkClassName}
+              >
+                Old app
+              </Link>
+              <Link
+                href="/games/userform"
+                className={linkClassName}
+              >
+                Form
+              </Link>
             </details>
-            <Link
-              href="/old_stuff"
-              className={linkClassName}
-            >
-              Old app
-            </Link>
-            <Link
-              href="/games/userform"
-              className={linkClassName}
-            >
-              form
-            </Link>
             <Link
               href="/achievements"
               className={linkClassName}
             >
               Achievements
             </Link>
-            <Link
-              href="/contact"
-              className={linkClassName}
-            >
-              Contact me
-            </Link>
             <a
               href='https://www.canva.com/design/DAFRRXadvpw/dB6g9sy_uO3y3SNpmqnkxQ/view?utm_content=DAFRRXadvpw&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton'
-              
+
               className={`${linkClassName} bg-green-600`}
             >
               Resume [PDF]

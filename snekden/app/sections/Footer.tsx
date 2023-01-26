@@ -15,9 +15,8 @@ export function Footer() {
           >
             LinkedIn
           </a>{" "}
-
           profile.
-          I also share my experiences with coding stuff on my blog, <a href="https://stan-dot.github.io/elegantly-shipped/" className="link"> <span className="italic">elegantly shipped</span></a>
+          I also share my experiences with coding stuff on my blog, <a href="https://stan-dot.github.io/elegantly-shipped/" className="link"> <span className="italic underline-offset-2">elegantly shipped</span></a>
         </address>
         <div className="flex flex-col sm:gap-2">
           <p className="text-right">
