@@ -7,7 +7,7 @@
 - [ ] do landing page
 
 - [ ] sortout the WASM thing
-- [ ] sortout the konva installation thing
+- [ ] sortout the konva installation thin g
 
 
 # adding content to landing page - for mornings

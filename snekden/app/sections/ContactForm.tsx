@@ -50,7 +50,7 @@ function TestimonialsSection() {
         Testimonials
       </h2>
       <figure className="m-12">
-        <blockquote className=" bg-teal-600.dark:bg-black.pl-14.pr-8.py-12.rounded-3xl-relative ">
+        <blockquote className=" bg-teal-600 dark:bg-black pl-14 pr-8 py-12 rounded-3xl-relative ">
           <p className="text-2xl sm:text-3xl text-left mt-2 text-white dark:text-slate-400 before:font-serif before:absolute before:top-0 before:left-0 before:text-3xl before:text-white before:opacity-25 before:transform before:translate-x-2 before:translate-y-2 before:content-['\201C'] after:font-serif after:absolute after:-bottom-20 after:right-0 after:text-3xl after:text-white after:opacity-25 after:transform after:translate-x-2 after:translate-y-2 after:content-['\201D']">
             Acme has always been there for me. Their Explorer rocket arrived in
             a wooden crate as expected. Life-long customer! A++ shipping
@@ -62,7 +62,7 @@ function TestimonialsSection() {
         </figcaption>
       </figure>
       <figure className="m-12">
-        <blockquote className=" bg-teal-600.dark:bg-black.pl-14.pr-8.py-12.rounded-3xl-relative ">
+        <blockquote className=" bg-teal-600 dark:bg-black pl-14 pr-8 py-12 rounded-3xl-relative ">
           <p className="text-2xl sm:text-3xl text-left mt-2 text-white dark:text-slate-400 before:font-serif before:absolute before:top-0 before:left-0 before:text-3xl before:text-white before:opacity-25 before:transform before:translate-x-2 before:translate-y-2 before:content-['\201C'] after:font-serif after:absolute after:-bottom-20 after:right-0 after:text-3xl after:text-white after:opacity-25 after:transform after:translate-x-2 after:translate-y-2 after:content-['\201D']">
             The Acme Adventurer Rocketd has thwarted my Illudium Q-36 Explosive
             Space Modulator on several occasions.{" "}
@@ -79,7 +79,7 @@ function TestimonialsSection() {
         </figcaption>
       </figure>
       <figure className="m-12">
-        <blockquote className=" bg-teal-600.dark:bg-black.pl-14.pr-8.py-12.rounded-3xl-relative ">
+        <blockquote className=" bg-teal-600 dark:bg-black pl-14 pr-8 py-12 rounded-3xl-relative ">
           <p className="text-2xl sm:text-3xl text-left mt-2 text-white dark:text-slate-400 before:font-serif before:absolute before:top-0 before:left-0 before:text-3xl before:text-white before:opacity-25 before:transform before:translate-x-2 before:translate-y-2 before:content-['\201C'] after:font-serif after:absolute after:-bottom-20 after:right-0 after:text-3xl after:text-white after:opacity-25 after:transform after:-translate-x-2 after:-translate-y-2 after:content-['\201D']">
             I knew I not only wanted &#8212;{" "}
             <span className="italic">I needed</span>{" "}

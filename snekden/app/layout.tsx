@@ -1,8 +1,7 @@
-import Head from "next/head"
+import Head from "next/head";
 import "../styles/globals.css";
-import { Navbar } from "./components/navbar"
-import Sidebar from "./components/sidebar"
-import { Footer } from "./Footer";
+import { Navbar } from "./components/navbar";
+import { Footer } from "./sections/Footer";
 
 export default function RootLayout({
   children,
@@ -18,9 +17,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <body className="min-h-screen ">
-        {/* <body className="min-h-screen bg-slate-50 dark:bg-black dark:text-white "> */}
         <Navbar />
-        {/* <Sidebar /> */}
         {children}
         <Footer />
       </body>

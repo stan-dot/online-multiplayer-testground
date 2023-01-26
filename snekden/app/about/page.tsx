@@ -9,7 +9,6 @@ export default function About() {
     <div>
       <h3>
         Achievements
-
       </h3>
       <p>attended events</p>
     </div>
