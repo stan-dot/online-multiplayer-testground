@@ -3,25 +3,27 @@
 - [x] do Links elements
 - [x] Do navigation
 - [x] make a dropdown menu for games 
-- [ ] do landing page
 
-- [ ] sortout the WASM thing
-- [ ] sortout the konva installation thin g
+- [x] add about hackathons -passion 
+- [x] add specific technolgies to learn in 6 months span
 
 
 # adding content to landing page - for mornings
-  - [ ] plans for later
-  - [x] blog link
-  - [x] socials link - twitter and linkedin
-  - [x] call to action  - follow my twitter
+- [x] plans for later
+- [x] blog link
+- [x] do landing page
+- [x] socials link - twitter and linkedin
+- [x] call to action  - follow my twitter
 
-  - [ ] accordtion for each of the proejcts
+- [x] accordtion for each of the proejcts
 
 # deployment
 
 # first step
 - [ ] do 1 game 
 - [ ] scenes in top level, not component
+- [ ] sortout the WASM thing
+- [ ] sortout the konva installation thin g
 
 - skippable
 - [ ] request testimonials - quote the evaluation reports from uni? not sure if internal 
@@ -38,7 +40,6 @@ loading=lazy
 base element to open all liks in new 
 details for accordion
 optgroup
-
 
 ## specific games
 

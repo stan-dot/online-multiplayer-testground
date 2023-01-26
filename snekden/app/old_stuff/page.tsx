@@ -5,7 +5,6 @@ import { MainNavigation } from "./components/MainNavigation";
 import { availableGames } from "./games";
 import { GameCard } from "./types/GameCard";
 
-// font and background
 export default function OldAp() {
   const [gameIsOn, setGameIsOn] = React.useState(true);
   const gameName: string = "ArgumentTree";
@@ -20,7 +19,6 @@ export default function OldAp() {
   };
   return (
     <div className="App">
-      {/* <SocketWrapper> */}
       {gameIsOn
         ? (
           <>
@@ -44,7 +42,6 @@ export default function OldAp() {
             <MainNavigation gameCardCallback={changeGame} />
           </>
         )}
-      {/* </SocketWrapper> */}
     </div>
   );
 }
