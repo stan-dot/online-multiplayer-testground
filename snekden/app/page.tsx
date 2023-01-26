@@ -3,7 +3,7 @@ import ProjectCard from "./(components)/ProjectCard";
 import { projects } from "./(data)/projects";
 import { ProjectCardData } from "./types/ProjectData";
 
-const doneProjects: ProjectCardData[] = projects.filter(p => ['MVP', 'actively_expanding', 'maintenance'].includes(p.status));
+const doneProjects: ProjectCardData[] = projects.filter(p => ['MVP', 'actively expanding', 'maintenance'].includes(p.status));
 const ongoingProjects: ProjectCardData[] = projects.filter(p => ['WIP'].includes(p.status));
 const futureProjects: ProjectCardData[] = projects.filter(p => ['sketch', 'idea'].includes(p.status));
 

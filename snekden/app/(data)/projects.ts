@@ -12,7 +12,7 @@ const elizaProject: ProjectCardData = {
 const hibttProject: ProjectCardData = {
   title: "Have-I-Bookmarked-Their-Tweet?",
   subtitle: "Why did I follow them in the first place?",
-  technologies: ["ChromeAPI, react", "atomjs"],
+  technologies: ["ChromeAPI","react", "atomjs"],
   link: "https://chrome.google.com/webstore/detail/have-i-bookmarked-their-t/gipjdioggejlpnifhcgabgkfgjdlgfao",
   status: "MVP",
   description: "A mini Chrome extension providing a preview of bookmarked tweets by the twitter account viewed on the current tab."
@@ -21,7 +21,7 @@ const hibttProject: ProjectCardData = {
 const bkmrk: ProjectCardData = {
   title: "bkmrk",
   subtitle: "chrome bookmark manager for power users",
-  technologies: ["chromeAPI, tailwindcss","" ],
+  technologies: ["chromeAPI", "tailwindcss","" ],
   link: "https://github.com/stan-dot/bkmrk",
   status: "WIP",
   description: "a custom bookmark manager for Chrome browser. The default one annoys me with its limited options ;)"

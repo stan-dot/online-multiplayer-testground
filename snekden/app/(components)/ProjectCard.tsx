@@ -5,10 +5,11 @@ import { ProjectCardData, ProjectStatus } from "../types/ProjectData";
 
 function StatusEmoji(props: { stats: ProjectStatus }): ReactElement {
   if (props.stats == 'WIP') return <i className="fa-solid fa-user">WIP</i>;
-  // if (stats == 'MVP')
-  //   if (stats == 'a')
-  //     if (stats == 'MVP')
-  //       if (stats == 'MVP')
+  if (props.stats == 'maintenance') return <i className="fa-solid fa-user">maintenance</i>;
+  if (props.stats == 'actively expanding') return <i className="fa-solid fa-user">Intense development</i>;
+  if (props.stats == 'MVP') return <i className="fa-solid fa-user">MVP is ready</i>;
+  if (props.stats == 'sketch') return <i className="fa-solid fa-user">Sketch</i>;
+  if (props.stats == 'idea') return <i className="fa-solid fa-user">Rough idea</i>;
   return <p> unknown </p>
 }
 
@@ -23,10 +24,10 @@ export default function ProjectCard({ title, subtitle, technologies, link, statu
       <StatusEmoji stats={status} />
     </div>
     <h4 className="md-hidden">{subtitle}</h4>
-    <p id="technologies" className="">
+    <p id="technologies" className="border-t-4 border-b-4">
       {technologies.reduce((a, b) => a + `${b} `, "")}
     </p>
-    <p>{description}</p>
+    <p className="mt-4">{description}</p>
 
   </div>
 }
