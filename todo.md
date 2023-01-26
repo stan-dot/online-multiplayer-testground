@@ -12,9 +12,9 @@
 
 # adding content to landing page - for mornings
   - [ ] plans for later
-  - [ ] blog link
-  - [ ] socials link - twitter and linkedin
-  - [ ] call to action  - follow my twitter
+  - [x] blog link
+  - [x] socials link - twitter and linkedin
+  - [x] call to action  - follow my twitter
 
   - [ ] accordtion for each of the proejcts
 

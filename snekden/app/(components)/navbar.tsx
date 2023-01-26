@@ -38,9 +38,6 @@ export const Navbar = () => {
               >
                 test canvas
               </Link>
-            </details>
-            <details className={linkClassName}>
-              <summary>broken games</summary>
               <Link
                 href="/games/docs"
                 className={linkClassName}
@@ -51,7 +48,7 @@ export const Navbar = () => {
                 href="/games/face"
                 className={linkClassName}
               >
-                Face detection example
+                Face detection
               </Link>
               <Link
                 href="/games/minesweeper"
@@ -72,23 +69,11 @@ export const Navbar = () => {
             >
               form
             </Link>
-            {/* <Link
-              href="/games/react-konva-playground"
-              className={linkClassName}
-            >
-              Konva example
-            </Link> */}
             <Link
               href="/achievements"
               className={linkClassName}
             >
               Achievements
-            </Link>
-            <Link
-              href="/about"
-              className={linkClassName}
-            >
-              About me
             </Link>
             <Link
               href="/contact"
@@ -98,7 +83,7 @@ export const Navbar = () => {
             </Link>
             <a
               href='https://www.canva.com/design/DAFRRXadvpw/dB6g9sy_uO3y3SNpmqnkxQ/view?utm_content=DAFRRXadvpw&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton'
-              download
+              
               className={`${linkClassName} bg-green-600`}
             >
               Resume [PDF]

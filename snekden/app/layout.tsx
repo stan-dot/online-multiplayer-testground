@@ -1,6 +1,6 @@
 import Head from "next/head";
 import "../styles/globals.css";
-import { Navbar } from "./components/navbar";
+import { Navbar } from "./(components)/navbar";
 import { Footer } from "./sections/Footer";
 
 export default function RootLayout({

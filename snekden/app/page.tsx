@@ -54,13 +54,6 @@ export default function HomePage() {
       <hr className="mx-auto bg-dark dark:bg-white w-1/2" />
       <section className="max-w-4xl mx-auto p-4 flex flex-col sm:flex-row sm:justify-between">
         <h2>Ongoing projects</h2>
-        <p>
-          Follow me on{" "}
-          <a href="https://twitter.com/standot3" className="link italic underline">
-            twitter
-          </a>{" "}
-          for more updates!
-        </p>
       </section>
       <hr className="mx-auto bg-dark dark:bg-white w-1/2" />
       <section className="max-w-4xl mx-auto p-4 flex flex-col sm:flex-row sm:justify-between">

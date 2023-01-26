@@ -1,9 +1,9 @@
 export function Footer() {
   return (
-    <footer id="footer" className="bg-green-400 text-white text-xl fixed bottom-2 w-full">
+    <footer id="footer" className="bg-green-400 text-white  fixed bottom-0 w-full">
       <section className="max-w-4xl mx-auto p-4 flex flex-col sm:flex-row sm:justify-between">
         <address>
-          <h2>Stanislaw Malinowski</h2>
+          {/* <h2>Stanislaw Malinowski</h2> */}
           Follow me on{" "}
           <a href="https://twitter.com/standot3" className="link">twitter</a>,
           see my work on{" "}
