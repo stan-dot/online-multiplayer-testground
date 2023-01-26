@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 export default function About() {
-  return <div>
+  return <div className="align-center flex-col m-10 justify-center w-full">
     <h2>Full stack developer</h2>
     <div>
       <a href="https://linktr.ee/standot3">My linktree profile</a>

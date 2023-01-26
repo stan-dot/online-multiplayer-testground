@@ -8,14 +8,16 @@ export function Footer() {
           <a href="https://twitter.com/standot3" className="link">twitter</a>,
           see my work on{" "}
           <a href="https://github.com/stan-dot" className="link">github</a>. And
-          just in case, I also have a{" "}
+          just in case, I have a{" "}
           <a
             href=" https://www.linkedin.com/in/stanislaw-malinowski/?locale=en_US "
             className="link"
           >
             LinkedIn
           </a>{" "}
+
           profile.
+          I also share my experiences with coding stuff on my blog, <a href="https://stan-dot.github.io/elegantly-shipped/" className="link"> <span className="italic">elegantly shipped</span></a>
         </address>
         <div className="flex flex-col sm:gap-2">
           <p className="text-right">

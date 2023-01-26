@@ -96,12 +96,13 @@ export const Navbar = () => {
             >
               Contact me
             </Link>
-            <Link
-              href="/contact"
-              className={linkClassName}
+            <a
+              href='https://www.canva.com/design/DAFRRXadvpw/dB6g9sy_uO3y3SNpmqnkxQ/view?utm_content=DAFRRXadvpw&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton'
+              download
+              className={`${linkClassName} bg-green-600`}
             >
-              Resume
-            </Link>
+              Resume [PDF]
+            </a>
           </div>
         </div>
       </nav>
