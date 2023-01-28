@@ -1,20 +1,20 @@
 "use client";
 import { Game as GameType } from "phaser";
-import { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Preloader from "./scenes/Preloader";
 import StarScene from "./scenes/StarScene";
 
 export default function PhaserTutorialGame() {
-
-  const game = useGame();
+  const parentEl = useRef<HTMLDivElement>(null);
+   useGame(parentEl);
   return (
     <div>
-      <div id="game-content" key="game-content"></div>
+      <div ref={parentEl} id="game-content" key="game-content" />
     </div>
   );
 }
 
-function useGame() {
+function useGame(containerRef: React.RefObject<HTMLDivElement>, config?: Phaser.Types.Core.GameConfig) {
   const [game, setGame] = useState<GameType>();
   async function initPhaser() {
     console.log("init phaser");
@@ -27,8 +27,7 @@ function useGame() {
       type: Phaser.AUTO,
       width: 800,
       height: 600,
-      // pixelArt: true,
-      parent: 'game-content',
+      parent: containerRef.current!,
       physics: {
         default: "arcade",
         arcade: {
@@ -44,6 +43,14 @@ function useGame() {
     setGame(game);
     console.log("finished hook");
   }
-  useEffect(() => { initPhaser() }, []);
+
+  useEffect(() => {
+    if (!game && containerRef.current) {
+      initPhaser()
+    }
+    return () => {
+      game?.destroy(true);
+    }
+  });
   return game;
 }

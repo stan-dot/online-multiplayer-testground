@@ -22,7 +22,7 @@ export const Navbar = () => {
       >
         <div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-start items-start  flex flex-col lg:h-auto">
             <Link
-              href="/games/phaser-tutorial-game"
+              href="/games/phaser-entry"
               className={linkClassName}
             >
               Phaser game
