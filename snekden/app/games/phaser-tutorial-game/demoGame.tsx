@@ -3,11 +3,13 @@ import Phaser from "phaser";
 export const demoConfig: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
   width: 800,
+  title: 'some-game-title',
   height: 600,
   physics: {
     default: 'arcade',
     arcade: {
-      gravity: { y: 200 }
+      gravity: { y: 200 },
+      debug:true,
     }
   },
   scene: {
@@ -44,5 +46,3 @@ function create(this: Phaser.Scene) {
 
   emitter.startFollow(logo);
 }
-
-export const game = new Phaser.Game(demoConfig);
