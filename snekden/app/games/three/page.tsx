@@ -4,10 +4,8 @@ import { useRef, useState } from 'react';
 import { BufferGeometry, Mesh } from 'three';
 
 
-function Box(props: { name?: string }): JSX.Element {
-  // This reference gives us direct access to the THREE.Mesh object
+function Box(props: any): JSX.Element {
   const ref = useRef<Mesh<BufferGeometry>>()
-  // Hold state for hovered and clicked events
   const [hovered, hover] = useState(false)
   const [clicked, click] = useState(false)
   // Subscribe this component to the render-loop, rotate the mesh every frame
@@ -16,7 +14,6 @@ function Box(props: { name?: string }): JSX.Element {
       (ref.current.rotation.x += delta)
     }
   })
-  // Return the view, these are regular Threejs elements expressed in JSX
   return (
     <mesh
       {...props}

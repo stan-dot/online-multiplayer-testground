@@ -28,8 +28,10 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-, "../examples/weapon.ts"  ],
+    ".next/types/**/*.ts",
+    "../examples/weapon.ts",
+    "../article-reader/TopicTypes.ts"
+  ],
   "exclude": [
     "node_modules"
   ]
