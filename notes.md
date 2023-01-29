@@ -30,3 +30,7 @@ https://github.com/phoboslab/impact
 
 create
 https://github.com/CreateJS/CreateJS
+
+
+pixi has more stars than phaser, and a dedicated React library!
+https://github.com/pixijs/pixi-react
