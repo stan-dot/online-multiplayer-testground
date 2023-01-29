@@ -28,6 +28,12 @@ export const Navbar = () => {
               Phaser game
             </Link> */}
             <Link
+              href="/games/three"
+              className={linkClassName}
+            >
+            Threejs game
+            </Link>
+            <Link
               href="/games/pixijs"
               className={linkClassName}
             >
