@@ -8,6 +8,8 @@
 - [x] add specific technolgies to learn in 6 months span
 
 
+- [ ] add loading animation
+
 # adding content to landing page - for mornings
 - [x] plans for later
 - [x] blog link

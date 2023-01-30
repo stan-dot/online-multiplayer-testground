@@ -21,13 +21,19 @@ export const Navbar = () => {
         className={` w-full lg:inline-flex lg:flex-grow lg:w-auto`}
       >
         <div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-start items-start  flex flex-col lg:h-auto">
- 
-            <Link
-              href="/games/three"
-              className={linkClassName}
-            >
+
+          <Link
+            href="/games/tic-tac-toe"
+            className={linkClassName}
+          >
+            TicTacToe
+          </Link>
+          <Link
+            href="/games/three"
+            className={linkClassName}
+          >
             Threejs game
-            </Link>
+          </Link>
           {/* <ProjectsRedirect /> */}
           <Link
             href="/achievements"
