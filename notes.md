@@ -34,3 +34,30 @@ https://github.com/CreateJS/CreateJS
 
 pixi has more stars than phaser, and a dedicated React library!
 https://github.com/pixijs/pixi-react
+
+### three js problematic
+- original version is alright, 
+- but react library doesn't work properly
+
+and would need to learn Blender
+
+TS tailwind seems alright for now, but would like to make WASM work in Nextjs
+
+wasm-4 doesn't have the vibe I'm looking for
+
+also no intellisense
+
+
+
+
+### making it work with wasm in nextjs
+from December 2022
+https://github.com/vercel/next.js/tree/canary/examples/with-webassembly
+
+
+
+https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-webassembly?file=components%2FRustComponent.tsx
+
+
+workaround to the issue from October 2021 - where a very similar workaround
+https://github.com/vercel/next.js/issues/29362
