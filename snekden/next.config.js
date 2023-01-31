@@ -10,6 +10,7 @@ const nextConfig = {
   webpack: {
     webpack: function (config) {
       // const experiments = config.experiments || {}
+      config.output.webAssemblyModuleFilename = 'static/wasm/[modulehash].wasm';
       // config.experiments = { ...experiments, asyncWebAssembly: true }
       config.experiments = { asyncWebAssembly: true }
       // config.output.assetModuleFilename = 'static/[hash][ext]'
