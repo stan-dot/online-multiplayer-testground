@@ -1,25 +1,26 @@
 "use client";
 import { useEffect, useState } from 'react';
-// import init, { getState } from './minesweeper_rust_lib/pkg/minesweeper';
-import wasm from './minesweeper_rust_lib/pkg/minesweeper_bg.wasm';
+import RustComponent from './components/MinesweeperComponent';
+import build, { getState } from './minesweeper_rust_lib/pkg/minesweeper';
+// import wasm from './minesweeper_rust_lib/pkg/minesweeper_bg.wasm';
 
 
 export default function Minesweper() {
   const [state, setState] = useState("");
-  useEffect(() => {
-    async function t() {
-      // await init().then(() => {
-      const m = await WebAssembly.instantiate('./minesweeper_rust_lib/pkg/minesweeper');
-      const { getState, } = m.exports;
-      const newState = getState();
-      console.log(newState);
-      setState(newState);
-      // })
-    }
-    t();
+  // useEffect(() => {
+  //   async function t() {
+  //     await build().then(() => {
+  //       const m = await WebAssembly.instantiate('./minesweeper_rust_lib/pkg/minesweeper');
+  //       const { getState, } = m.exports;
+  //       const newState = getState();
+  //       console.log(newState);
+  //       setState(newState);
+  //       // })
+  //     }
+  //   t();
 
-    return () => { }
-  }, []);
+  //     return () => { }
+  //   }, []);
 
   // todo maybe this better with konva
   const clickHandler = (e: any) => {
@@ -39,6 +40,7 @@ export default function Minesweper() {
     <div className='h-[30rem] w-[24rem] grid-cols-10 m-5' id="minesweeper-container">
       {state}
     </div>
+    <RustComponent number={0} />
   </div>
 }
 
