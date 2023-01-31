@@ -18,6 +18,7 @@
 - [x] call to action  - follow my twitter
 
 - [x] accordtion for each of the proejcts
+- [x] sortout the konva installation thin g
 
 # deployment
 
@@ -25,7 +26,6 @@
 - [ ] do 1 game 
 - [ ] scenes in top level, not component
 - [ ] sortout the WASM thing
-- [ ] sortout the konva installation thin g
 
 - skippable
 - [ ] request testimonials - quote the evaluation reports from uni? not sure if internal 
