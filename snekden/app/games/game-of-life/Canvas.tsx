@@ -1,7 +1,7 @@
-import { CanvasOptions } from './CanvasOptions';
-import { CellsCanvasData } from './CellsCanvasData';
+import { CanvasOptions } from './types/CanvasOptions';
+import { CellsCanvasData } from './types/CellsCanvasData';
 import { DrawingConstantWithCells } from './types/drawingTypes';
-import { useCanvasForCells } from './useCanvasForCells';
+import { useCanvasForCells } from './utils/useCanvasForCells';
 
 export const Canvas = (props: { draw: DrawingConstantWithCells, data: CellsCanvasData, options?: CanvasOptions }) => {
   const canvasRef: React.MutableRefObject<HTMLCanvasElement> = useCanvasForCells(props.draw, props.data);

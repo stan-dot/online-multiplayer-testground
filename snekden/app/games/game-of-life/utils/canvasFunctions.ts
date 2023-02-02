@@ -1,4 +1,4 @@
-import { SideEffectCanvasFunction } from "../../graphics-examples/raw-canvas/types/drawingTypes";
+import { SideEffectCanvasFunction } from "../types/drawingTypes";
 
 export const postdraw: SideEffectCanvasFunction = (context: CanvasRenderingContext2D, canvas: HTMLCanvasElement): void => {
   context.restore();
@@ -21,4 +21,15 @@ function resizeCanvas(canvas: HTMLCanvasElement, context: CanvasRenderingContext
     return true;
   }
   return false;
+}
+
+export function drawCells(ctx: CanvasRenderingContext2D, cells: number[][]): void {
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  cells.forEach((row, x) => {
+    row.forEach((cell, y) => {
+      ctx.beginPath();
+      ctx.rect(x * 8, y * 8, 8, 8);
+      cell ? ctx.fill : ctx.stroke();
+    });
+  });
 }

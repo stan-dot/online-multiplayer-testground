@@ -1,6 +1,4 @@
-export const SQUARE_SIDE_LENGTH = 64;
 
-export const DEFAULT_TIME_PERIOD = 20;
 export const STARTING_CELLS = [
   // shooting glider
   [1, 5],
