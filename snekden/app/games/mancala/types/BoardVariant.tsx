@@ -1,5 +1,5 @@
 
-export type BoardGeneratorVariant = {
+export type BoardVariant = {
   name: string;
   front: number;
   back: number;

@@ -1,9 +1,9 @@
-import { HuzbaoGameState, Move } from '../types/boardTypes';
+import { MancalaGameState, Move } from '../types/boardTypes';
 import { Direction, Line } from '../engine/types/Direction';
 import { MoveScorePair } from './MoveScorePair';
 
 // todo fix this
-export function getPossibleMoves(state: HuzbaoGameState): Move[] {
+export function getPossibleMoves(state: MancalaGameState): Move[] {
   const move: Move = {
     direction: Direction.L,
     line: Line.FRONT,

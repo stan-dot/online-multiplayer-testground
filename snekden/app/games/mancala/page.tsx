@@ -23,6 +23,7 @@ export default function Mancala() {
   const [state, setState] = useState(startingState);
   const [userTurn, setUserTurn] = useState(true);
 
+
   const handleUserMove: (state: MancalaState) => void = (state: MancalaState) => {
     setState(state);
     setUserTurn(false);

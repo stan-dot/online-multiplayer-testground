@@ -1,6 +1,6 @@
-import { HuzbaoGameState } from "../types/boardTypes";
+import { MancalaGameState } from "../types/boardTypes";
 
-export function StatusDisplay(props: { game: HuzbaoGameState }) {
+export function StatusDisplay(props: { game: MancalaGameState }) {
   const time: Date = new Date(props.game.stats.startingTime - Date.now());
   return <div id='data bar'>
     <ul>

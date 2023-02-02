@@ -1,4 +1,4 @@
-import { HuzbaoGameState, Move } from '../types/boardTypes';
+import { MancalaGameState, Move } from '../types/boardTypes';
 import { Direction, Line } from '../engine/types/Direction';
 import { PlayerSignature } from '../engine/types/PlayerSignature';
 import { getBestMove, getPossibleMoves } from './BotToolbox';
@@ -9,7 +9,7 @@ export default class MaxMoveBot extends HuzbaoBot {
   constructor(signature: PlayerSignature) {
     super(signature);
   }
-  public chooseMove(state: HuzbaoGameState): Move {
+  public chooseMove(state: MancalaGameState): Move {
     const possibleMoves: Move[] = getPossibleMoves(state);
     const movesWithGems: MoveScorePair[] = possibleMoves.map((m: Move) => {
       return { move: m, score: this.getMoveGemsTaken(state, m) };
@@ -18,7 +18,7 @@ export default class MaxMoveBot extends HuzbaoBot {
   }
 
   // todo fix this
-  public getMoveGemsTaken(state: HuzbaoGameState, move: Move): number {
+  public getMoveGemsTaken(state: MancalaGameState, move: Move): number {
     return 1;
   }
 

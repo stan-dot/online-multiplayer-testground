@@ -1,4 +1,6 @@
-import { Direction, Line } from "./Direction";
+export type Direction = "L" | "R";
+
+export type Line = "FRONT" | "BACK";
 
 export type HalfBoard = {
   frontline: number[];
@@ -16,7 +18,7 @@ export type Move = {
   index: number;
 };
 
-export type HuzbaoGameState = {
+export type MancalaGameState = {
   ownBoard: HalfBoard;
   opponentBoard: HalfBoard;
   stats: GameStats;

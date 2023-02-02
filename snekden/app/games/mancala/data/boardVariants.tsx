@@ -1,7 +1,6 @@
-import { DEFAULT_BOARD_GENERATION } from './defaults';
-import { BoardGeneratorVariant } from '../types/BoardGeneratorVariant';
+import { BoardVariant } from '../types/BoardVariant';
 
-const long: BoardGeneratorVariant = {
+const long: BoardVariant = {
   name: 'long',
   front: 8,
   back: 8,
@@ -9,7 +8,7 @@ const long: BoardGeneratorVariant = {
   fullBack: false,
   amount: 4
 };
-const rapid: BoardGeneratorVariant = {
+const rapid: BoardVariant = {
   name: 'rapid',
   front: 6,
   back: 6,
@@ -17,7 +16,7 @@ const rapid: BoardGeneratorVariant = {
   fullBack: false,
   amount: 3
 };
-const defenseVariant: BoardGeneratorVariant = {
+const defenseVariant: BoardVariant = {
   name: 'defense',
   front: 2,
   back: 4,
@@ -25,7 +24,7 @@ const defenseVariant: BoardGeneratorVariant = {
   fullBack: true,
   amount: 0
 };
-const variantMini: BoardGeneratorVariant = {
+const variantMini: BoardVariant = {
   name: 'mini',
   front: 2,
   back: 2,
@@ -33,4 +32,15 @@ const variantMini: BoardGeneratorVariant = {
   fullBack: false,
   amount: 0
 };
-export const boardVariants: BoardGeneratorVariant[] = [DEFAULT_BOARD_GENERATION, variantMini, defenseVariant, rapid, long];
+
+
+const DEFAULT_BOARD_GENERATION: BoardVariant = {
+  name: 'standard',
+  front: 8,
+  back: 8,
+  fillFrontFieldsDivision: 2,
+  fullBack: true,
+  amount: 2,
+};
+
+export const boardVariants: BoardVariant[] = [DEFAULT_BOARD_GENERATION, variantMini, defenseVariant, rapid, long];

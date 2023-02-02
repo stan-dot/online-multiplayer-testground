@@ -1,5 +1,5 @@
 import { Direction, Line } from '../engine/types/Direction';
-import { HuzbaoGameState, Move } from '../types/boardTypes';
+import { MancalaGameState, Move } from '../types/boardTypes';
 import { PlayerSignature } from '../engine/types/PlayerSignature';
 
 
@@ -10,7 +10,7 @@ export abstract class HuzbaoBot {
     this.playerSignature = signature;
   }
 
-  public chooseMove(state: HuzbaoGameState): Move {
+  public chooseMove(state: MancalaGameState): Move {
     return {
       direction: Direction.L,
       line: Line.FRONT,
