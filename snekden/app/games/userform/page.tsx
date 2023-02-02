@@ -48,9 +48,9 @@ export default function Form() {
       <UserForm {...data} updateFields={updateFields} />,
 
       // eslint-disable-next-line react/jsx-key
-      <AddressForm {...data} updateFields />,
+      // <AddressForm {...data} updateFields={updateFields} />,
       // eslint-disable-next-line react/jsx-key
-      <AccountForm {...data} updateFields />,
+      // <AccountForm {...data} updateFields={updateFields} />,
     ]);
 
   function onSubmit(e: FormEvent) {

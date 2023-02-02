@@ -80,7 +80,6 @@ function GameWindow(props: { state: MancalaState, stateCallback: (state: Mancala
             <div id="circle" className="rounded-full text-center  text-slate-800 w-14 h-14 m-2 bg-cyan-200"> 5 </div>
             <div id="circle" className="rounded-full text-center  text-slate-800 w-14 h-14 m-2 bg-cyan-200"> 5 </div>
           </div>
-          <hr />
           <div className="bottomBoard w-[40rem] h-40 grid grid-flow-col grid-rows-2 gap-2 bg-slate-400">
             <div id="circle" className="rounded-full text-center text-slate-800 w-14 h-14 m-2 bg-cyan-200">
               <p className="inset-19">

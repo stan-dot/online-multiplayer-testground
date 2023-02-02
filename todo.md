@@ -34,6 +34,7 @@
 - [ ] high quality image
 - [ ] a search space
 - [ ] make docs thing peer to peer
+- [ ] reindeer consumer - money per person, number of people, city, time. API should be first, then trpc
 
 ### html elemnts to use
 datalist for autocomplete
