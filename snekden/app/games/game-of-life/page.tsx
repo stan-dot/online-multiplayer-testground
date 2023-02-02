@@ -1,3 +1,4 @@
+"use client";
 import { Canvas } from "./Canvas";
 import { CellsCanvasData } from "./CellsCanvasData";
 import { SQUARE_SIDE_LENGTH, STARTING_CELLS } from "./constants/defaults";
