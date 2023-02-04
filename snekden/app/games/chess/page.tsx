@@ -1,5 +1,12 @@
 "use client";
 
+// https://twitter.com/exGenesis/status/1621406261744144384/photo/1
+// ♜♞♝♛♚♝♞♜
+// ♟︎♟︎♟︎♟︎♟︎♟︎♟︎♟︎
+
+// ♙♙♙♙♙♙♙♙
+// ♖♘♗♕♔♗♘♖
+
 import { useEffect, useRef, useState } from "react";
 
 type BoardDimensions = { x: number, y: number };
