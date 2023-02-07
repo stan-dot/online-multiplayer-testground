@@ -1,53 +1,17 @@
 "use client";
 
-import { useState } from "react";
-
-type TicTacState = {
-  ended: boolean;
-  message: EndMessage;
-  cells: TicCell[];
-};
-
-type EndMessage = "you won" | "ai won" | "draw";
-
-type TicCell = {
-  x: number;
-  y: number;
-  value: CellContent;
-};
-
-const name =
-  "h-20 w-20 bg-cyan-600 m-3 grid flow-grid-row grid-rows-1 place-content-center ";
-
-type CellContent = "x" | "o" | "";
-
-function generateCells(size: number): TicCell[] {
-  let cells: TicCell[] = [];
-  for (let x = 0; x < size; x++) {
-    for (let y = 0; y < size; y++) {
-      cells.push({ x: x, y: y, value: "" });
-      // console.log(cells);
-    }
-  }
-  return cells;
-}
-
-const defaultSize = 3;
-
-const startingState: TicTacState = {
-  ended: false,
-  message: "draw",
-  cells: generateCells(defaultSize),
-};
-
+import { useEffect, useState } from "react";
+import { startingState } from "./init";
+import { Square } from "./Square";
+import { Move, TicCell, TicTacState } from "./types";
 /**
  * here AI always plays the random variant
  * @param state
  */
 function makeRandomMove(previousState: TicTacState): TicTacState {
-  const possibleCells: TicCell[] = previousState.cells.filter((c) =>
-    c.value === ""
-  );
+  const possibleCells: TicCell[] = previousState.cells.map((row) =>
+    row.filter((cell) => cell.value === "")
+  ).flat();
   const chosenIndex: number = Math.floor(Math.random() * possibleCells.length);
   const cell = possibleCells[chosenIndex];
   const move: Move = {
@@ -59,23 +23,26 @@ function makeRandomMove(previousState: TicTacState): TicTacState {
   return state;
 }
 
-type Move = { value: CellContent; x: number; y: number };
-
 function makeMove(
   move: Move,
   state: TicTacState,
 ): { state: TicTacState; failed: boolean } {
   // check if the thing is free
-  const index: number = state.cells.findIndex((c) =>
-    c.x === move.x && c.y === c.y
-  );
-  if (index == -1) return { state, failed: true };
-  const cell = state.cells[index];
+  // const index: number = state.cells[move.x][move.y];
+  // if (index == -1) return { state, failed: true };
+  // const cell = state.cells[index];
+  const cell = state.cells[move.x][move.y];
   if (cell.value !== "") return { state, failed: true };
   // update the state
-  state.cells[index] = { ...cell, value: move.value };
+  state.cells[move.x][move.y] = { ...cell, value: move.value };
   // return new state
   return { state, failed: false };
+}
+
+
+function seeIfEnd(state: TicTacState) {
+  
+
 }
 
 export default function TicTacToe() {
@@ -92,10 +59,21 @@ export default function TicTacToe() {
     }, 1000);
   };
 
+
+  const handleReset = () => {
+    setState(startingState);
+  }
+
   return (
-    <div className="ml-96 w-fit h-96 m-10 p-4 grid grid-flow-col grid-cols-2  bg-cyan-800 shadow-lg">
-      <GameWindow state={state} stateCallback={handleUserMove} active={userTurn} />
-      <div id="scoreboard" className="bg-cyan-700">
+    <div className="ml-96 w-fit h-fit m-10 p-4 grid grid-flow-col grid-cols-2  bg-cyan-800 shadow-lg">
+      <GameWindow
+        state={state}
+        stateCallback={handleUserMove}
+        active={userTurn}
+        resetCallback={handleReset}
+      />
+      {
+        /* <div id="scoreboard" className="bg-cyan-700">
         <h3 className="text-cyan-50">Player to go now:{userTurn ? 'you' : 'ai'}</h3>
         <div id="history">
           <ul>
@@ -104,53 +82,69 @@ export default function TicTacToe() {
             </li>
           </ul>
         </div>
-      </div>
+      </div> */
+      }
     </div>
   );
 }
 
-function GameWindow(props: { state: TicTacState, stateCallback: (state: TicTacState) => void; active: boolean }) {
+function GameWindow(
+  props: {
+    state: TicTacState;
+    stateCallback: (state: TicTacState) => void;
+    active: boolean;
+    resetCallback: () => void;
+  },
+) {
   const [failed, setFailed] = useState(false);
-  return (
-    <div>
-      {/* <h4 style={{
-        display: 'absolute',
-        visibility: `${failed ? 'visible' : 'hidden'}`
-      }} className="text-coral-400">
-        You can&apos;t do that now
-      </h4> */}
-      <div className="animate-spin w-20 h-20 text-2xl p-0 m-0  visible" style={{ zIndex: props.active ? 20 : 10 }}>
-        &#9203;
-      </div>
-      <div
-        id="ticContainer"
-        className=" w-fit h-fit relative m-4 grid gap-2 grid-rows-3 bg-cyan-900   grid-flow-col"
+  useEffect(() => {
+    props.resetCallback();
+
+  }, [failed, props])
+
+
+  function buttonClickHandler(cell: TicCell) {
+    return () => {
+      console.log("x, y :", cell.x, cell.y);
+      const move: Move = {
+        value: "x",
+        x: cell.x,
+        y: cell.y,
+      };
+      const { state, failed } = makeMove(move, props.state);
+      if (failed) {
+        setFailed(true);
+      } else {
+        props.stateCallback(state);
+        setFailed(false);
+      }
+    };
+  }
+
+  return <div >
+    <div id="status" className="flex flex-row">
+      <button
+        id="resetButton"
+        className="text-xl bg-cyan-700 p-2 m-2 rounded-lg h-20"
+        onClick={props.resetCallback}
       >
-        {props.state.cells.map((cell: TicCell, index: number) => {
-          return (
-            <button className={name} key={index}
-              onClick={() => {
-                const move: Move = {
-                  value: "x",
-                  x: cell.x,
-                  y: cell.y
-                };
-                const { state, failed } = makeMove(move, props.state);
-                if (failed) {
-                  setFailed(true);
-                } else {
-                  props.stateCallback(state);
-                  setFailed(false);
-                }
-              }}
-            >
-              <p className="text-4xl p-2 m-2 text-cyan-100">
-                {cell.value}
-              </p>
-            </button>
-          );
-        })}
-      </div>
+        Reset game
+      </button>
+      <p className="text-xl bg-cyan-700 m-1  h-20 w-40">
+        {props.active ? "your move" : "waiting for opponent's move"}
+      </p>
     </div>
-  );
+    <div
+      id="ticContainer"
+      className=" w-fit h-fit relative m-2 grid gap-2 grid-rows-3 bg-cyan-900   grid-flow-col"
+      style={{ opacity: props.active ? 1 : 0.5 }}
+    >
+      {props.state.cells.flat().map((cell: TicCell, index: number) => (
+        <Square buttonClickHandler={buttonClickHandler} cell={cell} key={index} />
+      ))}
+    </div>
+  </div>
+
 }
+
+
