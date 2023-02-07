@@ -28,12 +28,12 @@ export const Navbar = () => {
           >
             Conway&apos;s game of life
           </Link>
-          <Link
+          {/* <Link
             href="/games/mancala"
             className={linkClassName}
           >
             Mancala
-          </Link>
+          </Link> */}
           <Link
             href="/games/tic-tac-toe-tailwind"
             className={linkClassName}
@@ -46,12 +46,12 @@ export const Navbar = () => {
           >
             minesweeper
           </Link> */}
-          <Link
+          {/* <Link
             href="/games/three"
             className={linkClassName}
           >
             Threejs game
-          </Link>
+          </Link> */}
           {/* <ProjectsRedirect /> */}
           <Link
             href="/achievements"
@@ -61,7 +61,13 @@ export const Navbar = () => {
           </Link>
           <a
             href="https://www.canva.com/design/DAFRRXadvpw/dB6g9sy_uO3y3SNpmqnkxQ/view?utm_content=DAFRRXadvpw&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
-            className={`${linkClassName} bg-green-600`}
+            className={`${linkClassName} bg-green-600 mx-2`}
+          >
+            Canva Resume
+          </a>
+          <a
+            href="../assets/cv.pdf"
+            className={`${linkClassName} bg-green-600 mx-2`}
           >
             Resume [PDF]
           </a>

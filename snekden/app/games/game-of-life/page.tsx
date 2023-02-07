@@ -8,8 +8,8 @@ import { fillCellsWithStarts, getInitialArray } from "./utils/initFunctions";
 
 const SQUARE_SIDE_LENGTH = 64;
 const canvasShape: CanvasOptions = {
-  height: 600,
-  width: 600
+  height:550,
+  width:580
 };
 
 export default function ConwaysGame() {
