@@ -9,7 +9,7 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <body className="min-h-screen">
+      <body className="min-h-screen ">
         <Navbar />
         <div className="grid  bg-cyan-900 grid-cols-1 gap-4 place-content-center">
           {children}

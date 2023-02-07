@@ -1,150 +1,57 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { startingState } from "./init";
-import { Square } from "./Square";
-import { Move, TicCell, TicTacState } from "./types";
-/**
- * here AI always plays the random variant
- * @param state
- */
-function makeRandomMove(previousState: TicTacState): TicTacState {
-  const possibleCells: TicCell[] = previousState.cells.map((row) =>
-    row.filter((cell) => cell.value === "")
-  ).flat();
-  const chosenIndex: number = Math.floor(Math.random() * possibleCells.length);
-  const cell = possibleCells[chosenIndex];
-  const move: Move = {
-    value: "o",
-    x: cell.x,
-    y: cell.y,
-  };
-  const { state } = makeMove(move, previousState);
-  return state;
-}
+import { useState } from "react";
+import { FinalDisplay } from "./components/FinalDisplay";
+import { GameDisplay } from "./components/GameDisplay";
+import { makeMove } from "./game/engine";
+import { initGameConfig, startingState } from "./game/init";
+import { makeAiMove } from "./game/opponent";
+import { Move } from "./game/types";
 
-function makeMove(
-  move: Move,
-  state: TicTacState,
-): { state: TicTacState; failed: boolean } {
-  // check if the thing is free
-  // const index: number = state.cells[move.x][move.y];
-  // if (index == -1) return { state, failed: true };
-  // const cell = state.cells[index];
-  const cell = state.cells[move.x][move.y];
-  if (cell.value !== "") return { state, failed: true };
-  // update the state
-  state.cells[move.x][move.y] = { ...cell, value: move.value };
-  // return new state
-  return { state, failed: false };
-}
-
-
-function seeIfEnd(state: TicTacState) {
-
-
-}
 
 export default function TicTacToe() {
   const [state, setState] = useState(startingState);
-  const [userTurn, setUserTurn] = useState(true);
 
-  const handleUserMove: (state: TicTacState) => void = (state: TicTacState) => {
-    setState(state);
-    setUserTurn(false);
+  const handleUserMove = (move: Move) => {
+    const { newState, failed } = makeMove(move, state);
+    if (failed) {
+      endCallback();
+    } else {
+      setState(state => ({ ...newState, userTurn: true }));
+    }
+    // todo here check if need to do that
+    setState(state => ({ ...newState, userTurn: false }));
     setTimeout(() => {
-      const aiNewState: TicTacState = makeRandomMove(state);
-      setState(aiNewState);
-      setUserTurn(true);
+      const aiMove: Move = makeAiMove(state, initGameConfig);
+      const { newState, failed } = makeMove(aiMove, state);
+      if (failed) {
+        endCallback();
+      } else {
+        setState(state => ({ ...newState, userTurn: true }));
+      }
     }, 1000);
   };
-
 
   const handleReset = () => {
     setState(startingState);
   }
 
-  return (
-    <div className="ml-96 w-fit h-fit m-10 p-4 grid grid-flow-col grid-cols-2  bg-cyan-800 shadow-lg">
-      <GameWindow
-        state={state}
-        stateCallback={handleUserMove}
-        active={userTurn}
-        resetCallback={handleReset}
-      />
-      {
-        /* <div id="scoreboard" className="bg-cyan-700">
-        <h3 className="text-cyan-50">Player to go now:{userTurn ? 'you' : 'ai'}</h3>
-        <div id="history">
-          <ul>
-            <li>
-              here some past moves
-            </li>
-          </ul>
-        </div>
-      </div> */
-      }
-    </div>
-  );
-}
+  const endCallback = () => {
+    setState(state => ({ ...state, ended: true }));
+    // todo ensure this triggers the final display
 
-function GameWindow(
-  props: {
-    state: TicTacState;
-    stateCallback: (state: TicTacState) => void;
-    active: boolean;
-    resetCallback: () => void;
-  },
-) {
-  const [failed, setFailed] = useState(false);
-  useEffect(() => {
-    props.resetCallback();
-
-  }, [failed, props])
-
-
-  function buttonClickHandler(cell: TicCell) {
-    return () => {
-      console.log("x, y :", cell.x, cell.y);
-      const move: Move = {
-        value: "x",
-        x: cell.x,
-        y: cell.y,
-      };
-      const { state, failed } = makeMove(move, props.state);
-      if (failed) {
-        setFailed(true);
-      } else {
-        props.stateCallback(state);
-        setFailed(false);
-      }
-    };
   }
 
-  return <div id="gameWindow">
-    <div id="statusBar" className="flex flex-row h-20 m-2">
-      <button
-        id="resetButton"
-        className="text-xl bg-cyan-700 p-2 mx-2 rounded-lg hover:text-white "
-        onClick={props.resetCallback}
-      >
-        Reset game
-      </button>
-      <p className="text-xl bg-cyan-700 m-1 w-60 p-2 rounded-lg ">
-        {props.active ? "your move" : "waiting for opponent's move"}
-      </p>
-    </div>
-    <div
-      id="ticContainer"
-      className=" w-fit h-fit relative m-2 grid gap-2 grid-rows-3 bg-cyan-900   grid-flow-col"
-      style={{ opacity: props.active ? 1 : 0.5 }}
-    >
-      {props.state.cells.flat().map((cell: TicCell, index: number) => (
-        <Square buttonClickHandler={buttonClickHandler} cell={cell} key={index} />
-      ))}
-    </div>
+  return <div className="ml-96 w-fit h-fit m-10 p-4 grid grid-flow-col grid-cols-2  bg-cyan-800 shadow-lg  max-w-4cl min-h-screen">
+    <FinalDisplay gameState={state} />
+    <GameDisplay
+      state={state}
+      moveCallback={handleUserMove}
+      active={state.userTurn}
+      resetCallback={handleReset}
+    />
   </div>
-
 }
+
 
 

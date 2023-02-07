@@ -1,14 +1,23 @@
 "use client";
-import { TicCell, TicTacState } from "./types";
+import { GameConfig, TicCell, TicTacState } from "./types";
 
-// todo need to randomize who starts
-export const buttonName = "h-20 w-20 bg-cyan-600 m-3 grid flow-grid-row grid-rows-1 place-content-center ";
 const defaultSize = 3;
+
+const startingPlayer = () => {
+  return Math.floor(Math.random() * 2) > 1 ? true : false
+}
+
+export const initGameConfig:GameConfig = {
+  aiDifficultty: "easy"
+};
+
 export const startingState: TicTacState = {
   ended: false,
   message: "draw",
+  userTurn:startingPlayer(),
   cells: generateCells(defaultSize),
 };
+
 function generateCells(size: number): TicCell[][] {
   let cells: TicCell[][] = [];
   for (let x = 0; x < size; x++) {
