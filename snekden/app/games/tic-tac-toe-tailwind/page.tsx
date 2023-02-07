@@ -41,7 +41,7 @@ function makeMove(
 
 
 function seeIfEnd(state: TicTacState) {
-  
+
 
 }
 
@@ -121,16 +121,16 @@ function GameWindow(
     };
   }
 
-  return <div >
-    <div id="status" className="flex flex-row">
+  return <div id="gameWindow">
+    <div id="statusBar" className="flex flex-row h-20 m-2">
       <button
         id="resetButton"
-        className="text-xl bg-cyan-700 p-2 m-2 rounded-lg h-20"
+        className="text-xl bg-cyan-700 p-2 mx-2 rounded-lg hover:text-white "
         onClick={props.resetCallback}
       >
         Reset game
       </button>
-      <p className="text-xl bg-cyan-700 m-1  h-20 w-40">
+      <p className="text-xl bg-cyan-700 m-1 w-60 p-2 rounded-lg ">
         {props.active ? "your move" : "waiting for opponent's move"}
       </p>
     </div>
