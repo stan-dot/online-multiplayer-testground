@@ -7,3 +7,7 @@ export default function RoyalGame() {
 
 // inspired by this
 // https://www.youtube.com/watch?v=WZskjLq040I
+
+
+// try with xstate
+// https://xstate.js.org/
