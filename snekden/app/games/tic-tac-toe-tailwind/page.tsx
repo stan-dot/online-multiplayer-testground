@@ -69,7 +69,7 @@ export default function TicTacToe() {
   }, [ended, state, userTurn]);
 
   return (
-    <div className="ml-96 w-fit h-fit m-10 p-4 grid grid-flow-col grid-cols-2  bg-cyan-800 shadow-lg  max-w-4cl min-h-screen">
+    <div className="ml-96 w-fit h-fit m-10 p-4 grid grid-flow-col grid-cols-2  bg-cyan-800 shadow-lg  max-w-1cl min-h-screen">
       <GameDisplay
         state={state}
         moveCallback={handleUserMove}
