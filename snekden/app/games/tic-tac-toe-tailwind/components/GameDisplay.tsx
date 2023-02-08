@@ -1,5 +1,6 @@
 "use client";
 import { TicTacState, Move, TicCell } from "../game/types";
+import { FinalDisplay } from "./FinalDisplay";
 import { Square } from "./Square";
 
 export function GameDisplay(
@@ -23,12 +24,12 @@ export function GameDisplay(
     <div id="statusBar" className="flex flex-row h-20 m-2">
       <button
         id="resetButton"
-        className="text-xl bg-cyan-700 p-2 mx-2 rounded-lg hover:text-white "
+        className="text-xl bg-cyan-400 p-2 mx-2 rounded-lg hover:text-white "
         onClick={props.resetCallback}
       >
         Reset game
       </button>
-      <p className="text-xl bg-cyan-700 m-1 w-60 p-2 rounded-lg ">
+      <p className="text-xl bg-cyan-400 m-1 w-60 p-2 rounded-lg ">
         {props.active ? "your move" : "waiting for opponent's move"}
       </p>
     </div>

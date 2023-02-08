@@ -6,10 +6,6 @@ export function makeMove(
   move: Move,
   state: TicTacState
 ): { newState: TicTacState; failed: boolean; } {
-  // check if the thing is free
-  // const index: number = state.cells[move.x][move.y];
-  // if (index == -1) return { state, failed: true };
-  // const cell = state.cells[index];
   const cell = state.cells[move.x][move.y];
   if (cell.value !== "")
     return { newState: state, failed: true };
@@ -26,8 +22,7 @@ export function seeIfEnd(state: TicTacState): boolean {
 
 export function seeIfWon(state: TicTacState, value: CellContent) {
   const cells: TicCell[] = state.cells.flat().filter(c => c.value === value);
-  if (cells.length < 3)
-    return false;
+  if (cells.length < 3) return false;
   // check rows
   state.cells.forEach((row: TicCell[]) => {
     if (row.every(c => c.value === value))
@@ -56,6 +51,7 @@ export function seeIfWon(state: TicTacState, value: CellContent) {
 
   let leftWard = false;
   for (let i = 0; i < length; i++) {
+    console.log(state.cells);
     if (state.cells[length - i][i].value === value) {
       leftWard = true;
     } else {

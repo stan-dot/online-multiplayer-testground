@@ -12,7 +12,7 @@ export const initGameConfig:GameConfig = {
 };
 
 export const startingState: TicTacState = {
-  ended: false,
+  ended:true,
   message: "draw",
   userTurn:startingPlayer(),
   cells: generateCells(defaultSize),

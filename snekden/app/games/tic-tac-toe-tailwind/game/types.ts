@@ -2,12 +2,12 @@
 
 export type TicTacState = {
   ended: boolean;
-  message: EndMessage;
+  message: Message;
   userTurn: boolean;
   cells: TicCell[][];
 };
 
-type EndMessage = "you won" | "ai won" | "draw";
+type Message = "you won" | "ai won" | "your move" | "waiting for opponent's move";
 
 export type TicCell = {
   x: number;
