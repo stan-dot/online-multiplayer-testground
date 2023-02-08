@@ -42,7 +42,6 @@
   "devDependencies": {
     "@types/quill": "^2.0.10",
     "autoprefixer": "^10.4.13",
-    "next-transpile-modules": "^10.0.0",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.4"
   }
