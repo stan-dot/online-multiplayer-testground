@@ -1,6 +1,5 @@
 "use client";
 import { TicTacState, Move, TicCell } from "../game/types";
-import { FinalDisplay } from "./FinalDisplay";
 import { Square } from "./Square";
 
 export function GameDisplay(

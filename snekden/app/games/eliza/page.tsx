@@ -1,3 +1,4 @@
+"use client";
 import { useState } from 'react';
 import { EchoBot } from './bots/echo-bot/EchoBot';
 import { BotsList } from './BotsList';

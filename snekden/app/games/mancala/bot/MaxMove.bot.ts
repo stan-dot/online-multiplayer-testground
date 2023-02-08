@@ -1,12 +1,10 @@
 import { MancalaGameState, Move } from '../types/boardTypes';
-import { Direction, Line } from '../engine/types/Direction';
-import { PlayerSignature } from '../engine/types/PlayerSignature';
 import { getBestMove, getPossibleMoves } from './BotToolbox';
 import { HuzbaoBot } from './HuzbaoBot';
 import { MoveScorePair } from './MoveScorePair';
 
 export default class MaxMoveBot extends HuzbaoBot {
-  constructor(signature: PlayerSignature) {
+  constructor(signature:string) {
     super(signature);
   }
   public chooseMove(state: MancalaGameState): Move {

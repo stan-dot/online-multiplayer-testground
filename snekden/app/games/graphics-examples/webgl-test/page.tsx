@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Canvas } from "./Canvas";
 import { drawScene } from "./drawScene";
@@ -44,7 +45,10 @@ export default function WebGlTest(props: {}) {
       //   console.log('video callback called');
       //   updateTextureWithVideo(gl, textures, video)
       // }
-      drawScene(gl, programInfo, buffers, deltaTime, textures);
+      if (typeof window === 'undefined') {
+        drawScene(gl, programInfo, buffers, deltaTime, textures);
+
+      }
       requestAnimationFrame(render);
     }
 

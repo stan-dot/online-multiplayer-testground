@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from 'react';
-import RustComponent from './components/MinesweeperComponent';
+// import RustComponent from './components/MinesweeperComponent';
 import build, { getState } from './minesweeper_rust_lib/pkg/minesweeper';
 // import wasm from './minesweeper_rust_lib/pkg/minesweeper_bg.wasm';
 
@@ -40,7 +40,7 @@ export default function Minesweper() {
     <div className='h-[30rem] w-[24rem] grid-cols-10 m-5' id="minesweeper-container">
       {state}
     </div>
-    <RustComponent number={0} />
+    {/* <RustComponent number={0} /> */}
   </div>
 }
 

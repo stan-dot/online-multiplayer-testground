@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { Shape } from "./types/Shape";
 import { starCorners, offsets } from "./starCorners";

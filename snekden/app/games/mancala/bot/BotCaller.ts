@@ -1,8 +1,9 @@
-import { PlayerSignature } from '../engine/types/PlayerSignature';
+// import { PlayerSignature } from '../engine/types/PlayerSignature';
 import { HuzbaoBot } from './HuzbaoBot';
 
 export type BotCaller = {
   name: string;
-  signature: PlayerSignature;
-  caller: (signature: PlayerSignature) => HuzbaoBot;
+  // signature: PlayerSignature;
+  signature:string;
+  caller: (signature:string) => HuzbaoBot;
 };
