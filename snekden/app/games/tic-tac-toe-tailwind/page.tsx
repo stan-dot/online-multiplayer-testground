@@ -18,42 +18,40 @@ export default function TicTacToe() {
 
   const handleUserMove = (move: Move) => {
     const { newState, failed } = makeMove(move, state);
-    setState((state) => ({ ...newState, }));
-    setMessage("waiting for opponent's move");
-    console.log("now user should not interact");
     setUserTurn(false);
+
+    setState(newState);
+    setMessage("waiting for opponent's move");
   };
 
   const handleReset = () => {
     const newState = getStartingState();
     setState(newState);
     setEnded(false);
-    setUserTurn(startingPlayer())
+    setUserTurn(startingPlayer());
   };
 
   useEffect(() => {
-    // when users's move ended the game 
     const userEnded = seeIfEnd(state);
     const userWon: boolean = seeIfGivenWon(state, "x");
+
     if (userEnded && !userWon) {
       setMessage('draw');
       setEnded(true);
       return;
     }
+
     if (userWon) {
       setEnded(true);
       setMessage("you won");
       return;
-    } else {
-      setUserTurn(false);
     }
 
-    if (!userTurn && !userEnded) {
+    if (!userTurn) {
       const aiMove: Move = makeAiMove(state, initGameConfig);
       const { newState, failed } = makeMove(aiMove, state);
       const aiEnded = seeIfEnd(newState);
       const aiWon = seeIfGivenWon(newState, "o");
-
       if (aiEnded && !aiWon) {
         setMessage("draw");
         setEnded(true);
@@ -65,8 +63,9 @@ export default function TicTacToe() {
         setUserTurn(true);
         setMessage('your move');
       }
-      setState((state) => ({ ...newState }));
+      setState(newState);
     }
+
   }, [ended, state, userTurn]);
 
   return (
