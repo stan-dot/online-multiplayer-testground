@@ -69,7 +69,7 @@ export default function TicTacToe() {
   }, [ended, state, userTurn]);
 
   return (
-    <div className="ml-96 w-fit h-fit m-10 p-4 grid grid-flow-col grid-cols-2  bg-cyan-800 shadow-lg  max-w-1cl min-h-screen">
+    <div className="ml-96 w-fit h-fit m-10 p-4 grid grid-flow-row grid-cols-1  bg-cyan-800 shadow-lg  max-w-1cl min-h-screen">
       <GameDisplay
         state={state}
         moveCallback={handleUserMove}
@@ -77,6 +77,14 @@ export default function TicTacToe() {
         resetCallback={handleReset}
         message={message}
       />
+      <section className="max-w-4xl mx-auto p-4  sm:flex-row sm:justify-between resize bg-slate-400">
+        <h2 className="text-xl">This game milestones</h2>
+        <p> <input type="checkbox" disabled checked/> demo with random AI</p>
+        <p> <input type="checkbox" disabled /> reactive AI </p>
+        <p> <input type="checkbox" disabled /> choice of AI </p>
+        <p> <input type="checkbox" disabled /> perfect play AI</p>
+        <p> <input type="checkbox" disabled /> multiplayer</p>
+      </section>
     </div>
   );
 }
