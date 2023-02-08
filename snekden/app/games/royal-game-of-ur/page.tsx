@@ -1,13 +1,17 @@
-
+import Toggler from "./toggler";
 
 
 export default function RoyalGame() {
-  return <p>game</p>
+  return <div id="royalGameOfUrContainer">
+    <p>game</p>
+    <Toggler />
+  </div>
 }
 
+  // todo define ruleset 
+  // todo display
+  // todo do the piping from one to the other
 // inspired by this
 // https://www.youtube.com/watch?v=WZskjLq040I
 
-
-// try with xstate
-// https://xstate.js.org/
+// https://en.wikipedia.org/wiki/Royal_Game_of_Ur
