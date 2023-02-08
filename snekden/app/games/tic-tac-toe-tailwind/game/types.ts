@@ -7,7 +7,7 @@ export type TicTacState = {
   cells: TicCell[][];
 };
 
-type Message = "you won" | "ai won" | "your move" | "waiting for opponent's move";
+export type Message = "you won" | "ai won" | "your move" | "waiting for opponent's move";
 
 export type TicCell = {
   x: number;

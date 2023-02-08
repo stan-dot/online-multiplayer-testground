@@ -17,10 +17,11 @@ export function makeMove(
 
 export function seeIfEnd(state: TicTacState): boolean {
   const lastCell: TicCell | undefined = state.cells.flat().find(c => c.value === '');
-  return lastCell ? true : false;
+  return lastCell ? false:true;
 }
 
 export function seeIfWon(state: TicTacState, value: CellContent) {
+  return true;
   const cells: TicCell[] = state.cells.flat().filter(c => c.value === value);
   if (cells.length < 3) return false;
   // check rows
@@ -52,6 +53,7 @@ export function seeIfWon(state: TicTacState, value: CellContent) {
   let leftWard = false;
   for (let i = 0; i < length; i++) {
     console.log(state.cells);
+    console.log('could be undefined', state.cells[length - 1][i]);
     if (state.cells[length - i][i].value === value) {
       leftWard = true;
     } else {

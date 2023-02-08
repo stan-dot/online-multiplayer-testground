@@ -1,5 +1,5 @@
 "use client";
-import { GameConfig, TicCell, TicTacState } from "./types";
+import { GameConfig, Message, TicCell, TicTacState } from "./types";
 
 const defaultSize = 3;
 
@@ -11,11 +11,16 @@ export const initGameConfig:GameConfig = {
   aiDifficultty: "easy"
 };
 
-export const startingState: TicTacState = {
-  ended:true,
-  message: "draw",
-  userTurn:startingPlayer(),
-  cells: generateCells(defaultSize),
+export const getStartingState:()=>TicTacState = () => {
+  
+  const youStart = startingPlayer();
+  const m: Message = youStart ? "your move" : "waiting for opponent's move";
+  return {
+    ended: true,
+    message:m,
+    userTurn: youStart,
+    cells: generateCells(defaultSize),
+  }
 };
 
 function generateCells(size: number): TicCell[][] {

@@ -30,7 +30,8 @@ export function GameDisplay(
         Reset game
       </button>
       <p className="text-xl bg-cyan-400 m-1 w-60 p-2 rounded-lg ">
-        {props.active ? "your move" : "waiting for opponent's move"}
+        {/* {props.active ? "your move" : "waiting for opponent's move"} */}
+        {props.state.message}
       </p>
     </div>
     <div
