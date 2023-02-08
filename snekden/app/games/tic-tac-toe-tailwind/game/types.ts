@@ -1,13 +1,13 @@
 "use client";
 
 export type TicTacState = {
-  ended: boolean;
-  message: Message;
-  userTurn: boolean;
+  // ended: boolean;
+  // message: Message;
+  // userTurn: boolean;
   cells: TicCell[][];
 };
 
-export type Message = "you won" | "ai won" | "your move" | "waiting for opponent's move";
+export type Message = "you won" | "ai won" | "your move" | "waiting for opponent's move" | "draw";
 
 export type TicCell = {
   x: number;

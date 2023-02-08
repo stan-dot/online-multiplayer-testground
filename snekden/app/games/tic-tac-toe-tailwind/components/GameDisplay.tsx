@@ -9,6 +9,7 @@ export function GameDisplay(
     moveCallback: (move: Move) => void;
     active: boolean;
     resetCallback: () => void;
+    message: string;
   }) {
 
   const buttonClickHandler = (cell: TicCell) => {
@@ -31,7 +32,7 @@ export function GameDisplay(
       </button>
       <p className="text-xl bg-cyan-400 m-1 w-60 p-2 rounded-lg ">
         {/* {props.active ? "your move" : "waiting for opponent's move"} */}
-        {props.state.message}
+        {props.message}
       </p>
     </div>
     <div

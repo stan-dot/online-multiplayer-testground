@@ -3,7 +3,7 @@ import { GameConfig, Message, TicCell, TicTacState } from "./types";
 
 const defaultSize = 3;
 
-const startingPlayer = () => {
+export const startingPlayer = () => {
   return Math.floor(Math.random() * 2) > 1 ? true : false
 }
 
@@ -12,13 +12,7 @@ export const initGameConfig:GameConfig = {
 };
 
 export const getStartingState:()=>TicTacState = () => {
-  
-  const youStart = startingPlayer();
-  const m: Message = youStart ? "your move" : "waiting for opponent's move";
   return {
-    ended: true,
-    message:m,
-    userTurn: youStart,
     cells: generateCells(defaultSize),
   }
 };
