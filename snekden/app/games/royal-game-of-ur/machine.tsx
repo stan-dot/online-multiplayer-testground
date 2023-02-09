@@ -55,6 +55,7 @@ const fetchMachine =
 machine elements 
 - move randomizer - 4 dice, each 50-50 between 0 and 1 move points
 - whose turn it is
+- ai move choice
 - position of all of player's 7 pieces, inlcuding not deployed and finished
 - second player's position
 - user does the possible interactions - changes to the player positions
