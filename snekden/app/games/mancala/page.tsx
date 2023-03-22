@@ -1,6 +1,9 @@
 "use client";
 // todo also do animations, if possible
 
+// https://sketchfab.com/3d-models/3december-day-4-board-game-bdfed3dcbb3444c89c93abca285fb2ff
+// here a ready Blender object, just without color
+
 import { useState } from "react";
 
 type MancalaState = {
