@@ -1,6 +1,10 @@
 
 # first step
 - [ ] sortout the WASM thing  https://rustwasm.github.io/docs/wasm-pack/tutorials/hybrid-applications-with-webpack/using-your-library.html
+https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface/instantiateStreaming
+
+here more modern
+maybe there are 2 otpions - doing compilation dynamically or manually
 
 # add to game of life
 - [x] speed setting - the DEFAULT_TIME PERIOD in [usecanvasforcells]
