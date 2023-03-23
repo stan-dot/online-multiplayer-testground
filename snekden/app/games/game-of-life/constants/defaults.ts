@@ -1,6 +1,7 @@
+// shooting glider
 
-export const STARTING_CELLS = [
-  // shooting glider
+
+const gliderCells: number[][] = [
   [1, 5],
   [1, 6],
   [2, 5],
@@ -37,7 +38,9 @@ export const STARTING_CELLS = [
   [35, 4],
   [36, 3],
   [36, 4],
+];
 
+const randomCells: number[][] = [
   // Random cells
   // If you wait enough time these will eventually take part
   // in destroying the glider gun, and the simulation will be in a "static" state.
@@ -54,3 +57,5 @@ export const STARTING_CELLS = [
   [61, 51],
   [62, 51],
 ];
+
+export const STARTING_CELLS = [];

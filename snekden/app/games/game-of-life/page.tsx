@@ -2,8 +2,9 @@
 import { useState } from "react";
 import { Canvas } from "./Canvas";
 import { STARTING_CELLS } from "./constants/defaults";
+import { Setup } from "./Setup";
 import { CanvasOptions } from "./types/CanvasOptions";
-import { CellsCanvasData } from "./types/CellsCanvasData";
+import { CellsCanvasData, Shape } from "./types/CellsCanvasData";
 import { drawCells } from "./utils/canvasFunctions";
 import { fillCellsWithStarts, getInitialArray } from "./utils/initFunctions";
 
@@ -18,16 +19,20 @@ const maxSpeed = 40;
 
 const DEFAULT_TIME_PERIOD = 20;
 
+const EMPTY_CONTAINER: number[][] = getInitialArray(
+  SQUARE_SIDE_LENGTH,
+  SQUARE_SIDE_LENGTH,
+);
+const cells: number[][] = fillCellsWithStarts(
+  EMPTY_CONTAINER,
+  STARTING_CELLS,
+);
+
 export default function ConwaysGame() {
-  const EMPTY_CONTAINER: number[][] = getInitialArray(
-    SQUARE_SIDE_LENGTH,
-    SQUARE_SIDE_LENGTH,
-  );
-  const cells: number[][] = fillCellsWithStarts(
-    EMPTY_CONTAINER,
-    STARTING_CELLS,
-  );
-  const data: CellsCanvasData = { cells: cells };
+  const [data, setData] = useState<CellsCanvasData>({
+    cells: cells,
+    shapes: [],
+  });
   const [speed, setSpeed] = useState<number>(DEFAULT_TIME_PERIOD);
   const [stop, setStop] = useState<boolean>(true);
 
@@ -51,10 +56,23 @@ export default function ConwaysGame() {
           <p>max: {maxSpeed}</p>
           <p>current: {speed}</p>
         </div>
-        <button onClick={() => setStop(!stop)} className='rounded bg-slate-500 p-1 m-2'>
+        <button
+          onClick={() => setStop(!stop)}
+          className="rounded bg-slate-500 p-1 m-2"
+        >
           START/STOP
         </button>
       </div>
+      {/* setup screen */}
+      <Setup
+        callback={(shapes: Shape[]) =>
+          setData((data) => {
+            return {
+              cells: data.cells,
+              shapes: shapes,
+            };
+          })}
+      />
       <Canvas
         draw={drawCells}
         data={data}
