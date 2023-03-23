@@ -1,6 +1,7 @@
 import ProjectsRedirect from "./ProjectsRedirect";
 import Link from "next/link";
 import { HamburgerMenu } from "./menu";
+import { gameReferenceObjects } from "./gameReferenceObjects";
 
 export const linkClassName =
   "lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center hover:bg-green-600 hover:text-white ";
@@ -21,43 +22,20 @@ export const Navbar = () => {
         className={` w-full lg:inline-flex lg:flex-grow lg:w-auto`}
       >
         <div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-start items-start  flex flex-col lg:h-auto">
-          <Link
-            href="/games/royal-game-of-ur"
-            className={linkClassName}
-          >
-            Royal Game of Ur
-          </Link>
-          <Link
-            href="/games/game-of-life"
-            className={linkClassName}
-          >
-            Conway&apos;s game of life
-          </Link>
-          {/* <Link
-            href="/games/mancala"
-            className={linkClassName}
-          >
-            Mancala
-          </Link> */}
-          <Link
-            href="/games/tic-tac-toe-tailwind"
-            className={linkClassName}
-          >
-            TicTacToe
-          </Link>
-          {/* <Link
-            href="/games/minesweeper"
-            className={linkClassName}
-          >
-            minesweeper
-          </Link> */}
-          {/* <Link
-            href="/games/three"
-            className={linkClassName}
-          >
-            Threejs game
-          </Link> */}
-          {/* <ProjectsRedirect /> */}
+          {gameReferenceObjects.filter((o) => o.invisible === undefined).map(
+            (o, i) => {
+              return (
+                <Link
+                  key={i}
+                  href={`/games/${o.relativeLink}`}
+                  className={linkClassName}
+                >
+                  {o.name}
+                </Link>
+              );
+            },
+          )}
+
           <Link
             href="/achievements"
             className={linkClassName}

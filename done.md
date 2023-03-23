@@ -20,3 +20,17 @@
 - [x] sortout the konva installation thin g
 
 # deployment
+
+
+# skippable
+- [ ] request testimonials - quote the evaluation reports from uni? not sure if internal 
+- [ ] tagline section
+- [ ] logo - make with pixel graphics
+- [ ] high quality image
+
+
+# not doing
+- [ ] a search space
+- [ ] make docs thing peer to peer
+- [ ] reindeer consumer - money per person, number of people, city, time. API should be first, then trpc
+- Argument Tree

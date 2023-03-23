@@ -19,6 +19,7 @@ export default function ConwaysGame() {
 
   return <div className="relative left-20 flex flex-col rounded-lg w-4/5 m-4 bg-slate-400">
     <h1 className="bg-green-400 w-1/2 p-2 rounded"> Conway&apos;s game of life</h1>
+    {/* speed slider */}
     <Canvas draw={drawCells} data={data} options={canvasShape} />
   </div >
 
