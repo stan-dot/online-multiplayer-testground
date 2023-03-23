@@ -1,13 +1,12 @@
 "use client";
 import { useState } from "react";
-import { CellsCanvasData, Shape } from "../types/CellsCanvasData";
-import { getUpdatedGrid } from "../utils/gridUpdateFunction";
-import { useCanvasForCells } from "../utils/useCanvasForCells";
+import { basicSquare, defaultGlider } from "../constants/defaults";
+import { Shape } from "../types/CellsCanvasData";
 import { AddNewShape } from "./AddNewShape";
 import { ExampleLine } from "./ExampleLine";
 
-const DEFAULT_SHAPES: Shape[] = [];
-const availableShapes: Shape[] = [];
+const DEFAULT_SHAPES: Shape[] = [ defaultGlider, basicSquare];
+const availableShapes: Shape[] = [ defaultGlider, basicSquare];
 
 export function Setup(
   props: { callback: (shapes: Shape[]) => void; cancelCallback: () => void },

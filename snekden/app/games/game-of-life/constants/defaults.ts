@@ -1,5 +1,6 @@
 // shooting glider
 
+import { Shape } from "../types/CellsCanvasData";
 
 const gliderCells: number[][] = [
   [1, 5],
@@ -57,5 +58,20 @@ const randomCells: number[][] = [
   [61, 51],
   [62, 51],
 ];
+
+export const defaultGlider: Shape = {
+  startingPoint: [0, 0],
+  internalCells: gliderCells,
+};
+
+export const basicSquare: Shape = {
+  startingPoint: [0, 0],
+  internalCells: [
+    [0, 0],
+    [0, 1],
+    [1, 0],
+    [1, 1],
+  ],
+};
 
 export const STARTING_CELLS = [];
