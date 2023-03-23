@@ -42,7 +42,11 @@ export function EditableShape(
           ]);
         }}
       />
-      <div id="canvasPreview" className="border-1 border-solid border-red-500">
+      <div
+        id="canvasPreview"
+        className="border-1 border-solid border-red-500"
+        style={{ width: expanse[1], height: expanse[0] }}
+      >
         <canvas height={expanse[0]} width={expanse[1]} ref={staticCanvasRef} />
       </div>
       <button onClick={deleteCallback}>

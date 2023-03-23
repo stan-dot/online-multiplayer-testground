@@ -22,7 +22,9 @@ export function moveByVector(vector: number[], shape: Shape): Shape {
 }
 
 export function prepareCells(shape: Shape): number[][] {
-  return [[]];
+  const y = shape.startingPoint[1];
+  const x = shape.startingPoint[0];
+  return shape.internalCells.map((pair) => [pair[0] + x, pair[1] + y]);
 }
 
 const multiplier = 10;

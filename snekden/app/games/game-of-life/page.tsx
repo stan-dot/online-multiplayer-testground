@@ -1,7 +1,10 @@
 "use client";
 import { useState } from "react";
 import { Canvas } from "./Canvas";
-import { DEFAULT_SHAPES, STARTING_CELLS } from "./constants/defaults";
+import {
+  DEFAULT_SHAPES,
+  STARTING_CELLS_COORDINATES,
+} from "./constants/defaults";
 import { Setup } from "./settings/Setup";
 import { CanvasOptions } from "./types/CanvasOptions";
 import { CellsCanvasData, Shape } from "./types/CellsCanvasData";
@@ -25,18 +28,18 @@ const EMPTY_CONTAINER: number[][] = getInitialArray(
   SQUARE_SIDE_LENGTH,
 );
 
-const startingCells: number[][] = fillCellsWithStarts(
-  EMPTY_CONTAINER,
-  STARTING_CELLS,
-);
-
-const defaultData: CellsCanvasData = {
-  cells: startingCells,
-  shapes: DEFAULT_SHAPES,
-};
-
 export default function ConwaysGame() {
+  const startingGrid: number[][] = fillCellsWithStarts(
+    EMPTY_CONTAINER,
+    STARTING_CELLS_COORDINATES,
+  );
+  const defaultData: CellsCanvasData = {
+    cells: startingGrid,
+    shapes: DEFAULT_SHAPES,
+  };
   const [data, setData] = useState<CellsCanvasData>(defaultData);
+  console.log("default data:", defaultData);
+  console.log("starting cellls:", startingGrid);
 
   const [speed, setSpeed] = useState<number>(DEFAULT_TIME_PERIOD);
   const [stop, setStop] = useState<boolean>(true);
@@ -88,6 +91,11 @@ export default function ConwaysGame() {
             value={fillColor}
           />
         </div>
+        <button onClick={() => {
+          setData(defaultData);
+        }}>
+          Reset cells to defaults
+        </button>
         <button
           onClick={() => setStop(!stop)}
           className="rounded bg-slate-500 p-1 m-2"

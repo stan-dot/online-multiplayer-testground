@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { CellsCanvasData } from "../types/CellsCanvasData";
+import { CellsCanvasData, prepareCells } from "../types/CellsCanvasData";
 import { DrawingConstantWithCells } from "../types/drawingTypes";
 import { SimulationControl } from "../types/SimulationControl";
 import { getUpdatedGrid } from "./gridUpdateFunction";
@@ -19,17 +19,14 @@ export const useCanvasForCells = (
     ctx.strokeStyle = control.borderColor;
     ctx.fillStyle = control.fillColor;
 
+    console.log(data.cells);
     // data
-    let cells: number[][] = data.cells;
-    // todo add also use of shapes. need to translate all the stuff taking into account the starting point
-    // function prepareCells in cellscanvasdata
-    // todo possibly move this to above
-    const shapes = data.shapes;
+    let cells: number[][] = [
+      ...data.cells,
+      // ...data.shapes.map(prepareCells).flat(1),
+    ];
 
-    shapes.forEach((shape) => {
-      shape.internalCells;
-    });
-
+    console.log('cells: ', cells);
     // animation
     let frameCount = 0;
     let animationFrameId = 0;
@@ -53,6 +50,7 @@ export const useCanvasForCells = (
     control.speed,
     control.stop,
     data.cells,
+    data.shapes,
     draw,
   ]);
 

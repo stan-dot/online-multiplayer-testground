@@ -25,6 +25,7 @@ export function Setup(
     });
   };
 
+  const [regularCells, setRegularCells] = useState<number[][]>([[]]);
   return (
     <div id="setup">
       {shapes.map((s, i) => (
@@ -45,11 +46,66 @@ export function Setup(
         />
       ))}
       <AddNewShape addCallback={newShapeCallback} />
+      <div id="regularCells">
+        <div id="holderForExistingOne">
+          {regularCells.map((pair, i) => {
+            return <p key={i}>{pair[0]} {pair[1]}</p>;
+          })}
+        </div>
+        <AddNewPair
+          addCallback={(newCells: number[]) =>
+            setRegularCells((oldCells) => {
+              if (oldCells.includes(newCells)) return oldCells;
+              return [...oldCells, newCells];
+            })}
+        />
+      </div>
       <div>
         <button onClick={() => props.callback(shapes)}>
           Submit
         </button>
       </div>
+    </div>
+  );
+}
+
+function AddNewPair(props: { addCallback: (pair: number[]) => void }) {
+  const pairZero = [0, 0];
+  const [newPair, setNewPair] = useState<number[]>(pairZero);
+  return (
+    <div id="addMore">
+      <input
+        type="number"
+        min={0}
+        max={100}
+        id="xAxis"
+        value={newPair[0]}
+        onChange={(e) => {
+          setNewPair((oldPair) => {
+            return [parseInt(e.target.value), oldPair[1]];
+          });
+        }}
+      />
+      <input
+        type="number"
+        min={0}
+        max={100}
+        id="yAxis"
+        value={newPair[1]}
+        onChange={(e) => {
+          setNewPair((oldPair) => {
+            return [oldPair[0], parseInt(e.target.value)];
+          });
+        }}
+      />
+      <button
+        onClick={() => {
+          props.addCallback(newPair);
+          setNewPair(pairZero);
+        }}
+      >
+        Add
+      </button>
     </div>
   );
 }

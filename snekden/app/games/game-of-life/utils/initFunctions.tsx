@@ -10,6 +10,7 @@ export function getInitialArray(xLength: number, yLength: number): number[][] {
 }
 
 export function fillCellsWithStarts(container: number[][], contents: number[][]) {
+  console.log(contents);
   contents.forEach(point => {
     container[point[0]][point[1]] = 1;
   });
