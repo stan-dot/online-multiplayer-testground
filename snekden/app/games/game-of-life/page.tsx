@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
 import { Canvas } from "./Canvas";
-import { STARTING_CELLS } from "./constants/defaults";
+import { DEFAULT_SHAPES, STARTING_CELLS } from "./constants/defaults";
 import { Setup } from "./settings/Setup";
 import { CanvasOptions } from "./types/CanvasOptions";
 import { CellsCanvasData, Shape } from "./types/CellsCanvasData";
+import { SimulationControl } from "./types/SimulationControl";
 import { drawCells } from "./utils/canvasFunctions";
 import { fillCellsWithStarts, getInitialArray } from "./utils/initFunctions";
 
@@ -23,27 +24,40 @@ const EMPTY_CONTAINER: number[][] = getInitialArray(
   SQUARE_SIDE_LENGTH,
   SQUARE_SIDE_LENGTH,
 );
-const cells: number[][] = fillCellsWithStarts(
+
+const startingCells: number[][] = fillCellsWithStarts(
   EMPTY_CONTAINER,
   STARTING_CELLS,
 );
 
+const defaultData: CellsCanvasData = {
+  cells: startingCells,
+  shapes: DEFAULT_SHAPES,
+};
+
 export default function ConwaysGame() {
-  const [data, setData] = useState<CellsCanvasData>({
-    cells: cells,
-    shapes: [],
-  });
+  const [data, setData] = useState<CellsCanvasData>(defaultData);
+
   const [speed, setSpeed] = useState<number>(DEFAULT_TIME_PERIOD);
   const [stop, setStop] = useState<boolean>(true);
-  const [settingsOpen, setSettingsOpen] = useState(true);
+
+  const [borderColor, setBorderColor] = useState<string>("#e1e1e1");
+
+  const [fillColor, setFillColor] = useState<string>("#5F9EA0");
+
+  const control: SimulationControl = {
+    speed: speed,
+    stop: stop,
+    borderColor: borderColor,
+    fillColor: fillColor,
+  };
 
   return (
     <div className="relative left-20 flex flex-col rounded-lg w-4/5 m-4 bg-slate-400">
       <h1 className="bg-green-400 w-1/2 p-2 rounded">
         Conway&apos;s game of life
       </h1>
-      {/* speed slider */}
-      <div id="speedSlider" className="p-2 m-2 ">
+      <div id="speedSlider" className="p-2 m-2 flex flex-row">
         <input
           type="range"
           value={speed}
@@ -57,19 +71,33 @@ export default function ConwaysGame() {
           <p>max: {maxSpeed}</p>
           <p>current: {speed}</p>
         </div>
+        <div className="border-white border-1 border-solid rounded p-2">
+          <h2>Color</h2>
+          <label htmlFor="borderColor" />
+          <input
+            type="color"
+            id="borderColor"
+            onChange={(e) => setBorderColor(e.target.value)}
+            value={borderColor}
+          />
+          <label htmlFor="fillColor" />
+          <input
+            type="color"
+            id="fillColor"
+            onChange={(e) => setFillColor(e.target.value)}
+            value={fillColor}
+          />
+        </div>
         <button
           onClick={() => setStop(!stop)}
           className="rounded bg-slate-500 p-1 m-2"
         >
           START/STOP
         </button>
-        <button onClick={() => setSettingsOpen(true)}>
-          &#9881; Settings
-        </button>
-      </div>
-      {/* setup screen */}
-      {settingsOpen &&
-        (
+        <details>
+          <summary>
+            &#9881; Choose elements
+          </summary>
           <Setup
             callback={(shapes: Shape[]) =>
               setData((data) => {
@@ -78,14 +106,15 @@ export default function ConwaysGame() {
                   shapes: shapes,
                 };
               })}
-            cancelCallback={() => setSettingsOpen(false)}
+            shapes={DEFAULT_SHAPES}
           />
-        )}
+        </details>
+      </div>
       <Canvas
         draw={drawCells}
         data={data}
         options={canvasShape}
-        control={{ speed: speed, stop: stop }}
+        control={control}
       />
     </div>
   );

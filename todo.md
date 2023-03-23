@@ -1,12 +1,15 @@
 
-# add to game of life
+# add to game of life - choice of direction the glider and obstacles 
 - [x] speed setting - the DEFAULT_TIME PERIOD in [usecanvasforcells]
-- [ ] a choice of direction the glider and obstacles - so choice and rotation, out of possible structures. should be fine. STarting CELLS is the place
-- [ ] select input for elements dropdown, static or dynamic for optgrounp
-- [ ] meter for % alive?
-- [ ] input own color with 
-- [ ] details/summary for settings
-- [ ] datalist for autocomplete
+- [x] details/summary for settings
+- [x] input own color with 
+- [x] datalist for autocomplete
+- [x] select input for elements dropdown, static or dynamic for optgrounp
+- [ ] regular cells addition too
+- [ ] add reset to defaults option
+
+### rejected
+- rotation
 
 ## do with pixi-react and xstate
 https://github.com/pixijs/pixi-react

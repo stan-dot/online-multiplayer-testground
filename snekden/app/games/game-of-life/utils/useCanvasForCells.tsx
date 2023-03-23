@@ -16,11 +16,19 @@ export const useCanvasForCells = (
     // display concerns
     const canvas: HTMLCanvasElement = canvasRef.current;
     const ctx: CanvasRenderingContext2D = canvas!.getContext("2d")!;
-    ctx.strokeStyle = "#e1e1e1";
-    ctx.fillStyle = "cadetblue";
+    ctx.strokeStyle = control.borderColor;
+    ctx.fillStyle = control.fillColor;
 
     // data
     let cells: number[][] = data.cells;
+    // todo add also use of shapes. need to translate all the stuff taking into account the starting point
+    // function prepareCells in cellscanvasdata
+    // todo possibly move this to above
+    const shapes = data.shapes;
+
+    shapes.forEach((shape) => {
+      shape.internalCells;
+    });
 
     // animation
     let frameCount = 0;
@@ -39,7 +47,14 @@ export const useCanvasForCells = (
     };
     render();
     return () => window.cancelAnimationFrame(animationFrameId);
-  }, [control.speed, control.stop, data.cells, draw]);
+  }, [
+    control.borderColor,
+    control.fillColor,
+    control.speed,
+    control.stop,
+    data.cells,
+    draw,
+  ]);
 
   return canvasRef;
 };

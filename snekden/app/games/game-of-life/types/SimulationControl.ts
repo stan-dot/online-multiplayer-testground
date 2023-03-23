@@ -2,5 +2,7 @@
 
 export type SimulationControl = {
   speed: number,
-  stop:boolean
+  stop: boolean,
+  borderColor: string;
+  fillColor: string;
 }

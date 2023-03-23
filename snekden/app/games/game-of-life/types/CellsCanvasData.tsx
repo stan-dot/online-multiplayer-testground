@@ -2,10 +2,15 @@ export type CellsCanvasData = {
   cells: number[][];
   shapes: Shape[];
 };
+// http://www.radicaleye.com/lifepage/picgloss/picgloss.html
+
+type ShapeType = "nothing" | "stable" | "repeat";
 
 export type Shape = {
   startingPoint: number[];
   internalCells: number[][];
+  name: string;
+  type: ShapeType;
 };
 
 export function moveByVector(vector: number[], shape: Shape): Shape {
@@ -13,9 +18,14 @@ export function moveByVector(vector: number[], shape: Shape): Shape {
     shape.startingPoint[0] + vector[0],
     shape.startingPoint[1] + vector[1],
   ];
-  return { internalCells: shape.internalCells, startingPoint: newStart };
+  return { ...shape, startingPoint: newStart };
 }
 
+export function prepareCells(shape: Shape): number[][] {
+  return [[]];
+}
+
+const multiplier = 10;
 export function getExpanse(shape: Shape): number[] {
   if (shape.internalCells.length === 0) return [0, 0];
   const maxX = shape.internalCells[0].reduce(
@@ -26,7 +36,8 @@ export function getExpanse(shape: Shape): number[] {
     (a, b) => Math.max(a, b),
     -Infinity,
   );
+  // console.log(shape);
   // const minX = shape.internalCells[0].reduce((a, b) => Math.min(a, b), -Infinity);
   // const minY = shape.internalCells[1].reduce((a, b) => Math.min(a, b), -Infinity);
-  return [maxX, maxY];
+  return [maxX, maxY].map((x) => x * multiplier);
 }

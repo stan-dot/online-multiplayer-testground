@@ -59,12 +59,15 @@ const randomCells: number[][] = [
   [62, 51],
 ];
 
-export const defaultGlider: Shape = {
+ const defaultGlider: Shape = {
+  name: "glider",
   startingPoint: [0, 0],
   internalCells: gliderCells,
+  type: "repeat",
 };
 
-export const basicSquare: Shape = {
+const basicSquare: Shape = {
+  name: "square",
   startingPoint: [0, 0],
   internalCells: [
     [0, 0],
@@ -72,6 +75,18 @@ export const basicSquare: Shape = {
     [1, 0],
     [1, 1],
   ],
+  type: "stable",
 };
 
-export const STARTING_CELLS = [];
+const nothingTriomino: Shape = {
+  startingPoint: [0,0],
+  internalCells: [[0,1], [0,2], [1,0]],
+  name: "nihilist triomino",
+  type: "nothing",
+};
+
+export const STARTING_CELLS: number[][] = [randomCells.flat(1)];
+
+export const availableShapes: Shape[] = [defaultGlider, basicSquare, nothingTriomino];
+
+export const DEFAULT_SHAPES: Shape[] = [defaultGlider, basicSquare];
