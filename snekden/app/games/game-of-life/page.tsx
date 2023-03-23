@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Canvas } from "./Canvas";
 import { STARTING_CELLS } from "./constants/defaults";
-import { Setup } from "./Setup";
+import { Setup } from "./settings/Setup";
 import { CanvasOptions } from "./types/CanvasOptions";
 import { CellsCanvasData, Shape } from "./types/CellsCanvasData";
 import { drawCells } from "./utils/canvasFunctions";
@@ -35,6 +35,7 @@ export default function ConwaysGame() {
   });
   const [speed, setSpeed] = useState<number>(DEFAULT_TIME_PERIOD);
   const [stop, setStop] = useState<boolean>(true);
+  const [settingsOpen, setSettingsOpen] = useState(true);
 
   return (
     <div className="relative left-20 flex flex-col rounded-lg w-4/5 m-4 bg-slate-400">
@@ -62,17 +63,24 @@ export default function ConwaysGame() {
         >
           START/STOP
         </button>
+        <button onClick={() => setSettingsOpen(true)}>
+          &#9881; Settings
+        </button>
       </div>
       {/* setup screen */}
-      <Setup
-        callback={(shapes: Shape[]) =>
-          setData((data) => {
-            return {
-              cells: data.cells,
-              shapes: shapes,
-            };
-          })}
-      />
+      {settingsOpen &&
+        (
+          <Setup
+            callback={(shapes: Shape[]) =>
+              setData((data) => {
+                return {
+                  cells: data.cells,
+                  shapes: shapes,
+                };
+              })}
+            cancelCallback={() => setSettingsOpen(false)}
+          />
+        )}
       <Canvas
         draw={drawCells}
         data={data}
