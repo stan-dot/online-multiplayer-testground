@@ -16,11 +16,17 @@ export function moveByVector(vector: number[], shape: Shape): Shape {
   return { internalCells: shape.internalCells, startingPoint: newStart };
 }
 
-
-export function getExpanse(shape: Shape): number[]{
-const maxX = shape.internalCells[0].reduce((a, b) => Math.max(a, b), -Infinity);
-const maxY = shape.internalCells[1].reduce((a, b) => Math.max(a, b), -Infinity);
-// const minX = shape.internalCells[0].reduce((a, b) => Math.min(a, b), -Infinity);
-// const minY = shape.internalCells[1].reduce((a, b) => Math.min(a, b), -Infinity);
-  return [maxX, maxY]
+export function getExpanse(shape: Shape): number[] {
+  if (shape.internalCells.length === 0) return [0, 0];
+  const maxX = shape.internalCells[0].reduce(
+    (a, b) => Math.max(a, b),
+    -Infinity,
+  );
+  const maxY = shape.internalCells[1].reduce(
+    (a, b) => Math.max(a, b),
+    -Infinity,
+  );
+  // const minX = shape.internalCells[0].reduce((a, b) => Math.min(a, b), -Infinity);
+  // const minY = shape.internalCells[1].reduce((a, b) => Math.min(a, b), -Infinity);
+  return [maxX, maxY];
 }
