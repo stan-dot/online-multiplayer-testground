@@ -34,3 +34,12 @@
 - [ ] make docs thing peer to peer
 - [ ] reindeer consumer - money per person, number of people, city, time. API should be first, then trpc
 - Argument Tree
+
+# failed to implement
+
+- [x] sortout the WASM thing  https://rustwasm.github.io/docs/wasm-pack/tutorials/hybrid-applications-with-webpack/using-your-library.html
+https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface/instantiateStreaming
+
+here more modern
+maybe there are 2 otpions - doing compilation dynamically or manually
+https://github.com/vercel/next.js/tree/canary/examples/with-webassembly

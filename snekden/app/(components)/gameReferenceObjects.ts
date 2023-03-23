@@ -25,5 +25,6 @@ export const gameReferenceObjects: GameReferenceObject[] = [
   {
     name: "Minesweeper",
     relativeLink: "minesweeper",
+    invisible: true,
   },
 ];
