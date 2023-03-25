@@ -7,9 +7,10 @@ import { useCanvasForStatic } from "./useCanvasForStatic";
 export function EditableShape(
   { shape, deleteCallback, changeStartingPointCallback }: EditableShapeProps,
 ): JSX.Element {
-  const staticCanvasRef = useCanvasForStatic([shape]);
   const expanse: number[] = getExpanse(shape);
-  // console.log(expanse);
+
+
+  const staticCanvasRef = useCanvasForStatic(expanse, shape);
 
   return (
     <div className="flex flex-row p-2 m-2 justify-between">
@@ -44,10 +45,12 @@ export function EditableShape(
       />
       <div
         id="canvasPreview"
-        className="border-1 border-solid border-red-500"
+        className="border-1 border-solid border-red-500 bg-red-400"
         style={{ width: expanse[1], height: expanse[0] }}
       >
+        {/* <p>above the canvas</p> */}
         <canvas height={expanse[0]} width={expanse[1]} ref={staticCanvasRef} />
+        {/* <p>below the canvas</p> */}
       </div>
       <button onClick={deleteCallback}>
         &#128465; delete

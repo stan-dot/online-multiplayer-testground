@@ -43,3 +43,27 @@ export function getExpanse(shape: Shape): number[] {
   // const minY = shape.internalCells[1].reduce((a, b) => Math.min(a, b), -Infinity);
   return [maxX, maxY].map((x) => x * multiplier);
 }
+
+export function getFinalCells(shape: Shape): number[][] {
+  const yStart = shape.startingPoint[1];
+  const xStart = shape.startingPoint[0];
+  return shape.internalCells.map(
+    (cell) => [cell[0] + xStart, cell[1] + yStart],
+  );
+}
+
+export function addShapeToGrid(grid: number[][], shape: Shape): number[][] {
+  const movedShape: number[][] = getFinalCells(shape);
+  grid = grid.map((row, i) => {
+    return row.map((cell, j) => {
+      if (cell === 1) return 1;
+      const syntheticCell: number[] = [i, j];
+      if (movedShape.includes(syntheticCell)) {
+        return 1;
+      }
+      return 0;
+    });
+  });
+
+  return grid;
+}

@@ -1,5 +1,9 @@
 import { useEffect, useRef } from "react";
-import { CellsCanvasData, prepareCells } from "../types/CellsCanvasData";
+import {
+  addShapeToGrid,
+  CellsCanvasData,
+  prepareCells,
+} from "../types/CellsCanvasData";
 import { DrawingConstantWithCells } from "../types/drawingTypes";
 import { SimulationControl } from "../types/SimulationControl";
 import { getUpdatedGrid } from "./gridUpdateFunction";
@@ -23,10 +27,13 @@ export const useCanvasForCells = (
     // data
     let cells: number[][] = [
       ...data.cells,
-      // ...data.shapes.map(prepareCells).flat(1),
     ];
+    cells = data.shapes.reduce(
+      (grid, currentShape) => addShapeToGrid(grid, currentShape),
+      cells,
+    );
 
-    console.log('cells: ', cells);
+    console.log("cells: ", cells);
     // animation
     let frameCount = 0;
     let animationFrameId = 0;

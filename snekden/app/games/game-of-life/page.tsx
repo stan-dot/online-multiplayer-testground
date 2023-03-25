@@ -91,13 +91,20 @@ export default function ConwaysGame() {
             value={fillColor}
           />
         </div>
-        <button onClick={() => {
-          setData(defaultData);
-        }}>
+        <button
+          onClick={() => {
+            setData(defaultData);
+          }}
+        >
           Reset cells to defaults
         </button>
         <button
-          onClick={() => setStop(!stop)}
+          onClick={() => {
+            setStop(!stop);
+            console.log(
+              data.shapes,
+            );
+          }}
           className="rounded bg-slate-500 p-1 m-2"
         >
           START/STOP
