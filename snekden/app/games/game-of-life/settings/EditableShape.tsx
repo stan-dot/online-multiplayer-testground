@@ -49,10 +49,10 @@ export function EditableShape(
       <div
         id="canvasPreview"
         className="border-1 border-solid border-red-500 bg-red-400"
-        style={{ width: SIZE_MULTIPLIER * expanse[1], height: SIZE_MULTIPLIER * expanse[0] }}
+        style={{ width: SIZE_MULTIPLIER * expanse[0], height: SIZE_MULTIPLIER * expanse[0] }}
       >
         {/* <p>above the canvas</p> */}
-        <canvas height={SIZE_MULTIPLIER * expanse[0]} width={SIZE_MULTIPLIER * expanse[1]} ref={staticCanvasRef} />
+        <canvas width={SIZE_MULTIPLIER * expanse[0]} height={SIZE_MULTIPLIER * expanse[1]}  ref={staticCanvasRef} />
         {/* <p>below the canvas</p> */}
       </div>
       <button onClick={deleteCallback} className="bg-slate-600 rounded shadow-md p-2">

@@ -31,7 +31,9 @@ export const useCanvasForStatic = (
 
     // data concerns
     const grid = getEmptyGrid(dimensions[0], dimensions[1]);
-    const cells = addShapeToGrid(grid, shape);
+    console.log('grid static: ', grid);
+    const cells = addShapeToGrid(grid, shape, false);
+    console.log('cells static: ',cells);
 
     cells.forEach((row, x) => {
       row.forEach((cell, y) => {

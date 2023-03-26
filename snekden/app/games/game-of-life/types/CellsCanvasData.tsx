@@ -28,6 +28,7 @@ export function prepareCells(shape: Shape): number[][] {
 }
 
 const multiplier = 10;
+const minimums = 30;
 export function getExpanse(shape: Shape): number[] {
   if (shape.internalCells.length === 0) return [0, 0];
   const maxX = shape.internalCells.reduce(
@@ -38,11 +39,10 @@ export function getExpanse(shape: Shape): number[] {
     (a: number, b: number[]) => Math.max(a, b[1]),
     -Infinity,
   );
-  // console.log(shape);
-  // console.log(maxX, maxY);
-  // const minX = shape.internalCells[0].reduce((a, b) => Math.min(a, b), -Infinity);
-  // const minY = shape.internalCells[1].reduce((a, b) => Math.min(a, b), -Infinity);
-  return [maxX, maxY].map((x) => x * multiplier);
+
+  return [maxX, maxY].map((x) => x * multiplier).map((x) =>
+    x > minimums ? x : minimums
+  );
 }
 
 export function getFinalCells(shape: Shape): number[][] {
@@ -53,24 +53,14 @@ export function getFinalCells(shape: Shape): number[][] {
   );
 }
 
-export function addShapeToGrid(grid: number[][], shape: Shape): number[][] {
-  console.log("grid before addding: ", grid);
-  const movedShape: number[][] = getFinalCells(shape);
-  console.log("moved shape: ", movedShape);
-  movedShape.forEach((pointThatIs1) => {
+export function addShapeToGrid(
+  grid: number[][],
+  shape: Shape,
+  dynamic: boolean = true,
+): number[][] {
+  const cells = dynamic ? getFinalCells(shape) : shape.internalCells;
+  cells.forEach((pointThatIs1) => {
     grid[pointThatIs1[0]][pointThatIs1[1]] = 1;
   });
-  // grid = grid.map((row, i) => {
-  //   return row.map((cell, j) => {
-  //     if (cell === 1) return 1;
-  //     const syntheticCell: number[] = [i, j];
-  //     if (movedShape.includes(syntheticCell)) {
-  //       return 1;
-  //     }
-  //     return 0;
-  //   });
-  // });
-
-  console.log("grid after adding: ", shape, " grid: ", grid);
   return grid;
 }
