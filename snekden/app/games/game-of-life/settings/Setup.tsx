@@ -25,7 +25,7 @@ export function Setup(
     });
   };
 
-  const [regularCells, setRegularCells] = useState<number[][]>([[]]);
+  const [regularCells, setRegularCells] = useState<number[][]>([]);
   return (
     <div id="setup">
       {shapes.map((s, i) => (
@@ -46,13 +46,15 @@ export function Setup(
         />
       ))}
       <AddNewShape addCallback={newShapeCallback} />
-      <div id="regularCells">
-        <div id="holderForExistingOne">
+      <br/>
+      <div id="regularCells" className="m-2">
+        <p>Individual cells: </p>
+        <div id="holderForExistingOne" className="m-2 flex flex-row ">
           {regularCells.map((pair, i) => {
-            return <p key={i}>{pair[0]} {pair[1]}</p>;
+            return <p key={i}>{`[${pair[0]}, ${pair[1]}]`}</p>;
           })}
         </div>
-        <AddNewPair
+        <AddPointsPair
           addCallback={(newCells: number[]) =>
             setRegularCells((oldCells) => {
               if (oldCells.includes(newCells)) return oldCells;
@@ -63,7 +65,7 @@ export function Setup(
       <div>
         <button
           onClick={() => props.callback(shapes)}
-          className="bg-green-600 p-2 rounded shadow"
+          className="bg-green-600 p-2 rounded shadow m-2"
         >
           Submit
         </button>
@@ -72,11 +74,12 @@ export function Setup(
   );
 }
 
-function AddNewPair(props: { addCallback: (pair: number[]) => void }) {
+function AddPointsPair(props: { addCallback: (pair: number[]) => void }) {
   const pairZero = [0, 0];
   const [newPair, setNewPair] = useState<number[]>(pairZero);
   return (
     <div id="addMore" className="p-2">
+      <p>Add specific cells yourself</p>
       <input
         type="number"
         min={0}

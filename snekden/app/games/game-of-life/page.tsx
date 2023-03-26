@@ -38,15 +38,9 @@ export default function ConwaysGame() {
     shapes: DEFAULT_SHAPES,
   };
   const [data, setData] = useState<CellsCanvasData>(defaultData);
-  // console.log("random cells:",STARTING_CELLS_COORDINATES);
-  // console.log("default data:", defaultData);
-  // console.log("starting cellls:", startingGrid);
-
   const [speed, setSpeed] = useState<number>(DEFAULT_TIME_PERIOD);
   const [stop, setStop] = useState<boolean>(true);
-
   const [borderColor, setBorderColor] = useState<string>("#e1e1e1");
-
   const [fillColor, setFillColor] = useState<string>("#5F9EA0");
 
   const control: SimulationControl = {
@@ -61,72 +55,75 @@ export default function ConwaysGame() {
       <h1 className="bg-green-400 w-1/2 p-2 rounded">
         Conway&apos;s game of life
       </h1>
-      <div id="speedSlider" className="p-2 m-2 flex flex-row">
-        <input
-          type="range"
-          value={speed}
-          onChange={(v) => setSpeed(parseInt(v.target.value))}
-          min={minSpeed}
-          max={maxSpeed}
-        />
-        <div className="border-white border-1 border-solid rounded p-2">
-          <h2>Speed</h2>
-          <p>min: {minSpeed}</p>
-          <p>max: {maxSpeed}</p>
-          <p>current: {speed}</p>
-        </div>
-        <div className="border-white border-1 border-solid rounded p-2">
-          <h2>Color</h2>
-          <label htmlFor="borderColor" />
+      <div>
+        <div id="speedSlider" className="p-2 m-2 flex flex-row">
           <input
-            type="color"
-            id="borderColor"
-            onChange={(e) => setBorderColor(e.target.value)}
-            value={borderColor}
+            type="range"
+            value={speed}
+            onChange={(v) => setSpeed(parseInt(v.target.value))}
+            min={minSpeed}
+            max={maxSpeed}
           />
-          <label htmlFor="fillColor" />
-          <input
-            type="color"
-            id="fillColor"
-            onChange={(e) => setFillColor(e.target.value)}
-            value={fillColor}
-          />
+          <div className="border-white border-1 border-solid rounded p-2">
+            <h2>Speed</h2>
+            <p>min: {minSpeed}</p>
+            <p>max: {maxSpeed}</p>
+            <p>current: {speed}</p>
+          </div>
+          <div className="border-white border-1 border-solid rounded p-2">
+            <h2>Color</h2>
+            <label htmlFor="borderColor" />
+            <input
+              type="color"
+              id="borderColor"
+              onChange={(e) => setBorderColor(e.target.value)}
+              value={borderColor}
+            />
+            {/* <label htmlFor="fillColor" />
+            <input
+              type="color"
+              id="fillColor"
+              onChange={(e) => setFillColor(e.target.value)}
+              value={fillColor}
+            /> */}
+          </div>
+          <button
+            onClick={() => {
+              setData(defaultData);
+            }}
+            className="bg-green-600 p-2 rounded shadow"
+          >
+            Reset cells to defaults
+          </button>
+          <button
+            onClick={() => {
+              setStop(!stop);
+              console.log(
+                data.shapes,
+              );
+            }}
+            className="rounded bg-slate-500 p-1 m-2"
+          >
+            START/STOP
+          </button>
         </div>
-        <button
-          onClick={() => {
-            setData(defaultData);
-          }}
-          className="bg-green-600 p-2 rounded shadow"
-        >
-          Reset cells to defaults
-        </button>
-        <button
-          onClick={() => {
-            setStop(!stop);
-            console.log(
-              data.shapes,
-            );
-          }}
-          className="rounded bg-slate-500 p-1 m-2"
-        >
-          START/STOP
-        </button>
-        {/* <details> */}
-        {/* <summary> */}
-        {/* &#9881; Choose elements */}
-        {/* </summary> */}
-        <Setup
-          callback={(shapes: Shape[]) =>
-            setData((data) => {
-              return {
-                cells: data.cells,
-                shapes: shapes,
-              };
-            })}
-          shapes={DEFAULT_SHAPES}
-        />
-        {/* </details> */}
+        <details>
+          <summary className="m-2">
+            &#9881; Choose elements
+          </summary>
+          <Setup
+            callback={(shapes: Shape[]) =>
+              setData((data) => {
+                return {
+                  cells: data.cells,
+                  shapes: shapes,
+                };
+              })}
+            shapes={DEFAULT_SHAPES}
+          />
+        </details>
       </div>
+
       <Canvas
         draw={drawCells}
         data={data}

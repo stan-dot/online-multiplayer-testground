@@ -70,6 +70,7 @@ export function AddNewShape(props: { addCallback: (newShape: Shape) => void }) {
           props.addCallback(newShape);
           setNewShape(emptyShape);
         }}
+        className="bg-green-600 shadow rounded m-2 p-2"
       >
         Add new shape
       </button>
