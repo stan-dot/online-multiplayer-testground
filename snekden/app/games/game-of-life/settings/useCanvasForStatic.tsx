@@ -21,7 +21,7 @@ export const useCanvasForStatic = (
 ) => {
   const canvasRef = useRef({} as HTMLCanvasElement);
   useEffect(() => {
-    console.log("running cavas for shape: ", shape);
+    console.log("running canvas for shape: ", shape);
     // display concerns
     const canvas: HTMLCanvasElement = canvasRef.current;
     const ctx: CanvasRenderingContext2D = canvas!.getContext("2d")!;
@@ -29,10 +29,10 @@ export const useCanvasForStatic = (
     ctx.fillStyle = "cadetblue";
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
+    // data concerns
     const grid = getEmptyGrid(dimensions[0], dimensions[1]);
     const cells = addShapeToGrid(grid, shape);
 
-    // let cells: number[][] = data.cells;
     cells.forEach((row, x) => {
       row.forEach((cell, y) => {
         ctx.beginPath();

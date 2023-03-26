@@ -61,7 +61,10 @@ export function Setup(
         />
       </div>
       <div>
-        <button onClick={() => props.callback(shapes)}>
+        <button
+          onClick={() => props.callback(shapes)}
+          className="bg-green-600 p-2 rounded shadow"
+        >
           Submit
         </button>
       </div>
@@ -73,7 +76,7 @@ function AddNewPair(props: { addCallback: (pair: number[]) => void }) {
   const pairZero = [0, 0];
   const [newPair, setNewPair] = useState<number[]>(pairZero);
   return (
-    <div id="addMore">
+    <div id="addMore" className="p-2">
       <input
         type="number"
         min={0}

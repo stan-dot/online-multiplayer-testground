@@ -28,12 +28,13 @@ export const useCanvasForCells = (
     let cells: number[][] = [
       ...data.cells,
     ];
+    // console.log('cells before adding shapes:', cells);
     cells = data.shapes.reduce(
       (grid, currentShape) => addShapeToGrid(grid, currentShape),
       cells,
     );
 
-    console.log("cells: ", cells);
+    // console.log("cells after adding shapes: ", cells);
     // animation
     let frameCount = 0;
     let animationFrameId = 0;

@@ -85,7 +85,7 @@ const nothingTriomino: Shape = {
   type: "nothing",
 };
 
-export const STARTING_CELLS_COORDINATES: number[][] = [randomCells.flat(1)];
+export const STARTING_CELLS_COORDINATES: number[][] = [...randomCells];
 
 export const availableShapes: Shape[] = [
   defaultGlider,

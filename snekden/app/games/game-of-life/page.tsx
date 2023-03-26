@@ -38,8 +38,9 @@ export default function ConwaysGame() {
     shapes: DEFAULT_SHAPES,
   };
   const [data, setData] = useState<CellsCanvasData>(defaultData);
-  console.log("default data:", defaultData);
-  console.log("starting cellls:", startingGrid);
+  // console.log("random cells:",STARTING_CELLS_COORDINATES);
+  // console.log("default data:", defaultData);
+  // console.log("starting cellls:", startingGrid);
 
   const [speed, setSpeed] = useState<number>(DEFAULT_TIME_PERIOD);
   const [stop, setStop] = useState<boolean>(true);
@@ -95,6 +96,7 @@ export default function ConwaysGame() {
           onClick={() => {
             setData(defaultData);
           }}
+          className="bg-green-600 p-2 rounded shadow"
         >
           Reset cells to defaults
         </button>
@@ -109,21 +111,21 @@ export default function ConwaysGame() {
         >
           START/STOP
         </button>
-        <details>
-          <summary>
-            &#9881; Choose elements
-          </summary>
-          <Setup
-            callback={(shapes: Shape[]) =>
-              setData((data) => {
-                return {
-                  cells: data.cells,
-                  shapes: shapes,
-                };
-              })}
-            shapes={DEFAULT_SHAPES}
-          />
-        </details>
+        {/* <details> */}
+        {/* <summary> */}
+        {/* &#9881; Choose elements */}
+        {/* </summary> */}
+        <Setup
+          callback={(shapes: Shape[]) =>
+            setData((data) => {
+              return {
+                cells: data.cells,
+                shapes: shapes,
+              };
+            })}
+          shapes={DEFAULT_SHAPES}
+        />
+        {/* </details> */}
       </div>
       <Canvas
         draw={drawCells}

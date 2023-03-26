@@ -4,10 +4,13 @@ import { getExpanse } from "../types/CellsCanvasData";
 import { EditableShapeProps } from "./ConfigLineProps";
 import { useCanvasForStatic } from "./useCanvasForStatic";
 
+const SIZE_MULTIPLIER: number = 1;
+
 export function EditableShape(
   { shape, deleteCallback, changeStartingPointCallback }: EditableShapeProps,
 ): JSX.Element {
   const expanse: number[] = getExpanse(shape);
+  // console.log('expanse:', expanse, 'for shape:', shape.name);
 
 
   const staticCanvasRef = useCanvasForStatic(expanse, shape);
@@ -46,13 +49,13 @@ export function EditableShape(
       <div
         id="canvasPreview"
         className="border-1 border-solid border-red-500 bg-red-400"
-        style={{ width: expanse[1], height: expanse[0] }}
+        style={{ width: SIZE_MULTIPLIER * expanse[1], height: SIZE_MULTIPLIER * expanse[0] }}
       >
         {/* <p>above the canvas</p> */}
-        <canvas height={expanse[0]} width={expanse[1]} ref={staticCanvasRef} />
+        <canvas height={SIZE_MULTIPLIER * expanse[0]} width={SIZE_MULTIPLIER * expanse[1]} ref={staticCanvasRef} />
         {/* <p>below the canvas</p> */}
       </div>
-      <button onClick={deleteCallback}>
+      <button onClick={deleteCallback} className="bg-slate-600 rounded shadow-md p-2">
         &#128465; delete
       </button>
     </div>
