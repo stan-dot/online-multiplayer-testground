@@ -9,19 +9,20 @@ export function Setup(
 ) {
   const [shapes, setShapes] = useState<Shape[]>(props.shapes);
 
-  const newShapeCallback = (newShape: Shape) => {
+  const newShapeCallback = (shape: Shape) => {
+    let clone = structuredClone(shape);
     const isAlreadyIndex: number = shapes.findIndex((s) =>
-      s.name === newShape.name
+      s.name === clone.name
     );
     if (isAlreadyIndex > -1) {
       const novelIndex: number = shapes.filter((s) =>
-        s.type === newShape.type
+        s.type === clone.type
       ).length;
-      newShape.name = `${newShape.name}-${novelIndex}`;
+      clone.name = `${clone.name}-${novelIndex}`;
     }
 
     setShapes((existing) => {
-      return [...existing, newShape];
+      return [...existing, clone];
     });
   };
 
@@ -46,9 +47,9 @@ export function Setup(
         />
       ))}
       <AddNewShape addCallback={newShapeCallback} />
-      <br/>
+      <br />
       <div id="regularCells" className="m-2">
-        <p>Individual cells: </p>
+        <p>Individual cells:</p>
         <div id="holderForExistingOne" className="m-2 flex flex-row ">
           {regularCells.map((pair, i) => {
             return <p key={i}>{`[${pair[0]}, ${pair[1]}]`}</p>;
@@ -78,8 +79,8 @@ function AddPointsPair(props: { addCallback: (pair: number[]) => void }) {
   const pairZero = [0, 0];
   const [newPair, setNewPair] = useState<number[]>(pairZero);
   return (
-    <div id="addMore" className="p-2">
-      <p>Add specific cells yourself</p>
+    <div id="addMore" className="p-2 flex flex-row">
+      <p className="m-2">Add specific cells yourself</p>
       <input
         type="number"
         min={0}
@@ -109,6 +110,7 @@ function AddPointsPair(props: { addCallback: (pair: number[]) => void }) {
           props.addCallback(newPair);
           setNewPair(pairZero);
         }}
+        className="bg-green-600  m-2 p-2 rounded shadow"
       >
         Add
       </button>

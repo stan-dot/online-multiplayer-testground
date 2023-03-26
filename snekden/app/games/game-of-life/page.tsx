@@ -102,7 +102,7 @@ export default function ConwaysGame() {
                 data.shapes,
               );
             }}
-            className="rounded bg-slate-500 p-1 m-2"
+            className="rounded bg-slate-500 p-2 m-2"
           >
             START/STOP
           </button>

@@ -3,7 +3,7 @@ import { getExpanse } from "../types/CellsCanvasData";
 import { EditableShapeProps } from "./ConfigLineProps";
 import { useCanvasForStatic } from "./useCanvasForStatic";
 
-const SIZE_MULTIPLIER: number = 0.1;
+const SIZE_MULTIPLIER: number = 0.3;
 
 export function EditableShape(
   { shape, deleteCallback, changeStartingPointCallback }: EditableShapeProps,

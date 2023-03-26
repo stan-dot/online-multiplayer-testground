@@ -5,7 +5,7 @@ import { Shape } from "../types/CellsCanvasData";
 import { emptyShape } from "./emptyShape";
 
 export function AddNewShape(props: { addCallback: (newShape: Shape) => void }) {
-  const [newShape, setNewShape] = useState<Shape>(emptyShape);
+  const [newShape, setNewShape] = useState<Shape>(availableShapes[0]);
   return (
     <div
       id="addNewShape"
@@ -68,7 +68,6 @@ export function AddNewShape(props: { addCallback: (newShape: Shape) => void }) {
       <button
         onClick={() => {
           props.addCallback(newShape);
-          setNewShape(emptyShape);
         }}
         className="bg-green-600 shadow rounded m-2 p-2"
       >
