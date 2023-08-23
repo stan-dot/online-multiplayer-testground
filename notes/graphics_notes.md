@@ -1,12 +1,8 @@
 
-
-
 https://github.com/photonstorm/phaser
-
 
 only 1 tutorial, couldn't do it
 https://www.youtube.com/watch?v=xRJ787usR5s
-
 
 only found this issue
 https://github.com/proyecto26/ion-phaser/issues/41
@@ -20,7 +16,6 @@ https://npmtrends.com/babylonjs-vs-createjs-vs-excaliburjs-vs-impactjs-vs-phaser
 
 babylon js
 https://npmtrends.com/babylonjs-vs-createjs-vs-excaliburjs-vs-impactjs-vs-phaser
-
 
 
 ### dead platforms
@@ -47,14 +42,9 @@ wasm-4 doesn't have the vibe I'm looking for
 
 also no intellisense
 
-
-
-
 ### making it work with wasm in nextjs
 from December 2022
 https://github.com/vercel/next.js/tree/canary/examples/with-webassembly
-
-
 
 https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-webassembly?file=components%2FRustComponent.tsx
 
