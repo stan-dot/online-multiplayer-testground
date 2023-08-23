@@ -19,6 +19,10 @@ https://github.com/natelewis/eliza-as-promised- nope'd the Eliza game
 ## add new games - do with pixi-react and xstate
 https://github.com/pixijs/pixi-react
 https://github.com/statelyai/xstate/
+
 - Snake Game
 - Mancala
 - royal game of ur
+
+try using TF.js for RL for all 3 games, pixi-react for display
+https://www.tensorflow.org/js
