@@ -16,7 +16,11 @@ function Rectangle({ props }: any) {
   return <Graphics draw={draw} />;
 }
 
-export function Grid({ props }: any) {
+interface GridProps {
+  height: number;
+  width: number;
+}
+export function Grid({ height, width }: GridProps) {
   const rect = useRef();
   const [mounted, setMounted] = React.useState(false);
 
@@ -33,10 +37,34 @@ export function Grid({ props }: any) {
       {/* geometry can only be set during component creation */}
       {mounted && (
         <>
-          <Graphics x={0} y={0} geometry={rect.current} />
-          <Graphics x={props.width} y={0} geometry={rect.current} />
-          <Graphics x={0} y={props.height} geometry={rect.current} />
-          <Graphics x={props.width} y={props.height} geometry={rect.current} />
+          <Graphics
+            width={50}
+            height={50}
+            x={0}
+            y={0}
+            geometry={rect.current}
+          />
+          <Graphics
+            width={50}
+            height={50}
+            x={width}
+            y={0}
+            geometry={rect.current}
+          />
+          <Graphics
+            width={50}
+            height={50}
+            x={0}
+            y={height}
+            geometry={rect.current}
+          />
+          <Graphics
+            width={50}
+            height={50}
+            x={width}
+            y={height}
+            geometry={rect.current}
+          />
         </>
       )}
     </div>

@@ -2,11 +2,10 @@
 import { Container, Sprite, Stage, Text } from "@pixi/react";
 import React from "react";
 import { PieceProps } from "./Piece";
-import { UrContext, urMachine } from "../machine";
+import { UrContext, urMachine } from "../(logic)/machine";
 import RollArea from "./RollArea";
 import { interpret } from "xstate";
 
-// todo here need to insiitalize the actor
 function Board({}: UrContext) {
   return (
     <Stage>
@@ -21,7 +20,6 @@ function Board({}: UrContext) {
           anchor={{ x: 0.5, y: 0.5 }}
           // filters={[blurFilter]}
         />
-        
       </Container>
     </Stage>
   );

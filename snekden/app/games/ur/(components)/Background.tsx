@@ -1,9 +1,11 @@
+"use client";
 import { interpret } from "xstate";
-import { STARTING_PIECES, urMachine } from "../machine";
+import { STARTING_PIECES, urMachine } from "../(logic)/machine";
 import Board from "./Board";
 import PiecesCounter from "./PiecesCounter";
 import { useState } from "react";
 import { PieceProps } from "./Piece";
+import { Grid } from "./Graphic";
 
 function Background() {
   const actor = interpret(urMachine).start();
@@ -50,6 +52,7 @@ function Background() {
         />
       </div>
 
+      <Grid />
       {/* <Board p1assets={p1State} p2assets={p2State} /> */}
     </div>
   );

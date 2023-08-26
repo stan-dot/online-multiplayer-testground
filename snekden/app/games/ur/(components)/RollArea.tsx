@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { getDiceRoll } from "../utils";
+import { getDiceRoll } from "../(logic)/utils";
 
 interface RollAreaProps {
   callback: (result: number) => void;

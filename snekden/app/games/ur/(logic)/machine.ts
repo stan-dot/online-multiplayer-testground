@@ -1,5 +1,5 @@
 import { assign, createMachine, interpret, Interpreter } from "xstate";
-import { PieceProps } from "./(components)/Piece";
+import { PieceProps } from "../(components)/Piece";
 
 /*
 machine elements
@@ -60,6 +60,31 @@ function checkIfWon(assets: PlayerAssets): boolean {
   return assets.pieces.length === 0 && assets.undeployed === 0;
 }
 
+// 1-4 and 13-14 are safe
+function excludeConflict(pieces: PieceProps[]): PieceProps[] {
+  return pieces.filter((v) => v.position <= 4 && v.position >= 13);
+}
+
+// todo add whose movement it is
+// todo check if on the end and cannot leave
+// final must be 15, then trigger - one of 3 events - bounces or goes off into finish
+
+function checkIfBlocked(context: UrContext, final: number): boolean {
+  if (context.p1assets.pieces.find((v) => v.position === final)) return true;
+  if (context.p1assets.pieces.find((v) => v.position === final)) return true;
+  return false;
+}
+
+function checkIfKill(): boolean {
+  return false;
+}
+
+// 4 8 14 give extra move
+function checkIfNewMove(final: number): boolean {
+  return bonusMoveIndexes.includes(final);
+}
+
+const bonusMoveIndexes: number[] = [4, 8, 14];
 // have a finite state for initative and loading
 // wait for p1 state
 // wait for p2 state
@@ -127,6 +152,9 @@ export const urMachine = createMachine<UrContext, UrEvents>({
           };
         },
       }),
-    guards: {},
+    guards: {
+      spaceFree: (context: UrContext, event: MoveEvent) => {
+      },
+    },
   },
 });
