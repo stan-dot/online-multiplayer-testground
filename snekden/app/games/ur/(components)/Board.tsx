@@ -8,15 +8,6 @@ import { interpret } from "xstate";
 
 // todo here need to insiitalize the actor
 function Board({}: UrContext) {
-  const actor = interpret(urMachine).start();
-  actor.send({ type: "DEPLOY", squares: 3, player: "1" });
-
-  const { unsubscribe } = actor.subscribe((state) => {
-    const assets1 = state.context.p1assets
-    const assets2 = state.context.p2assets
-    console.log(state);
-  });
-
   return (
     <Stage>
       <RollArea
@@ -30,6 +21,7 @@ function Board({}: UrContext) {
           anchor={{ x: 0.5, y: 0.5 }}
           // filters={[blurFilter]}
         />
+        
       </Container>
     </Stage>
   );

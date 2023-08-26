@@ -2,14 +2,13 @@ import { Sprite } from "@pixi/react";
 import React from "react";
 
 export interface PieceProps {
-  color: string;
   position: number;
 }
 // position is the same, from 1 to 14
 // 1-4 and 13-14 are safe
 // 4 8 14 give extra move
 
-function Piece({ color }: PieceProps) {
+function Piece({ position }: PieceProps) {
   return (
     <div className="rounded">
       <Sprite

@@ -1,8 +1,7 @@
 "use client";
 
+import Background from "./(components)/Background";
 import { MyComponent } from "./pixitest";
-
-
 
 export default function RoyalGameOfUr() {
   return (
@@ -32,19 +31,7 @@ export default function RoyalGameOfUr() {
       </div>
       <MyComponent />
       <p>game</p>
+      <Background />
     </div>
   );
 }
-
-/*
-machine elements
-- move randomizer - 4 dice, each 50-50 between 0 and 1 move points
-- whose turn it is
-- ai move choice
-- position of all of player's 7 pieces, inlcuding not deployed and finished
-- second player's position
-- user does the possible interactions - changes to the player positions
-only some moves are legal
--  if only 1 move green if 0 then 0
-
-*/

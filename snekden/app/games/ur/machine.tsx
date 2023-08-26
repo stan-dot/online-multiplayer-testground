@@ -1,8 +1,19 @@
 import { assign, createMachine, interpret, Interpreter } from "xstate";
 import { PieceProps } from "./(components)/Piece";
 
+/*
+machine elements
+- move randomizer - 4 dice, each 50-50 between 0 and 1 move points
+- ai move choice
+- user does the possible interactions - changes to the player positions
+only some moves are legal
+-  if only 1 move green if 0 then 0
+
+*/
+
 interface PlayerAssets {
   pieces: PieceProps[];
+  color: string;
   undeployed: number;
 }
 
@@ -11,15 +22,17 @@ export interface UrContext {
   p2assets: PlayerAssets;
 }
 
-const STARTING_PIECES = 7;
+export const STARTING_PIECES = 7;
 
 const INITIAL_CONTEXT: UrContext = {
   p1assets: {
     pieces: [],
+    color: "#ff0000",
     undeployed: STARTING_PIECES,
   },
   p2assets: {
     pieces: [],
+    color: "#00ff00",
     undeployed: STARTING_PIECES,
   },
 };
@@ -33,6 +46,13 @@ interface DeployEvent {
 interface FinishEvent {
   type: "FINISH";
   squares: number;
+  player: "1" | "2";
+}
+
+interface MoveEvent {
+  type: "MOVE";
+  startingSquare: number;
+  finalSquare: number;
   player: "1" | "2";
 }
 
@@ -66,7 +86,9 @@ export const urMachine = createMachine<UrContext, UrEvents>({
       },
     },
     p1Deploy: {
-      on: {},
+      on: {
+        "DEPLOY": "p2Deploy",
+      },
     },
     p1Move: {
       on: {},
@@ -105,5 +127,6 @@ export const urMachine = createMachine<UrContext, UrEvents>({
           };
         },
       }),
+    guards: {},
   },
 });
