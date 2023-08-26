@@ -16,13 +16,20 @@ export function Description() {
         </iframe>
       </p>
       <p>
-        Find the official
-        rules<a href="https://en.wikipedia.org/wiki/Royal_Game_of_Ur" />WIkipedia
+        Find the official rules{" "}
+        <a
+          className="underline"
+          href="https://en.wikipedia.org/wiki/Royal_Game_of_Ur"
+        >
+          Wikipedia
+        </a>{" "}
         page
       </p>
       <p>
-        Here a different implementation
-        <a href="https://royalur.net/rules/">here</a>
+        Here a different implementation{" "}
+        <a className="underline" href="https://royalur.net/rules/">
+          here
+        </a>
       </p>
     </div>
   );
