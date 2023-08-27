@@ -13,10 +13,8 @@ import { MenuPicker } from './MenuPicker';
 export default function Huzbao() {
   const [gameSettings, setGameSettings] = useState(INITIAL_SETTINGS);
   const [boardVariant, setBoardVariant] = useState(DEFAULT_BOARD_GENERATION);
-  // todo make this opponent use the true object
   const [opponent, setOpponent] = useState(DEFAULT_OPPONENT);
 
-  // todo make self player use the higher up LENS solution
   const selfPlayer: PlayerSignature = {
     name: 'localhost',
     id: '0',

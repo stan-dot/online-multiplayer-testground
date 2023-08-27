@@ -57,7 +57,6 @@ export default function Form() {
     e.preventDefault();
     if (!isLastStep) return next();
     alert("Successful account creation");
-    // todo fetch request to an API
   }
 
   return (

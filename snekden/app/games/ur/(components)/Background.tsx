@@ -18,13 +18,13 @@ function Background() {
     console.log(state);
   });
 
-  // todo think whether 1 state or more
   const [p1Undeployed, setp1Undeployed] = useState<number>(STARTING_PIECES);
   const [p2Undeployed, setp2Undeployed] = useState<number>(STARTING_PIECES);
 
   const [p1State, seTp1State] = useState<PieceProps[]>([]);
   const [p2State, seTp2State] = useState<PieceProps[]>([]);
   // todo display just with text to test the machine, no positions displayed rn tbh
+  // todo just 1 state tbh
 
   return (
     <div>

@@ -11,7 +11,6 @@ export default function CanvasInteractive() {
   const canvasId = 'myCanvas';
   const [loaded, setLoaded] = useState(false);
 
-  // todo add error handling
   useEffect(() => {
     const c: HTMLCanvasElement = document.getElementById(canvasId) as HTMLCanvasElement;
     const context: CanvasRenderingContext2D = c.getContext('2d')!;

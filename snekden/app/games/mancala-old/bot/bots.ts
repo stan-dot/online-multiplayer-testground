@@ -1,7 +1,6 @@
 // import { PlayerSignature, PlayerType } from '../engine/types/PlayerSignature';
 import { BotCaller } from './BotCaller';
 import MaxMoveBot from './MaxMove.bot';
-import PreventEnemyMoves from './PreventEnemyMoves.bot';
 
 export const possibleBots: BotCaller[] = [
   // {

@@ -8,7 +8,6 @@ export default function MachineDisplay() {
     </div>
   </div>
 }
-// todo 8 x 3 minus 2x2 baord. 2 starting and 2 finishing places.
 
 function Square(props: { rosetta: boolean, pieces: any, empty: boolean }) {
   return <div className={"h-20 w-20 bg-cyan-600 m-3 grid flow-grid-row grid-rows-1 place-content-center "} >
