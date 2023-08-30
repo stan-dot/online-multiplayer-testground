@@ -1,10 +1,8 @@
 "use client";
-import { BlurFilter } from "pixi.js";
 import { Container, Sprite, Stage, Text } from "@pixi/react";
-import { useMemo } from "react";
 
 export const MyComponent = () => {
-  const blurFilter = useMemo(() => new BlurFilter(4), []);
+  // const blurFilter = useMemo(() => new BlurFilter(4), []);
 
   return (
     <Stage>

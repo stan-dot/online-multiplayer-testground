@@ -1,34 +1,48 @@
 "use client";
-import { interpret } from "xstate";
+import { actions, interpret } from "xstate";
 import { STARTING_PIECES, urMachine } from "../(logic)/machine";
 import Board from "./Board";
 import PiecesCounter from "./PiecesCounter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PieceProps } from "./Piece";
 import { Grid } from "./Graphic";
-
+import { useInterpret, useMachine } from "@xstate/react";
+import { PlayerAssets } from "../(logic)/types";
 
 function Background() {
-  const actor = interpret(urMachine).start();
-  actor.send({ type: "MOVE", startingSquare: 1, finalSquare: 2, player: "1" });
+  const actor = useInterpret(urMachine);
 
-  const { unsubscribe } = actor.subscribe((state) => {
-    const assets1 = state.context.p1assets;
-    const assets2 = state.context.p2assets;
-    console.log(state);
-  });
+  // useEffect(() => {
+  //   actor.start();
 
-  const [p1Undeployed, setp1Undeployed] = useState<number>(STARTING_PIECES);
-  const [p2Undeployed, setp2Undeployed] = useState<number>(STARTING_PIECES);
+  //   const { unsubscribe } = actor.subscribe((state) => {
+  //     const assets1 = state.context.p1assets;
+  //     seTp1State(assets1);
+  //     const assets2 = state.context.p2assets;
+  //     seTp2State(assets2);
+  //   });
 
-  const [p1State, seTp1State] = useState<PieceProps[]>([]);
-  const [p2State, seTp2State] = useState<PieceProps[]>([]);
-  // todo display just with text to test the machine, no positions displayed rn tbh
-  // todo just 1 state tbh
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, [actor]);
+
+  // actor.send({ type: "MOVE", startingSquare: 1, finalSquare: 2, player: "1" });
+  const [p1State, seTp1State] = useState<PlayerAssets>();
+  const [p2State, seTp2State] = useState<PlayerAssets>();
+
+  const p1Undeployed = p1State?.undeployed || 0;
+  const p2Undeployed = p2State?.undeployed || 0;
+  const p1Finished = STARTING_PIECES - p1Undeployed -
+    (p1State?.pieces.length || 0);
+  const p2Finished = STARTING_PIECES - p2Undeployed -
+    (p2State?.pieces.length || 0);
 
   return (
     <div>
-      Background
+      <h2 className="text-xl">
+        Background
+      </h2>
       <div id="p1zone" className="m-2 p-2 ">
         <PiecesCounter
           total={STARTING_PIECES}
@@ -37,8 +51,8 @@ function Background() {
         />
         <PiecesCounter
           total={STARTING_PIECES}
-          current={STARTING_PIECES - p1Undeployed - p1State.length}
-          title={"P1 finihsed"}
+          current={p1Finished}
+          title={"P1 finished"}
         />
       </div>
 
@@ -50,12 +64,12 @@ function Background() {
         />
         <PiecesCounter
           total={STARTING_PIECES}
-          current={STARTING_PIECES - p2Undeployed - p2State.length}
-          title={"P2 finihsed"}
+          current={p2Finished}
+          title={"P2 finished"}
         />
-      </div>
+      </div>{" "}
       <Grid height={100} width={100} />
-      {/* <Board p1assets={p1State} p2assets={p2State} /> */}
+      {p1State && p2State && <Board p1assets={p1State} p2assets={p2State} />}
     </div>
   );
 }

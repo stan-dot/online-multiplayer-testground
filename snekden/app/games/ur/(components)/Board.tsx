@@ -6,7 +6,8 @@ import RollArea from "./RollArea";
 import { interpret } from "xstate";
 import { UrContext } from "../(logic)/types";
 
-function Board({}: UrContext) {
+// todo display just with text to test the machine, no positions displayed rn tbh
+function Board({ p1assets, p2assets }: UrContext) {
   return (
     <Stage>
       <RollArea

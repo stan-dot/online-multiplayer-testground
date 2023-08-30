@@ -52,14 +52,22 @@ interface StartEvent {
   player: "1" | "2";
 }
 
-type UrEvents = RollEvent | MoveEvent | StartEvent;
+interface ExtraMoveEvent{
+  type:"EXTRA_MOVE"
+}
 
+interface PieceTakenEvent{
+  type:"PIECE_TAKEN"
+}
+
+type UrEvents = RollEvent | MoveEvent | StartEvent |ExtraMoveEvent |PieceTakenEvent;
 
 export const urMachine = createMachine<UrContext, UrEvents>({
   /** @xstate-layout N4IgpgJg5mDOIC5QFcBOBZAhgYwBYEsA7MAOnwgBswBiAMQFEAVAYQAkBtABgF1FQAHAPax8AF3yDCfEAA9EARgCsAJhIB2ACydtijQE4AzPIBsW4wBoQAT0TLlekhoAcizvOWddGjQYPGAvv6WaFh4RKQUgpgQRFDUAEr0AMoA8gAyAGr0XLxIIEIi4pLScggGapwkylpuRnaKik4W1gqKaiR6TsquahWKxk5OzoHBGDgExCSR0bEJ9ABS9MyMOdIFYhJSeaVKqpranvpGppzNNghO8o5OB779hn4jICHj4SSwyNjYcLDU9ABuYEIogABPJVnl1kUtqBSsYDIoSH5XB41Ip5HpFEZLOclO1Ot1OL1PAMhk4ni8wpMAGaYfAUNA0RKMeIATQhAmEG2K21aexqh0MJjMOIURg6AuM3WM8k4COUgSCIEIgggcGklImYDWXOhJUQAFozoaAkrNW9yFQdYVNvqEBplKKEHYHHoKm5lMZTGo9PoFWaxlSIlEYoQoNbuTDZLZTCRXAc1FLDL6sU6lE5HMY0ZwnMdODUNBTA1r3p9vrB4JDdbbefbDCQpa5do01E49Kc020qvUiRpEzcvYWA6ES7T6YyI3raw6nU52rovRU9PI-Hok0WR29iAB3EGwUSYURgMGTmuwxCaREubTKFdSgz5tSdjMaLOuXMmfPaIeBIA */
   id: "urMachine",
   initial: "loading",
   context: INITIAL_CONTEXT,
+  predictableActionArguments: true,
   states: {
     loading: {
       on: {
@@ -116,7 +124,7 @@ export const urMachine = createMachine<UrContext, UrEvents>({
     p1Consequences: {
       on: {
         EXTRA_MOVE: { target: "p1Roll", actions: "logresult" },
-        OPPONENT_PIECE_TAKEN: "p2Roll",
+        PIECE_TAKEN: "p2Roll",
         WON: "endgame",
       },
     },
@@ -131,7 +139,7 @@ export const urMachine = createMachine<UrContext, UrEvents>({
     p2Consequences: {
       on: {
         EXTRA_MOVE: "p2Roll",
-        OPPONENT_PIECE_TAKEN: "p1Roll",
+        PIECE_TAKEN: "p1Roll",
         WON: "endgame",
       },
     },

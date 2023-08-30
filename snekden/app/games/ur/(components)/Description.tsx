@@ -3,7 +3,7 @@
 export function Description() {
   return (
     <div id="description">
-      <p>
+      <div>
         inspired by this
         <iframe
           width="560"
@@ -14,8 +14,8 @@ export function Description() {
           allowFullScreen
         >
         </iframe>
-      </p>
-      <p>
+      </div>
+      <div>
         Find the official rules{" "}
         <a
           className="underline"
@@ -24,13 +24,13 @@ export function Description() {
           Wikipedia
         </a>{" "}
         page
-      </p>
-      <p>
+      </div>
+      <div>
         Here a different implementation{" "}
         <a className="underline" href="https://royalur.net/rules/">
           here
         </a>
-      </p>
+      </div>
     </div>
   );
 }
