@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.2.1",
-    "@next/font": "13.1.1",
     "@pixi/react": "^7.1.0",
     "@react-three/drei": "^9.56.19",
     "@react-three/fiber": "^8.10.1",
