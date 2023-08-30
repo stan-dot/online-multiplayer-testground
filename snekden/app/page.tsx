@@ -35,13 +35,8 @@ export default function HomePage() {
         <hr className="mx-auto bg-dark dark:bg-white w-1/2" />
         <section className="max-w-4xl mx-auto p-4  sm:flex-row sm:justify-between resize">
           <h2 className="text-xl">2023 Q1 and Q2 goals</h2>
-          <p> <input type="checkbox" disabled /> learn React Native and ship a React Native app  &#10153; <span > link will be here</span></p>
-          <p> <input type="checkbox" disabled /> make an awesome landing page for my BSc research project</p>
-          <p> <input type="checkbox" disabled /> ship another app for my BSc research project</p>
-          <p> <input type="checkbox" disabled /> get 1000 users for my app</p>
-          <p> <input type="checkbox" disabled /> graduate </p>
-          <p> <input type="checkbox" disabled /> get my first paid freelancing project.</p>
-          <p> <input type="checkbox" disabled /> make my own app using OpenAI API</p>
+          <p> <input type="checkbox" disabled checked /> create a React Native app for my BSc research project</p>
+          <p> <input type="checkbox" disabled checked /> graduate </p>
           <p> <input type="checkbox" disabled /> get an internship</p>
         </section>
         <hr className="mx-auto bg-dark dark:bg-white w-1/2" />
