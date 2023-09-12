@@ -45,22 +45,34 @@ const bscResearchProject: ProjectCardData = {
   subtitle: "Crowdsourcing data for supervised ML",
   technologies: ["React Native", "Supabase"],
   link: "https://lully.vercel.app/",
-  status: "WIP",
-  description: "Will get its own website shortly...",
+  status: "delivered",
+  description: "Crowdsourcing argument data",
 };
 
 const mulitplayerGameArcade: ProjectCardData = {
   title: "Snekden - game arcade",
   subtitle: "Retro gaming in 2020s",
   technologies: [
-    "PixiJs", 
+    "PixiJs",
     "reinforcement learning",
     "rustlang",
   ],
   link: "/",
-  status: "sketch",
+  status: "WIP",
   description:
     "A place with a couple of games, shared achievements PvE and PvP modes",
+};
+
+const p2pProject: ProjectCardData = {
+  title: "Some peer to peer project",
+  subtitle: "I like the idea",
+  technologies: [
+    "Fluence",
+    "rustlang",
+  ],
+  link: "/",
+  status: "idea",
+  description: "I want to dig deeper into this area",
 };
 
 export const projects: ProjectCardData[] = [
@@ -69,4 +81,5 @@ export const projects: ProjectCardData[] = [
   RonaAlarmHandler,
   mulitplayerGameArcade,
   bscResearchProject,
+  p2pProject,
 ];

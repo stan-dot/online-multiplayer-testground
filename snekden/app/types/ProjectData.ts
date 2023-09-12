@@ -1,5 +1,13 @@
-
-export type ProjectStatus =  "handed over"| "maintenance" |  "actively expanding" |"MVP" |"WIP" | "sketch" | "idea";
+export type ProjectStatus =
+  | "delivered"
+  | "handed over"
+  | "maintenance"
+  | "actively expanding"
+  | "MVP"
+  | "WIP"
+  | "sketch"
+  | "idea"
+  | "would like someday";
 
 export type ProjectCardData = {
   title: string;
