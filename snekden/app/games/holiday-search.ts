@@ -1,6 +1,6 @@
 type PossibleFocus = "nature" | "party" | "relax" | "sustainable";
 
-type Search = {
+export type HolidaySearch = {
   focus: PossibleFocus;
   stars: number;
   price: number;
