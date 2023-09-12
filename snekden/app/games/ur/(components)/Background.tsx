@@ -1,6 +1,6 @@
 "use client";
 import { actions, interpret } from "xstate";
-import { STARTING_PIECES, urMachine } from "../(logic)/machine";
+import { STARTING_PIECES,  } from "../(logic)/machine";
 import Board from "./Board";
 import PiecesCounter from "./PiecesCounter";
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ import { useInterpret, useMachine } from "@xstate/react";
 import { PlayerAssets } from "../(logic)/types";
 
 function Background() {
-  const actor = useInterpret(urMachine);
+  // const actor = useInterpret(urMachine);
 
   // useEffect(() => {
   //   actor.start();

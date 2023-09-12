@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from "react";
-import { Graphics, Stage, Text } from "@pixi/react";
+import { Graphics, Stage, Text, _ReactPixi } from "@pixi/react";
 
 interface RectangleProps {
   lineWidth: number;
@@ -10,7 +10,7 @@ interface RectangleProps {
 }
 
 function Rectangle(props: RectangleProps) {
-  const draw = useCallback((g) => {
+  const draw = useCallback((g: any) => {
     g.clear();
     g.lineStyle(props.lineWidth, props.color);
     g.drawRect(

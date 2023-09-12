@@ -26,7 +26,7 @@ export function BotsList(props: { callback: React.Dispatch<React.SetStateAction<
     console.log('calling callback')
     return () => {
     }
-  }, [chosen])
+  }, [chosen, props])
 
   const handleRemoteClick = (v: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     console.log('clicked remote button', v);

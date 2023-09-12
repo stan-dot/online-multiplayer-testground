@@ -28,7 +28,7 @@ export default function CanvasInteractive() {
     return () => {
       c.removeEventListener('click', clickHandler);
     }
-  }, [])
+  }, [shapes])
 
   return <>
     <p>Stars</p>

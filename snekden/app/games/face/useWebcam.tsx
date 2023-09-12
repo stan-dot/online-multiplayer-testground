@@ -2,25 +2,22 @@
 import { useEffect, useRef, useState } from "react";
 
 export function useWebcam(
-  ref: React.MutableRefObject<HTMLVideoElement>): HTMLVideoElement {
+  ref: React.MutableRefObject<HTMLVideoElement>,
+): HTMLVideoElement {
   const [source, setSource] = useState({} as MediaStream);
 
-  function getVideoNow() {
+  useEffect(() => {
     navigator.mediaDevices.getUserMedia(
-      { video: {} }
+      { video: {} },
     )
       .then((stream) => {
         setSource(stream);
         ref.current.srcObject = source;
       })
       .catch(
-        (err) => console.error(err)
+        (err) => console.error(err),
       );
-  }
-
-  useEffect(() => {
-    getVideoNow();
-  }, []);
+  }, [ref, source]);
 
   return ref.current;
 }
