@@ -37,7 +37,6 @@ export default function HomePage() {
           <h2 className="text-xl">2023 Q1 and Q2 goals</h2>
           <p> <input type="checkbox" disabled checked /> create a React Native app for my BSc research project</p>
           <p> <input type="checkbox" disabled checked /> graduate </p>
-          <p> <input type="checkbox" disabled /> get an internship</p>
         </section>
         <hr className="mx-auto bg-dark dark:bg-white w-1/2" />
         <section className="max-w-4xl mx-auto p-4 sm:flex-row sm:justify-between resize">

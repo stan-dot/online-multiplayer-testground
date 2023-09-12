@@ -40,9 +40,9 @@ export const Navbar = () => {
             href="/achievements"
             className={linkClassName}
           >
-            Achievements
+            My story
           </Link>
-          <a
+          {/* <a
             href="https://www.canva.com/design/DAFRRXadvpw/dB6g9sy_uO3y3SNpmqnkxQ/view?utm_content=DAFRRXadvpw&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
             className={`${linkClassName} bg-green-600 mx-2`}
           >
@@ -53,7 +53,7 @@ export const Navbar = () => {
             className={`${linkClassName} bg-green-600 mx-2`}
           >
             Resume [PDF]
-          </a>
+          </a> */}
         </div>
       </div>
     </nav>

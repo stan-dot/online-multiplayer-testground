@@ -22,7 +22,7 @@ export default function Sidebar() {
       </button>
     </div>
     <div className="logo">
-      <h3>Standot{"\'"}s portfolio</h3>
+      <h3>Standot{"\'"}s webdev playground</h3>
     </div>
     <nav>
       <div className='nav-title'>

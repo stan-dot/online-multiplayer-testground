@@ -34,10 +34,19 @@ export default function Achievements() {
             and ETH Online.
             These experiences shown me the &apos;playing field&apos;. I gained deeper understanding which skills are needed and what to focus on.
           </p>
-          <hr />
-          <p>This portfolio is a direct result of these activities.</p>
+          <p>This stie is a direct result of these activities.</p>
         </section>
 
+        <section className="max-w-4xl mx-auto p-4 sm:flex-row sm:justify-between">
+          <h2 className={headerStyles}>NLP research</h2>
+          <p>For my BSc in year 2022-2023, I&apos;m doing a data gathering app.</p>
+          <p>
+            Its goal is to crowdsource labeled data for NLP supervised
+            machine learning. The paradigm it uses is <a href="https://dl.acm.org/doi/10.1145/1378704.1378719" className="link underline">Games with purpose</a>.
+            It is about motivating the users through gamification - hacking biological dopamine regulation with completion of milestons and feeling of progression, as opposed to monetary incentives.
+            So far I find the mobile app development quite challenging, but the prospect of doing gamification is exciting.
+          </p>
+        </section>
         <section className="max-w-4xl mx-auto p-4 sm:flex-row sm:justify-between">
           <h2 className={headerStyles}>NLP research</h2>
           <p>For my BSc in year 2022-2023, I&apos;m doing a data gathering app.</p>
