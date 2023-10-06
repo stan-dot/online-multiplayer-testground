@@ -74,8 +74,6 @@ type UrEvents =
   | PieceTakenEvent
   | WonEvent;
 
-
-
 export const urMachine = createMachine<UrContext, UrEvents>({
   /** @xstate-layout N4IgpgJg5mDOIC5QFcBOBZAhgYwBYEsA7MAOgAcBGAJQHsAbOgYioHkAZNgbQAYBdRUGRqx8AF3w1CAkAA9EFAGwUSFABzcN3CgBYA7AFYAzIf2qANCACe8gEwBOFVoULV+hTYp3d3gL4+LaFh4RKSU6DQAbmCM6CwAagCiPPxIIEIi4pLScgiGriTarloUpho6zhbWCKrK2vqa3LoaNibaNn7+IIQ0EHDSgTgExNLpYhJSqTkAtAqViDMkDUtLun4BGIMh5NT0dCPCY1mTiG1zCBT2JPoUii7a3F769oZrIAPBxNvhUfsZ49mIQzeRZFCh5VQeVTabSzKzyQwKEi6BSaGxaGwKQzQjo+IA */
   id: "urMachine",
@@ -99,7 +97,17 @@ export const urMachine = createMachine<UrContext, UrEvents>({
     p1Move: {
       on: {
         MOVE: {
-          target: 'p1Roll'
+          target: 'p1Roll',
+          actions: assign({
+            p1assets: (context: UrContext, event: MoveEvent) => {
+              const newAssets = context.p1assets.pieces.filter(p => p.position !== event.startingSquare);
+              const newPiece: PieceProps = { position: event.finalSquare }; 
+              return {
+                ...context.p1assets,
+                pieces: [...newAssets, newPiece]
+              }
+            }
+          })
         }
       }
     }

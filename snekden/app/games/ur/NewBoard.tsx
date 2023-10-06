@@ -5,7 +5,9 @@ import { urMachine } from "./(logic)/machine";
 
 export function NewBoard() {
   const [state, send] = useMachine(urMachine);
-  console.log(state.context.p1assets.pieces);
+
+  console.log(state.context.p1assets?.pieces);
+
   return (
     <div id="newBoard" className="m-2 p-2">
       <p>Hello world</p>
