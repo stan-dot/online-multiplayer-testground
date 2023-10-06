@@ -31,7 +31,7 @@ export function NewBoard() {
         onClick={() => send("ROLL", { result: getDiceRoll() })}
         disabled={state.value !== "p1Roll"}
       >
-        <p>Roll</p>
+        <p>{state.value !== "p1Roll" ? "wait" : "Roll"}</p>
       </button>
       <label htmlFor="moveWhichDropdown">
         Choose which piece to move:
@@ -45,7 +45,7 @@ export function NewBoard() {
       </select>
       <button
         id="moveButton"
-        className="m-2 p-2 bg-red-500"
+        className="m-2 p-2 border-solid bg-red-500 border-1 border-red-500 solid disabled: border-x-pink-400"
         onClick={() =>
           send("MOVE", {
             startingSquare: movingPiece,
@@ -54,7 +54,7 @@ export function NewBoard() {
           })}
         disabled={state.value !== "p1Move"}
       >
-        <p>Move</p>
+        <p>{state.value !== "p1Move" ? "wait" : "Move"}</p>
       </button>
       <p>{state.context.lastRolledDice}</p>
     </div>

@@ -13,7 +13,12 @@ might do
 
 ## game step by step
 - [x] dice rolling
+
+software updates
 - [ ] add types to moves, include all props always
+- [ ] update xstate to v5
+
+
 - [ ] 1 piece already existing and moving with no opponents
 - [ ] opponents appear and take turns - but no collision
 - [ ] collision
