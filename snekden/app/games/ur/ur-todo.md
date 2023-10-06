@@ -10,3 +10,13 @@ only some moves are legal
 
 might do 
 -  if only 1 move green if 0 then 0
+
+## game step by step
+- [ ] dice rolling
+- [ ] 1 piece already existing and moving with no opponents
+- [ ] opponents appear and take turns - but no collision
+- [ ] collision
+- [ ] extra movements granted
+- [ ] deployment action
+- [ ] move out action
+- [ ] check for winning

@@ -9,6 +9,7 @@ export interface PlayerAssets {
 export interface UrContext {
   p1assets: PlayerAssets;
   p2assets: PlayerAssets;
+  lastRolledDice: number;
 }
 
 export interface RollEvent {

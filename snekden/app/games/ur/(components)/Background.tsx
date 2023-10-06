@@ -10,26 +10,29 @@ import { useInterpret, useMachine } from "@xstate/react";
 import { PlayerAssets } from "../(logic)/types";
 
 function Background() {
-  const actor = useInterpret(urMachine);
+  const [state, send] = useMachine(urMachine);
+  const p1State = state.context.p1assets;
+  const p2State = state.context.p2assets;
 
-  useEffect(() => {
-    actor.start();
+  // const actor = useInterpret(urMachine);
+  // useEffect(() => {
+  //   actor.start();
 
-    const { unsubscribe } = actor.subscribe((state) => {
-      const assets1 = state.context.p1assets;
-      seTp1State(assets1);
-      const assets2 = state.context.p2assets;
-      seTp2State(assets2);
-    });
+  //   const { unsubscribe } = actor.subscribe((state) => {
+  //     const assets1 = state.context.p1assets;
+  //     seTp1State(assets1);
+  //     const assets2 = state.context.p2assets;
+  //     seTp2State(assets2);
+  //   });
 
-    return () => {
-      unsubscribe();
-    };
-  }, [actor]);
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, [actor]);
 
-  actor.send({ type: "MOVE", startingSquare: 1, finalSquare: 2, player: "1" });
-  const [p1State, seTp1State] = useState<PlayerAssets>();
-  const [p2State, seTp2State] = useState<PlayerAssets>();
+  // actor.send({ type: "MOVE", startingSquare: 1, finalSquare: 2, player: "1" });
+  // const [p1State, seTp1State] = useState<PlayerAssets>();
+  // const [p2State, seTp2State] = useState<PlayerAssets>();
 
   const p1Undeployed = p1State?.undeployed || 0;
   const p2Undeployed = p2State?.undeployed || 0;
@@ -68,8 +71,13 @@ function Background() {
           title={"P2 finished"}
         />
       </div>{" "}
-      <Grid height={100} width={100} />
-      {p1State && p2State && <Board p1assets={p1State} p2assets={p2State} />}
+      {/* <Grid height={100} width={100} /> */}
+      {/* {p1State && p2State && <Board p1assets={p1State} p2assets={p2State} />} */}
+      <button onClick={() => send("MOVE")}>
+        {state.value === "inactive"
+          ? "Click to activate"
+          : "Active! Click to deactivate"}
+      </button>
     </div>
   );
 }

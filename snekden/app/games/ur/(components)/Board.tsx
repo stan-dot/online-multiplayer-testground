@@ -1,4 +1,3 @@
-"use client";
 import { Container, Sprite, Stage, Text } from "@pixi/react";
 import React from "react";
 import { PieceProps } from "./Piece";
@@ -6,24 +5,23 @@ import RollArea from "./RollArea";
 import { interpret } from "xstate";
 import { UrContext } from "../(logic)/types";
 
-// todo display just with text to test the machine, no positions displayed rn tbh
 function Board({ p1assets, p2assets }: UrContext) {
+  console.log(p1assets);
+  console.log(p2assets);
   return (
     <Stage>
-      <RollArea
-        callback={function (result: number): void {
-          throw new Error("Function not implemented.");
-        }}
-      />
+      <RollArea callback={(n) => console.log(`roll result: ${n}`)} />
       <Container x={400} y={330}>
         <Text
           text="Hello World"
           anchor={{ x: 0.5, y: 0.5 }}
           // filters={[blurFilter]}
         />
+        {
+          /* <Square />
         <Square />
-        <Square />
-        <Square />
+        <Square /> */
+        }
       </Container>
     </Stage>
   );

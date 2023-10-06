@@ -1,4 +1,3 @@
-"use client";
 import { Container, Sprite, Stage, Text } from "@pixi/react";
 
 export const MyComponent = () => {
