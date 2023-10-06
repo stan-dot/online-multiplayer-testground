@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Background from "./(components)/Background";
 import { Description } from "./(components)/Description";
 import { MyComponent } from "./(components)/pixitest";

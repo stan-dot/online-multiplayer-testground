@@ -1,6 +1,6 @@
 "use client";
 import { actions, interpret } from "xstate";
-import { STARTING_PIECES,  } from "../(logic)/machine";
+import { STARTING_PIECES, urMachine } from "../(logic)/machine";
 import Board from "./Board";
 import PiecesCounter from "./PiecesCounter";
 import { useEffect, useState } from "react";
@@ -10,24 +10,24 @@ import { useInterpret, useMachine } from "@xstate/react";
 import { PlayerAssets } from "../(logic)/types";
 
 function Background() {
-  // const actor = useInterpret(urMachine);
+  const actor = useInterpret(urMachine);
 
-  // useEffect(() => {
-  //   actor.start();
+  useEffect(() => {
+    actor.start();
 
-  //   const { unsubscribe } = actor.subscribe((state) => {
-  //     const assets1 = state.context.p1assets;
-  //     seTp1State(assets1);
-  //     const assets2 = state.context.p2assets;
-  //     seTp2State(assets2);
-  //   });
+    const { unsubscribe } = actor.subscribe((state) => {
+      const assets1 = state.context.p1assets;
+      seTp1State(assets1);
+      const assets2 = state.context.p2assets;
+      seTp2State(assets2);
+    });
 
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, [actor]);
+    return () => {
+      unsubscribe();
+    };
+  }, [actor]);
 
-  // actor.send({ type: "MOVE", startingSquare: 1, finalSquare: 2, player: "1" });
+  actor.send({ type: "MOVE", startingSquare: 1, finalSquare: 2, player: "1" });
   const [p1State, seTp1State] = useState<PlayerAssets>();
   const [p2State, seTp2State] = useState<PlayerAssets>();
 
