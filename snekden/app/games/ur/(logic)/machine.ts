@@ -75,7 +75,7 @@ type UrEvents =
   | WonEvent;
 
 export const urMachine = createMachine<UrContext, UrEvents>({
-  /** @xstate-layout N4IgpgJg5mDOIC5QFcBOBZAhgYwBYEsA7MAOgAcBGAJQHsAbOgYioHkAZNgbQAYBdRUGRqx8AF3w1CAkAA9EFAGwUSFABzcN3CgBYA7AFYAzIf2qANCACe8gEwBOFVoULV+hTYp3d3gL4+LaFh4RKSU6DQAbmCM6CwAagCiPPxIIEIi4pLScgiGriTarloUpho6zhbWCKrK2vqa3LoaNibaNn7+IIQ0EHDSgTgExNLpYhJSqTkAtAqViDMkDUtLun4BGIMh5NT0dCPCY1mTiG1zCBT2JPoUii7a3F769oZrIAPBxNvhUfsZ49mIQzeRZFCh5VQeVTabSzKzyQwKEi6BSaGxaGwKQzQjo+IA */
+  /** @xstate-layout N4IgpgJg5mDOIC5QFcBOBZAhgYwBYEsA7MAOgAcBGAJQHsAbOgYioHkAZNgbQAYBdRUGRqx8AF3w1CAkAA9EFAGzcSFAOwBWCmoDM2hQu3cAHABoQAT0QBaAEwkbN3QBZtLpQE4jFd920BfPzM0LDwiUkp0GgA3MEZ0FgA1AFEefiQQIRFxSWk5BBsKbRIlblKbYw13bRt1M0t8wpUFdW4bVVcDJyN3dQDAkEIaCDhpYJwCYmlMsQkpdLyrBTrrbuL21ydCg10FCgCgjHGw8mp6OinhGZz5xCcbZYQKG3cSTUUFIydudw1n-36xqFiCdIjELllZrlENpVKoSMYWoUjEYCp8nEsLPI9CRVCVWtwnp0nH0-EA */
   id: "urMachine",
   initial: "p1Roll",
   context: INITIAL_CONTEXT,
@@ -103,11 +103,12 @@ export const urMachine = createMachine<UrContext, UrEvents>({
               const newAssets = context.p1assets.pieces.filter(p => p.position !== event.startingSquare);
               const newPiece: PieceProps = { position: event.finalSquare }; 
               return {
-                ...context.p1assets,
+                undeployed: context.p1assets.undeployed,
+                color: context.p1assets.color,
                 pieces: [...newAssets, newPiece]
               }
             }
-          })
+          }),
         }
       }
     }
