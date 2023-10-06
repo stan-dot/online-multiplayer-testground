@@ -5,6 +5,8 @@ import { urMachine } from "./(logic)/machine";
 import { PieceProps } from "./(components)/Piece";
 import { useState } from "react";
 import { getDiceRoll } from "./(logic)/utils";
+import { stat } from "fs";
+import Board from "./(components)/Board";
 
 export function NewBoard() {
   const [state, send] = useMachine(urMachine);
@@ -56,7 +58,25 @@ export function NewBoard() {
       >
         <p>{state.value !== "p1Move" ? "wait" : "Move"}</p>
       </button>
-      <p>{state.context.lastRolledDice}</p>
+      <div id="lastRolledDicePlace">
+        <p>{state.context.lastRolledDice}</p>
+      </div>
+      <div id="undeployedRegion">
+        <div id="undeployedP1">
+          <h2>Undeployed pieces of player 1</h2>
+          <p>{state.context.p1assets.undeployed}</p>
+        </div>
+
+        <div id="undeployedP2">
+          <h2>Undeployed pieces of player 2</h2>
+          <p>{state.context.p2assets.undeployed}</p>
+        </div>
+      </div>
+      <Board
+        p1assets={state.context.p1assets}
+        p2assets={state.context.p2assets}
+        lastRolledDice={state.context.lastRolledDice}
+      />
     </div>
   );
 }

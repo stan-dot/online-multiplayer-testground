@@ -13,13 +13,13 @@ might do
 
 ## game step by step
 - [x] dice rolling
+- [ ] display 1 piece already existing and moving with no opponents
+- [ ] add guards for collision, still infinite board
 
 software updates
 - [ ] add types to moves, include all props always
 - [ ] update xstate to v5
 
-
-- [ ] 1 piece already existing and moving with no opponents
 - [ ] opponents appear and take turns - but no collision
 - [ ] collision
 - [ ] extra movements granted
