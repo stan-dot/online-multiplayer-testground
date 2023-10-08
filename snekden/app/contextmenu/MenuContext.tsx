@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Menu from "./Menu";
 import { ContextMenu } from "./styles";
+import useContextMenu from "./useContextMenu";
 const MenuContext = ({ data }) => {
-  const [clicked, setClicked] = useState(false);
-  const [points, setPoints] = useState({
-    x: 0,
-    y: 0,
-  });
-  useEffect(() => {
-    const handleClick = () => setClicked(false);
-    window.addEventListener("click", handleClick);
-    return () => {
-      window.removeEventListener("click", handleClick);
-    };
-  }, []);
+  const { clicked, setClicked, points, setPoints } = useContextMenu();
   return (
     <div>
       {data.map((item, i) => (
