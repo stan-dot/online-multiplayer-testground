@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import ProjectCard from "./(components)/ProjectCard";
 import { projects } from "./(data)/projects";
+import MainComponent from "./contextmenu/MainComponent";
 import { ProjectCardData } from "./types/ProjectData";
 
 const doneProjects: ProjectCardData[] = projects.filter((p) =>
@@ -17,6 +18,7 @@ const futureProjects: ProjectCardData[] = projects.filter((p) =>
 export default function HomePage() {
   return (
     <main className="max-w-4cl mx-auto sm:scroll-smooth">
+      <MainComponent />
       <section className="w-fit mx-auto p-4  sm:flex-row sm:justify-between bg-slate-400 my-2">
         <h2 className="mb-4 text-xl">Past projects</h2>
         <CollectionProjects projects={doneProjects} />
