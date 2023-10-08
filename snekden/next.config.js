@@ -1,12 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // transpilePackages: ['@acme/ui', 'lodash-es'],
-  experimental: {
-    // turbotrace: true,
-    appDir: true,
-
-  },
   webpack(config, { isServer, dev }) {
     // Use the client static directory in the server bundle and prod mode
     // Fixes `Error occurred prerendering page "/"`

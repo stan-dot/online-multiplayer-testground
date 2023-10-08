@@ -1,17 +1,19 @@
 import { Suspense } from "react";
 import Background from "./(components)/Background";
+import { GameUI } from "./GameUI";
 import { Description } from "./(components)/Description";
-import { MyComponent } from "./(components)/pixitest";
-import { NewBoard } from "./NewBoard";
 
 export default function RoyalGameOfUr() {
   return (
     <div id="royalGameOfUrContainer">
-      {/* <Description /> */}
-      {/* <MyComponent /> */}
-      <h2>game</h2>
-      {/* <Background /> */}
-      <NewBoard />
+      <div id="showBar" className="m-2 w-full bg-blue-700 bg-solid rounded-xl">
+        <h2 className="text-xl">The Royal Game Of Ur</h2>
+      </div>
+      <Description />
+      <Suspense fallback={<p>Loading game...</p>}>
+        {/* <Background /> */}
+        <GameUI />
+      </Suspense>
     </div>
   );
 }

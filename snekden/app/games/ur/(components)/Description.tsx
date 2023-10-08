@@ -1,7 +1,8 @@
 
 export function Description() {
   return (
-    <div id="description">
+    <details id="description">
+      <summary className="text-l text-white border-1 border-slate-400 border-solid rounded">Description of this ancient game...</summary>
       <div>
         inspired by this
         <iframe
@@ -30,6 +31,6 @@ export function Description() {
           here
         </a>
       </div>
-    </div>
+    </details>
   );
 }

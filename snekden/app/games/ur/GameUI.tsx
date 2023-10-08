@@ -7,8 +7,9 @@ import { useState } from "react";
 import { getDiceRoll } from "./(logic)/utils";
 import { stat } from "fs";
 import Board from "./(components)/Board";
+import PiecesCounter from "./(components)/PiecesCounter";
 
-export function NewBoard() {
+export function GameUI() {
   const [state, send] = useMachine(urMachine);
 
   const availablePieces = state.context.p1assets.pieces;
@@ -66,12 +67,17 @@ export function NewBoard() {
           <h2>Undeployed pieces of player 1</h2>
           <p>{state.context.p1assets.undeployed}</p>
         </div>
+        <PiecesCounter
+          current={state.context.p1assets.undeployed}
+          title={"P1 undeployed"}
+        />
 
         <div id="undeployedP2">
           <h2>Undeployed pieces of player 2</h2>
           <p>{state.context.p2assets.undeployed}</p>
         </div>
       </div>
+
       <Board
         p1assets={state.context.p1assets}
         p2assets={state.context.p2assets}
